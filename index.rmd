@@ -16,25 +16,39 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Course overview
 
-fill me
+This course serves as an introduction to different areas of computer applications in archaeology, their methodology and applicable software. The aim is to provide an overview of current developments in this field and of standard software of scientific archaeological work. The main focus will be on the following: 
+
+* Digital tools for text production and publication (e.g. citation software) 
+* Data management/databases 
+* Data visualization and basic statistics 
+* 14C calibration 
+* GIS 
+
+In addition, a first insight into digital documentation/measurement is given, which will be deepened in a follow-up course in the next semester.
 
 <br>
 
 # Textbook
 
-fill me
+The Textbook for the course will be produced alongside, and will be made available in time for in-depth Repetitions
 
 <br>
 
 # Key dates
 
-fill me
+Will be made available soon.
 
 <br>
 
 # Learning objectives
 
-fill me
+By the end of the semester, students should be able to:
+
+* Use desktop and scientific software to write scientific thesiss
+* Be able to basically understand and set up a data base
+* Can visualise and analyse their data using simple methods.
+* Are able to calibrate radiometric data successfully
+* Can digitise and display sites using a GIS
 
 <br>
 
@@ -44,25 +58,26 @@ fill me
 Senior Researcher (Oberassistent), IAW bern  
 [martin.hinz@iaw.unibe.ch](mailto:martin.hinz@iaw.unibe.ch)
 
-
 <br>
 
 # Meeting times & locations
 
 ### Lectures 
-Fill me
+The course is held according to the principle of an ''inverted classroom''. The teaching content is provided by means of videos and the textbook. Students are encouraged to work on this independently and to deepen it if necessary. A Slack channel and the video office hours are available for questions. I will also respond as quickly as possible to questions sent to me via email. The practical consolidation of the content takes place in the Computer Lab, where students work on their own semester projects.
 
 ### Computer Lab
-Fill me
+Wednesday from 12:15-14:00, Room 016, Mittelstrasse 43, Bern
+
+If possible, the Computer Lab will be held in presence, provided that this complies with the regulations of the canton and the university. During this time, students can implement and deepen what they have learned independently in the context of their own semester projects in group work under the supervision of the lecturer. Your own computer equipment is recommended. If you have any problems in this regard, please let me know in advance. We will work exclusively with free software, if possible with open source solutions.
 
 ### Office hours
-By appointment
+Wednesday from 10:00-12:00.
 
 <br>
 
 # Pre-requisites
 
-Fill me
+None except motivation and the desire to learn, as well as the readiness to work independently and to collaborate in groups to complete your project.
 
 <br>
 
@@ -111,10 +126,7 @@ Students who expect to miss class or assignments as a consequence of their relig
 
 This course will revolve around hands-on computing exercises that demonstrate the topics of interest. Therefore, students are strongly recommended to bring their own laptop to class, although students are certainly free to work with one another. **For students without access to a personal laptop**: Please let us know in time, and we will try to find a solution.
 
-All of the software we will be using is free and platform independent, meaning students may use macOS, Linux, or Windows operating systems. In addition to a web browser, we will be using the free [**R**](https://www.r-project.org/) software and the desktop version of the [**R Studio**](https://www.rstudio.com/products/rstudio-desktop/) integrated development environment (IDE). We will also be using various packages not contained in the base installation of **R**, but we will wait and install them at the necessary time. The instructor will be available during the first week of class to help students troubleshoot any software installation problems.
-
-Students will also be required to have a user account on [**GitHub**](https://github.com/), which we will be using for file hosting and communications via "issues". If you do not already have an account, you can sign up for a free one [here](https://github.com/join?source=header-home). The instructor will provide training on how to use the intended features in **GitHub**.
-
+All of the software we will be using is free and platform independent, meaning students may use macOS, Linux, or Windows operating systems. In addition to a web browser, we will be using the free Office Suite [**LibreOffice**](https://www.libreoffice.org), the literature database [Zotero](https://www.zotero.org), the GIS software [**QGIS**](https://www.qgis.org). The instructor will be available to help students troubleshoot any software installation problems.
 
 # Teaching methodology
 
@@ -126,29 +138,28 @@ This course will introduce new material primarily through prepared slides and ha
 
 This course will involve a *lot* of communication between and among students and the instructor. Short questions should be addressed to us via email; we will try my best to respond to your message within 24 hours. Under more normal circumstances, detailed questions would be addressed to us in person--either after class or during a scheduled meeting. In this case, however, we will schedule one-on-one or group video calls as needed.
 
-In addition to email and video, we will use the "Issues" feature in **GitHub** to ask questions and assist others. Specifically, questions and answers can be posted to the issues in the course repository.
-
+In addition to email and video, we will use a [slack](https://slack.com) workspace to ask questions and assist others.
 <br>
 
 # Evaluation
 
-Students will be evaluated on their knowledge of course content and their ability to communicate their understanding of the material via individual homework assignments (??%), a final project (??%), peer reviews (??%), and class participation (??%). There will be ? homework assignments, each of which will count toward ?% of the final grade. Please note, **all assignments must be turned in to achieve a passing grade**.
+Students will be evaluated on their knowledge of course content and their ability to communicate their understanding of the material via individual homework assignments (30%), a final project (40%), peer reviews (20%), and class participation (10%). There will be ? homework assignments, each of which will count toward ?% of the final grade. Please note, **all assignments must be turned in to achieve a passing grade**.
 
-### Homework (?%)
+### Homework (30%)
 
-Homework will be assigned each ? and is due by 11:59 PM PST on the following ?. It will consist of some short answers and __R__ code based on topics covered in lab. There will be ? assignments worth ?% each.  Your learning in the class will be greatly enhanced by doing the homework which consist of applying the material you learn in each lecture to a data set.
+Homework will be assigned each ? and is due by 11:59 PM PST on the following ?. It will consist of some short answers and practical approaches based on topics covered. There will be ? assignments worth ?% each.  Your learning in the class will be greatly enhanced by doing the homework which consist of applying the material you learn in each lecture to a data set.
 
-### Individual project (?%)  
+### Individual project (40%)  
 
-Each student will have to write a complete, publishable (<? page) paper that may, or may not, serve as a component of their thesis/dissertation. Given that some students might not have their own data, students may also use data from the instructors, public datasets or datasets included in __R__ libraries.
+Each student will have to write a complete, publishable (<? page) paper that may, or may not, serve as a component of their thesis/dissertation. Given that some students might not have their own data, students may also use data from the instructors or public datasets.
 
-### Peer reviews (?%)  
+### Peer reviews (20%)  
 
-Each student will have to provide 2 anonymous peer-reviews of their colleagues’ papers (?% each).
+Each student will have to provide 2 anonymous peer-reviews of their colleagues’ papers (10% each).
 
-### Participation (?%)  
+### Participation (10%)  
 
-This is a graduate-level course and we expect a certain amount of engagement from each student, which includes attending and participating lectures and computer labs.
+We expect a certain amount of engagement from each student, which includes independently preparing the course content  and attending and participating in the computer labs.
 
 Students should discuss any potential schedule conflicts with the instructor during the first week of class.
 
