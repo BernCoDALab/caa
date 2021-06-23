@@ -10,8 +10,10 @@ library(kableExtra)
 
 ```{r read_data, include=FALSE}
 schedule <- read.csv("syllabus.csv")
+schedule$topics[is.na(schedule$topics)] <- ""
 schedule$topics <- strsplit(schedule$topics, ";")
 
+schedule$video[is.na(schedule$video)] <- ""
 schedule$video <- strsplit(schedule$video, ";")
 
 schedule$video <- sapply(schedule$video, function(x) {
@@ -24,6 +26,7 @@ schedule$video <- sapply(schedule$video, function(x) {
 }}
 )
 
+schedule$lab_video[is.na(schedule$lab_video)] <- ""
 schedule$lab_video <- strsplit(schedule$lab_video, ";")
 
 schedule$lab_video <- sapply(schedule$lab_video, function(x) {
