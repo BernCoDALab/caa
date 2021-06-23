@@ -128,9 +128,11 @@ This course will revolve around hands-on computing exercises that demonstrate th
 
 All of the software we will be using is free and platform independent, meaning students may use macOS, Linux, or Windows operating systems. In addition to a web browser, we will be using the free Office Suite [**LibreOffice**](https://www.libreoffice.org), the literature database [Zotero](https://www.zotero.org), the GIS software [**QGIS**](https://www.qgis.org). The instructor will be available to help students troubleshoot any software installation problems.
 
+<br>
+
 # Teaching methodology
 
-This course will introduce new material primarily through prepared slides and hands-on demonstrations. Students will be expected to work both individually and collaboratively (to the extent possible given the current conditions); course content and evaluation will emphasize the communication of ideas and the ability to think critically more so than a specific pathway or method. Other areas of this website provide an overview of the topics to be covered, including links to weekly reading assignments, lecture materials, computer labs, and homework assignments.
+This course will introduce new material primarily through prepared slides, videos and the text book. What is learned is then applied to the students' own project under supervision in the lab time. Students will be expected to work both individually and collaboratively (to the extent possible given the current conditions) during this time and also in general; course content and evaluation will emphasize the communication of ideas and the ability to think critically more so than a specific pathway or method. Other areas of this website provide an overview of the topics to be covered, including links to weekly reading assignments, lecture materials, computer labs, and homework assignments.
 
 <br>
 
