@@ -1,0 +1,24 @@
+name: "caa"
+navbar:
+  title: "Computer Aided Archaeology"
+  left:
+    - text: ""
+      icon: fa-home fa-lg
+      href: index.html
+    - text: "Schedule"
+      href: schedule.html
+    - text: "Lectures"
+      href: lectures.html
+    - text: "Computer Labs"
+      href: comp_labs.html
+    - text: "Homework"
+      href: homework.html
+
+output_dir: "docs"
+output:
+  html_document:
+    theme: cosmo
+    highlight: textmate
+#    include:
+#      in_header: header.html
+

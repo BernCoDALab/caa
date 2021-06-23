@@ -1,0 +1,578 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+
+
+
+<title>Computer Aided Archaeology</title>
+
+<script src="site_libs/header-attrs-2.9/header-attrs.js"></script>
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/cosmo.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<style>h1 {font-size: 34px;}
+       h1.title {font-size: 38px;}
+       h2 {font-size: 30px;}
+       h3 {font-size: 24px;}
+       h4 {font-size: 18px;}
+       h5 {font-size: 16px;}
+       h6 {font-size: 12px;}
+       code {color: inherit; background-color: rgba(0, 0, 0, 0.04);}
+       pre:not([class]) { background-color: white }</style>
+<script src="site_libs/jqueryui-1.11.4/jquery-ui.min.js"></script>
+<link href="site_libs/tocify-1.9.1/jquery.tocify.css" rel="stylesheet" />
+<script src="site_libs/tocify-1.9.1/jquery.tocify.js"></script>
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<link href="site_libs/highlightjs-9.12.0/textmate.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
+<link href="site_libs/font-awesome-5.1.0/css/all.css" rel="stylesheet" />
+<link href="site_libs/font-awesome-5.1.0/css/v4-shims.css" rel="stylesheet" />
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+<style type="text/css">code{white-space: pre;}</style>
+<script type="text/javascript">
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
+}
+</script>
+
+
+
+
+
+
+
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+img {
+  max-width:100%;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+.html-widget {
+  margin-bottom: 20px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+summary {
+  display: list-item;
+}
+pre code {
+  padding: 0;
+}
+</style>
+
+
+<style type="text/css">
+.dropdown-submenu {
+  position: relative;
+}
+.dropdown-submenu>.dropdown-menu {
+  top: 0;
+  left: 100%;
+  margin-top: -6px;
+  margin-left: -1px;
+  border-radius: 0 6px 6px 6px;
+}
+.dropdown-submenu:hover>.dropdown-menu {
+  display: block;
+}
+.dropdown-submenu>a:after {
+  display: block;
+  content: " ";
+  float: right;
+  width: 0;
+  height: 0;
+  border-color: transparent;
+  border-style: solid;
+  border-width: 5px 0 5px 5px;
+  border-left-color: #cccccc;
+  margin-top: 5px;
+  margin-right: -10px;
+}
+.dropdown-submenu:hover>a:after {
+  border-left-color: #adb5bd;
+}
+.dropdown-submenu.pull-left {
+  float: none;
+}
+.dropdown-submenu.pull-left>.dropdown-menu {
+  left: -100%;
+  margin-left: 10px;
+  border-radius: 6px 0 6px 6px;
+}
+</style>
+
+<script type="text/javascript">
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.tab('show');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+
+  // Navbar adjustments
+  var navHeight = $(".navbar").first().height() + 15;
+  var style = document.createElement('style');
+  var pt = "padding-top: " + navHeight + "px; ";
+  var mt = "margin-top: -" + navHeight + "px; ";
+  var css = "";
+  // offset scroll position for anchor links (for fixed navbar)
+  for (var i = 1; i <= 6; i++) {
+    css += ".section h" + i + "{ " + pt + mt + "}\n";
+  }
+  style.innerHTML = "body {" + pt + "padding-bottom: 40px; }\n" + css;
+  document.head.appendChild(style);
+});
+</script>
+
+<!-- tabsets -->
+
+<style type="text/css">
+.tabset-dropdown > .nav-tabs {
+  display: inline-table;
+  max-height: 500px;
+  min-height: 44px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+}
+
+.tabset-dropdown > .nav-tabs > li.active:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li.active:before {
+  content: "&#xe258;";
+  border: none;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open:before {
+  content: "";
+  font-family: 'Glyphicons Halflings';
+  display: inline-block;
+  padding: 10px;
+  border-right: 1px solid #ddd;
+}
+
+.tabset-dropdown > .nav-tabs > li.active {
+  display: block;
+}
+
+.tabset-dropdown > .nav-tabs > li > a,
+.tabset-dropdown > .nav-tabs > li > a:focus,
+.tabset-dropdown > .nav-tabs > li > a:hover {
+  border: none;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: transparent;
+}
+
+.tabset-dropdown > .nav-tabs.nav-tabs-open > li {
+  display: block;
+  float: none;
+}
+
+.tabset-dropdown > .nav-tabs > li {
+  display: none;
+}
+</style>
+
+<!-- code folding -->
+
+
+
+<style type="text/css">
+
+#TOC {
+  margin: 25px 0px 20px 0px;
+}
+@media (max-width: 768px) {
+#TOC {
+  position: relative;
+  width: 100%;
+}
+}
+
+@media print {
+.toc-content {
+  /* see https://github.com/w3c/csswg-drafts/issues/4434 */
+  float: right;
+}
+}
+
+.toc-content {
+  padding-left: 30px;
+  padding-right: 40px;
+}
+
+div.main-container {
+  max-width: 1200px;
+}
+
+div.tocify {
+  width: 20%;
+  max-width: 260px;
+  max-height: 85%;
+}
+
+@media (min-width: 768px) and (max-width: 991px) {
+  div.tocify {
+    width: 25%;
+  }
+}
+
+@media (max-width: 767px) {
+  div.tocify {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+.tocify ul, .tocify li {
+  line-height: 20px;
+}
+
+.tocify-subheader .tocify-item {
+  font-size: 0.90em;
+}
+
+.tocify .list-group-item {
+  border-radius: 0px;
+}
+
+
+</style>
+
+
+
+</head>
+
+<body>
+
+
+<div class="container-fluid main-container">
+
+
+<!-- setup 3col/9col grid for toc_float and main content  -->
+<div class="row">
+<div class="col-xs-12 col-sm-4 col-md-3">
+<div id="TOC" class="tocify">
+</div>
+</div>
+
+<div class="toc-content col-xs-12 col-sm-8 col-md-9">
+
+
+
+
+<div class="navbar navbar-default  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">Computer Aided Archaeology</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home fa-lg"></span>
+     
+    
+  </a>
+</li>
+<li>
+  <a href="schedule.html">Schedule</a>
+</li>
+<li>
+  <a href="lectures.html">Lectures</a>
+</li>
+<li>
+  <a href="comp_labs.html">Computer Labs</a>
+</li>
+<li>
+  <a href="homework.html">Homework</a>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div id="header">
+
+
+
+<h1 class="title toc-ignore">Computer Aided Archaeology</h1>
+<h3 class="subtitle">IAW     University of Bern     Fall Qtr odd years</h3>
+
+</div>
+
+
+<p><br></p>
+<div id="course-overview" class="section level1">
+<h1>Course overview</h1>
+<p>fill me</p>
+<p><br></p>
+</div>
+<div id="textbook" class="section level1">
+<h1>Textbook</h1>
+<p>fill me</p>
+<p><br></p>
+</div>
+<div id="key-dates" class="section level1">
+<h1>Key dates</h1>
+<p>fill me</p>
+<p><br></p>
+</div>
+<div id="learning-objectives" class="section level1">
+<h1>Learning objectives</h1>
+<p>fill me</p>
+<p><br></p>
+</div>
+<div id="instructors" class="section level1">
+<h1>Instructors</h1>
+<p><a href="https://www.iaw.unibe.ch/ueber_uns/arp_amp_pa_personen/dr_hinz_martin/"><strong>Martin Hinz</strong></a><br />
+Senior Researcher (Oberassistent), IAW bern<br />
+<a href="mailto:martin.hinz@iaw.unibe.ch">martin.hinz@iaw.unibe.ch</a></p>
+<p><br></p>
+</div>
+<div id="meeting-times-locations" class="section level1">
+<h1>Meeting times &amp; locations</h1>
+<div id="lectures" class="section level3">
+<h3>Lectures</h3>
+<p>Fill me</p>
+</div>
+<div id="computer-lab" class="section level3">
+<h3>Computer Lab</h3>
+<p>Fill me</p>
+</div>
+<div id="office-hours" class="section level3">
+<h3>Office hours</h3>
+<p>By appointment</p>
+<p><br></p>
+</div>
+</div>
+<div id="pre-requisites" class="section level1">
+<h1>Pre-requisites</h1>
+<p>Fill me</p>
+<p><br></p>
+</div>
+<div id="classroom-conduct" class="section level1">
+<h1>Classroom conduct</h1>
+<p>We are dedicated to providing a welcoming and supportive learning environment for all students, regardless of their background, identity, physical appearance, or manner of communication. Any form of language or behavior used to exclude, intimidate, or cause discomfort will not be tolerated. This applies to all course participants (instructor, students, guests). In order to foster a positive and professional learning environment, we ask the following:</p>
+<ul>
+<li><p>Please let us know if you have a name or set of preferred pronouns that you would like us to use</p></li>
+<li><p>Please let us know if <em>anyone</em> in class says something that makes you feel uncomfortable<sup>[<a href="#endnotes">1</a>]</sup></p></li>
+</ul>
+<p>In addition, we encourage the following kinds of behaviors:</p>
+<ul>
+<li><p>Use welcoming and inclusive language</p></li>
+<li><p>Show courtesy and respect towards others</p></li>
+<li><p>Acknowledge different viewpoints and experiences</p></li>
+<li><p>Gracefully accept constructive criticism</p></li>
+</ul>
+<p>Although we strive to create and use inclusive materials in this course, there may be overt or covert biases in the course material due to the lens with which it was written. Your suggestions about how to improve the value of diversity in this course are encouraged and appreciated.</p>
+<p><strong>Please note</strong>: The University of Bern is committed to a non-discriminatory environment. This applies in particular to discrimination on the basis of gender (sexism) and sexual assaults (sexual harassment): we are all entitled to protection of our personal integrity at work and during our studies and to the respect of our limits. The University of Bern is also legally obliged to protect its members from sexual harassment. In particular, superiors are also responsible for looking out and reacting.</p>
+<p>If you believe you have been a victim of any form of discrimination, you have the right to <a href="https://www.unibe.ch/studies/advisory_services/discrimination/index_eng.html">report it to the University</a>.</p>
+<p><br></p>
+</div>
+<div id="access-accommodations" class="section level1">
+<h1>Access &amp; accommodations</h1>
+<p>All students deserve access to the full range of learning experiences, and we are committed to creating inclusive and accessible learning environments consistent with federal and state laws. If you feel like your performance in class is being impacted by your experiences outside of class, please talk with us.</p>
+<div id="disabilities" class="section level3">
+<h3>Disabilities</h3>
+<p>If you have already established accommodations with Disability Resources for Students (DRS), please communicate your approved accommodations to us at your earliest convenience so we can discuss your needs in this course. If you have not yet established services through DRS, but have a temporary health condition or permanent disability that requires accommodations (<em>e.g.</em>, mental health, learning, vision, hearing, physical impacts), you are welcome to contact DRS at 206-543-8924 or via <a href="mailto:uwdrs@uw.edu">email</a> or their <a href="https://depts.washington.edu/uwdrs/">website</a>. DRS offers resources and coordinates reasonable accommodations for students with disabilities and/or temporary health conditions. Reasonable accommodations are established through an interactive process between you, your instructor(s) and DRS.</p>
+</div>
+<div id="religious-observances" class="section level3">
+<h3>Religious observances</h3>
+<p>Students who expect to miss class or assignments as a consequence of their religious observance will be provided with a reasonable accommodation to fulfill their academic responsibilities. Absence from class for religious reasons does not relieve students from responsibility for the course work required during the period of absence. It is the responsibility of the student to provide the instructor with advance notice of the dates of religious holidays on which they will be absent. Students who are absent will be offered an opportunity to make up the work, without penalty, within a reasonable time, as long as the student has made prior arrangements.</p>
+<p><br></p>
+</div>
+</div>
+<div id="technology" class="section level1">
+<h1>Technology</h1>
+<p>This course will revolve around hands-on computing exercises that demonstrate the topics of interest. Therefore, students are strongly recommended to bring their own laptop to class, although students are certainly free to work with one another. <strong>For students without access to a personal laptop</strong>: Please let us know in time, and we will try to find a solution.</p>
+<p>All of the software we will be using is free and platform independent, meaning students may use macOS, Linux, or Windows operating systems. In addition to a web browser, we will be using the free <a href="https://www.r-project.org/"><strong>R</strong></a> software and the desktop version of the <a href="https://www.rstudio.com/products/rstudio-desktop/"><strong>R Studio</strong></a> integrated development environment (IDE). We will also be using various packages not contained in the base installation of <strong>R</strong>, but we will wait and install them at the necessary time. The instructor will be available during the first week of class to help students troubleshoot any software installation problems.</p>
+<p>Students will also be required to have a user account on <a href="https://github.com/"><strong>GitHub</strong></a>, which we will be using for file hosting and communications via “issues”. If you do not already have an account, you can sign up for a free one <a href="https://github.com/join?source=header-home">here</a>. The instructor will provide training on how to use the intended features in <strong>GitHub</strong>.</p>
+</div>
+<div id="teaching-methodology" class="section level1">
+<h1>Teaching methodology</h1>
+<p>This course will introduce new material primarily through prepared slides and hands-on demonstrations. Students will be expected to work both individually and collaboratively (to the extent possible given the current conditions); course content and evaluation will emphasize the communication of ideas and the ability to think critically more so than a specific pathway or method. Other areas of this website provide an overview of the topics to be covered, including links to weekly reading assignments, lecture materials, computer labs, and homework assignments.</p>
+<p><br></p>
+</div>
+<div id="communication" class="section level1">
+<h1>Communication</h1>
+<p>This course will involve a <em>lot</em> of communication between and among students and the instructor. Short questions should be addressed to us via email; we will try my best to respond to your message within 24 hours. Under more normal circumstances, detailed questions would be addressed to us in person–either after class or during a scheduled meeting. In this case, however, we will schedule one-on-one or group video calls as needed.</p>
+<p>In addition to email and video, we will use the “Issues” feature in <strong>GitHub</strong> to ask questions and assist others. Specifically, questions and answers can be posted to the issues in the course repository.</p>
+<p><br></p>
+</div>
+<div id="evaluation" class="section level1">
+<h1>Evaluation</h1>
+<p>Students will be evaluated on their knowledge of course content and their ability to communicate their understanding of the material via individual homework assignments (??%), a final project (??%), peer reviews (??%), and class participation (??%). There will be ? homework assignments, each of which will count toward ?% of the final grade. Please note, <strong>all assignments must be turned in to achieve a passing grade</strong>.</p>
+<div id="homework" class="section level3">
+<h3>Homework (?%)</h3>
+<p>Homework will be assigned each ? and is due by 11:59 PM PST on the following ?. It will consist of some short answers and <strong>R</strong> code based on topics covered in lab. There will be ? assignments worth ?% each. Your learning in the class will be greatly enhanced by doing the homework which consist of applying the material you learn in each lecture to a data set.</p>
+</div>
+<div id="individual-project" class="section level3">
+<h3>Individual project (?%)</h3>
+<p>Each student will have to write a complete, publishable (&lt;? page) paper that may, or may not, serve as a component of their thesis/dissertation. Given that some students might not have their own data, students may also use data from the instructors, public datasets or datasets included in <strong>R</strong> libraries.</p>
+</div>
+<div id="peer-reviews" class="section level3">
+<h3>Peer reviews (?%)</h3>
+<p>Each student will have to provide 2 anonymous peer-reviews of their colleagues’ papers (?% each).</p>
+</div>
+<div id="participation" class="section level3">
+<h3>Participation (?%)</h3>
+<p>This is a graduate-level course and we expect a certain amount of engagement from each student, which includes attending and participating lectures and computer labs.</p>
+<p>Students should discuss any potential schedule conflicts with the instructor during the first week of class.</p>
+<p><br></p>
+</div>
+</div>
+<div id="academic-integrity" class="section level1">
+<h1>Academic integrity</h1>
+<p>Faculty and students at the University of Bern are expected to maintain the highest standards of academic conduct, professional honesty, and personal integrity. Plagiarism, cheating, and other academic misconduct are serious violations of the <a href="https://swiss-academies.ch/en/themen/wissenschaftskultur/wissenschaftliche-integritat-1/">Scientific Code of Conduct</a>. Students who have been guilty of a violation will receive zero points for the assignment in question.</p>
+<p><br></p>
+</div>
+<div id="mental-health" class="section level1">
+<h1>Mental health</h1>
+<p>We are in the midst of an historic pandemic that is creating a variety of challenges for everyone. If you should feel like you need some help, please consider the following resources available to students.</p>
+<p><strong>If you are experiencing a life-threatening emergency, please dial 112</strong>.</p>
+<p><a href="https://www.unibe.ch/studies/advisory_services/counselling_centre_universities_of_bern/index_eng.html"><strong>Counseling Center</strong></a><br />
+Phone: 031 / 635 24 35</p>
+<p><br></p>
+</div>
+<div id="endnotes" class="section level1">
+<h1>Endnotes</h1>
+<p>[1] If the instructor should be the one to say or do something that makes a student uncomfortable, the student should feel free to contact the Director of the Prehistoric Archaeology of Bern University.</p>
+<p><br></p>
+<center>
+<em>This site was last updated at 14:41 on 23 Jun 2021</em>
+</center>
+</div>
+
+
+
+</div>
+</div>
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+function bootstrapStylePandocTables() {
+  $('tr.odd').parent('tbody').parent('table').addClass('table table-condensed');
+}
+$(document).ready(function () {
+  bootstrapStylePandocTables();
+});
+
+
+</script>
+
+<!-- tabsets -->
+
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+
+$(document).ready(function () {
+  $('.tabset-dropdown > .nav-tabs > li').click(function () {
+    $(this).parent().toggleClass('nav-tabs-open');
+  });
+});
+</script>
+
+<!-- code folding -->
+
+<script>
+$(document).ready(function ()  {
+
+    // temporarily add toc-ignore selector to headers for the consistency with Pandoc
+    $('.unlisted.unnumbered').addClass('toc-ignore')
+
+    // move toc-ignore selectors from section div to header
+    $('div.section.toc-ignore')
+        .removeClass('toc-ignore')
+        .children('h1,h2,h3,h4,h5').addClass('toc-ignore');
+
+    // establish options
+    var options = {
+      selectors: "h1,h2,h3",
+      theme: "bootstrap3",
+      context: '.toc-content',
+      hashGenerator: function (text) {
+        return text.replace(/[.\\/?&!#<>]/g, '').replace(/\s/g, '_');
+      },
+      ignoreSelector: ".toc-ignore",
+      scrollTo: 0
+    };
+    options.showAndHide = true;
+    options.smoothScroll = true;
+
+    // tocify
+    var toc = $("#TOC").tocify(options).data("toc-tocify");
+});
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

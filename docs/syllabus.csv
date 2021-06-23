@@ -1,0 +1,13 @@
+date,title,topics,pdf,rmd,html,chapter,video,lab_video,reading,data,instructor,hw,hw_solution,hw_topics,hw_date
+24.02.21,Introduction ,sample & population; test,,,,,https://tube.switch.ch/videos/0843b374,http://vitutr.archaeological.science/statistical%20methods%20for%20archaeological%20data%20analysis%20i%202019/2019/02/12/installing_r.html;http://vitutr.archaeological.science/statistical%20methods%20for%20archaeological%20data%20analysis%20i%202019/2019/02/12/installing_r_studio.html,,,,,,,
+03.03.21,Introduction into R I,,,,,,,,,,,,,,
+10.03.21,Introduction into R II,,,,,,,,,,,,,,
+17.03.21,Explorative Statistics/Graph. Display,,,,,,,,,,,,,,
+24.03.21,Descriptive Statistics,,,,,,,,,,,,,,
+31.03.21,Nonparametric Tests,,,,,,,,,,,,,,
+07.04.21,Basic Probability Theory,,,,,,,,,,,,,,
+14.04.21,Parametric Tests,,,,,,,,,,,,,,
+21.04.21,Regression & Correlation,,,,,,,,,,,,,,
+28.04.21,Cluster Analysis,,,,,,,,,,,,,,
+05.05.21,Correspondence Analysis,,,,,,,,,,,,,,
+12.05.21,Repetition,,,,,,,,,,,,,,
