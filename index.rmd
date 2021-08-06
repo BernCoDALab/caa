@@ -1,6 +1,6 @@
 ---
 title: "Computer Aided Archaeology"
-subtitle: "IAW &nbsp; &nbsp; University of Bern &nbsp; &nbsp; Fall Qtr odd years"
+subtitle: "IAW &nbsp; &nbsp; University of Bern &nbsp; &nbsp; Fall Semester odd years"
 output:
   html_document:
     toc: true
