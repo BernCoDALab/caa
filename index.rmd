@@ -63,7 +63,7 @@ Senior Researcher (Oberassistent), IAW bern
 # Meeting times & locations
 
 ### Lectures 
-The course is held according to the principle of an ''inverted classroom''. The teaching content is provided by means of videos and the textbook. Students are encouraged to work on this independently and to deepen it if necessary. A Slack channel and the video office hours are available for questions. I will also respond as quickly as possible to questions sent to me via email. The practical consolidation of the content takes place in the Computer Lab, where students work on their own semester projects.
+The course is held according to the principle of an ''inverted classroom''. The teaching content is provided by means of videos and the textbook. Students are encouraged to work on this independently and to deepen it if necessary. A Slack channel ([2021-caa-berncodalab.slack.com](https://2021-caa-berncodalab.slack.com)) and the (virtual, if necessary) office hours are available for questions. I will also respond as quickly as possible to questions sent to me via email. The practical consolidation of the content takes place in the Computer Lab, where students work on their own semester projects.
 
 ### Computer Lab
 Wednesday from 12:15-14:00, Room 016, Mittelstrasse 43, Bern
@@ -140,7 +140,7 @@ This course will introduce new material primarily through prepared slides, video
 
 This course will involve a *lot* of communication between and among students and the instructor. Short questions should be addressed to us via email; we will try my best to respond to your message within 24 hours. Under more normal circumstances, detailed questions would be addressed to us in person--either after class or during a scheduled meeting. In this case, however, we will schedule one-on-one or group video calls as needed.
 
-In addition to email and video, we will use a [slack](https://slack.com) workspace to ask questions and assist others.
+In addition to email and video, we will use a [slack](https://slack.com) workspace ([2021-caa-berncodalab.slack.com](https://2021-caa-berncodalab.slack.com))to ask questions and assist others.
 <br>
 
 # Evaluation
