@@ -1,0 +1,602 @@
+---
+title: "Computational Archaeology"
+subtitle: "02 - Your Computer as research tool"
+author: "Martin Hinz"
+institute: "Institut für Archäologische Wissenschaften, Universität Bern"
+fontsize: 9pt
+date: "06/10/21"
+output:
+  xaringan::moon_reader:
+    chakra: "../libs/remark-latest.min.js"
+    css: ["../libs/default.css", "../libs/default-fonts.css", "../libs/customize.css"]
+    lib_dir: "libs"
+    seal: false
+    nature:
+      beforeInit: "../libs/macros.js"
+      highlightStyle: github
+      highlightLines: true
+      countIncrementalSlides: false
+      fig_caption: yes
+      ratio: "16:10"
+---
+class: title-slide, center, middle
+```{r, echo = FALSE, message=FALSE}
+# https://stackoverflow.com/questions/25646333/code-chunk-font-size-in-rmarkdown-with-knitr-and-latex
+def.chunk.hook  <- knitr::knit_hooks$get("chunk")
+knitr::knit_hooks$set(chunk = function(x, options) {
+  x <- def.chunk.hook(x, options)
+  ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
+})
+library(icons)
+icons::download_fontawesome()
+```
+
+```{r, echo = FALSE, results="asis"}
+cat('# ', rmarkdown::metadata$title)
+```
+
+```{r, echo = FALSE, results="asis"}
+cat('## ', rmarkdown::metadata$subtitle)
+```
+
+```{r, echo = FALSE, results="asis"}
+cat('### ', rmarkdown::metadata$author)
+```
+
+```{r, echo = FALSE, results="asis"}
+cat('#### ', rmarkdown::metadata$institute)
+```
+
+```{r, echo = FALSE, results="asis"}
+cat(rmarkdown::metadata$date)
+```
+
+---
+## `r icons::fontawesome("window-restore")` Software suggestions
+
+- Office: [Libre Office](https://de.libreoffice.org/)
+
+- Image Processing
+  - Raster: [Gimp](http://www.gimp.org/)
+  - Vector: [Inkscape](https://inkscape.org/)
+  - Digital Photos: [Darktable](https://www.darktable.org/)
+
+- Layout: [Scribus](https://www.scribus.net/)
+
+- Citation Manager: [Zotero](https://www.zotero.org/)
+
+- GIS: [Quantum GIS (QGIS)](http://www.qgis.org/)
+
+- Statistics
+  - GUI: [PAST](http://folk.uio.no/ohammer/past)
+  - script: [R](https://www.r-project.org/) & [RStudio](https://www.rstudio.com/products/RStudio/)
+
+- 14C Calibration: [OxCal](https://c14.arch.ox.ac.uk/oxcal.html) (or [Chronomodel](https://chronomodel.com/))
+
+- digitizing charts: [Engauge](http://markummitchell.github.io/engauge-digitizer/)
+
+
+---
+## `r icons::fontawesome("wifi")` Online Ressources
+
+- Translation: [DeepL](https://www.deepl.com)
+
+- file transfer [Swisstransfer](https://www.swisstransfer.com)
+
+- Polls ('doodle'): [dfn terminplaner](https://terminplaner4.dfn.de/)
+
+- literature search:
+  - Switzerland: [swisscovery](https://swisscovery.slsp.ch/)
+  - worldwide: [WorldCat](https://www.worldcat.org/)
+  - ancient studies: [Zenon](https://zenon.dainst.org/)
+
+- (fast) online calibration: [CalPal online](http://www.calpal-online.de/) (currently not working)
+
+- 14C Dates: [XRONOS](https://xronos.ch)
+
+- archaeological data: [Journal of Open Archaeology Data](https://openarchaeologydata.metajnl.com/)
+
+
+### limited recommendability
+
+- cloud hosting [Dropbox](https://www.dropbox.com)
+
+- Online Office [Google Docs](https://www.google.com/intl/de_ch/docs/about/)
+
+---
+## Working with Digital Data
+
+- `r icons::fontawesome("folder")` File structures - *where to put stuff so you won’t lose it*
+
+- `r icons::fontawesome("file-signature")` File naming - *what to call stuff so you know what it is*
+
+- `r icons::fontawesome("code-branch")` Version control - *keeping track of stuff*
+
+- `r icons::fontawesome("file-code")` File formats - *what to save stuff in so it’s safe* .tiny[(Text, Images, Spreadsheets/databases, CAD/GIS, Audio/Video)]
+
+- `r icons::fontawesome("passport")` Documenting data - *letting others understand your data*
+
+- `r icons::fontawesome("recycle")` Selection - *chucking stuff away!*
+
+---
+## `r icons::fontawesome("folder")` File Structure
+### Where to put stuff so you won’t lose it 
+
+.pull-left[
+- Logical to you – and easily understandable to others
+
+- Ease of sharing / exchange of data
+
+- Maintaining retrieval of files, e.g. Esri shape files (multiple files)
+
+- Defining the ‘end product’ of a project helps maintain file structure
+]
+
+.pull-right[
+![:width 80%](../images/01_session/joy.jpg)
+]
+
+---
+## Which primary data defines your research?
+
+.pull-left[
+### Archaeological material
+
+```{r echo=FALSE, message=F}
+library(DiagrammeR)
+my_dia <- DiagrammeR::grViz("
+digraph material_based {
+    graph[overlap=true, splines=true]
+    
+    node [shape = box,
+        fontname = Helvetica]
+  'Material Type e.g. Pottery'; 'Site A'; 'Site B'; 'Site C'
+  
+  'Material Type e.g. Pottery' -> 'Site A'
+  'Material Type e.g. Pottery' -> 'Site B'
+  'Material Type e.g. Pottery' -> 'Site C'
+    
+}", height=100, width=400)
+
+my_dia
+```
+]
+
+.pull-right[
+### Location (site based)
+
+```{r echo=FALSE, message=F}
+my_dia <- DiagrammeR::grViz("
+digraph site_based {
+    graph[overlap=true, splines=true]
+    
+    node [shape = box,
+        fontname = Helvetica]
+  'Geographical Location'; 'Material A'; 'Material B'; 'Material C'
+  
+  'Geographical Location' -> 'Material A'
+  'Geographical Location' -> 'Material B'
+  'Geographical Location' -> 'Material C'
+    
+}", height=100, width=400)
+
+my_dia
+```
+]
+
+&nbsp;
+
+- Distinguish between projects.
+
+- Distinguish between sub-folders.
+
+- Define ‘end-product’ of research – and keep clean of temporary folder and files.
+
+- Research designs change and so must file structure.
+
+- Avoid overuse of folders – easier said than done though.
+
+- rule of thumb: 7 subfolders, if more, structure deeper
+
+---
+
+## `r icons::fontawesome("file-signature")` File Naming
+
+.pull-left[
+What to call stuff so you know what it is
+
+- Names tell us what a file is:	 Contextual information.
+
+- Names order files:		 Making stuff easy to find.
+
+- Define your system:		 **And stick to it.**
+]
+
+.pull-right[
+.center[
+![:width 50%](../images/02_session/filenaming-comic.png)
+]
+.caption[source:https://xkcd.com/1459/]
+]
+
+---
+
+## `r icons::fontawesome("file-signature")` File Naming (suggestions)
+
+First: Define the types of data and file formats for the research. 
+.pull-left[
+- Different data may require different naming conventions:
+  - Should different data/file formats be identified as part of same project?
+
+- Examples of contextual information in file names: 
+  - Date, Author or Initials, Site or Project, Material.
+
+- Capitals in file names affect ordering – be consistent.
+
+]
+.pull-right[
+- Numbers order files only if zeros are used before units and tens:
+  - 001, 002, 003, etc will order files up to 999.
+  
+- Dates are useful for version control and ordering files.
+  - YY-MM-DD (11-03-02) at end of name orders files of same name by year.
+  - Year first is good for ordering files, e.g. publication pdfs
+
+- Spaces between file names cause havoc in GIS. Use_underscores
+
+- / Forwardslashes / in file names can cause problems too.
+
+- CAPITALS ARE HARD TO READ!
+]
+
+---
+
+## `r icons::fontawesome("code-branch")` Version Control
+### Keeping track of stuff
+
+It’s surprisingly easy to lose track of the current version of a file.
+
+Especially:
+- Word file drafts of thesis chapters.
+- Word files commented on by others.
+- Multiple-author files sent back and forth by e-mail.
+- Graphics and AutoCAD files.
+
+- Be consistent with up-dating file names: version number, initials, date.
+- Put old versions in separate “Archive” folder (with date of that version in the folder name)
+- Possibly delete old drafts when final version is finished.
+
+---
+## `r icons::fontawesome("file-code")` File Formats
+### What to save stuff in so it’s safe
+
+
+- Facilitate exchange of data
+
+- Ease of working on different computers / software packages
+
+- Preserve data for re-use in the future
+
+.right[
+![:width 25%](../images/02_session/lifecycle-management.png)
+]
+.caption[source:https://roaringelephant.org]
+
+---
+## `r icons::fontawesome("file-code")` File Formats
+### Key Issues
+
+| Closed                      | vs | Open                        |
+|-----------------------------|----|-----------------------------|
+| Proprietary                 | vs | Open                        |
+| Non-Standard                | vs | ISO Standard                |
+| non-human readable (binary) | vs | human readable (text based) |
+| Compressed                  | vs | Uncompressed                |
+
+---
+## Text Files
+
+- Manuscripts produced on computers: word files.
+  - conference notes, articles, theses, books, etc.
+
+- Scanned printed material often made into a PDF file.
+  - Conversion into editable text files using Optical Character Recognition (OCR) software.
+
+- Marked-up formats for viewing as web-pages: HTML
+
+- Other Mark-up languages
+  - LaTeX
+  - Markdown
+  
+---
+## Text Files
+
+.small[
+| Format | Description / Properties                                                                                                                                                         | Usage and Archival Recommendations                                                                                                                                                 |
+|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .txt   | Text file.  Simple plain text document. Compatible across software packages. Supports very little formatting.                                                                    | Good for extremely simple files. Commonly used for introductory “Read me” files containing basic information on project archives.                                                  |
+| .doc   | Microsoft Word document ( - 2003) Proprietary binary format.  Can be read by OpenOffice. Easily converted into PDF format.                                                       | Accepted for archiving because it is so widely used. However, will soon become obsolete.                                                                                           |
+| .docx  | Microsoft Word document (2007) Human readable XML format. Stored along with embedded content as zipped file.                                                                     | Good for dissemination and preservation. Conversion to .doc file to open with earlier versions of MS Word.                                                                         |
+| .rtf   | Rich Text Format (Microsoft) Tagged plain text format.                                                                                                                           | Formatting issues when using opened in different software. Large file sizes mean that .docx or .odt  file formats are preferred.                                                   |
+| .odt   | Open Document Text (OpenOffice) ISO standard, human readable XML format.                                                                                                         | Open source format good for use, dissemination and archiving. Archive files in uncompressed form. Can open .doc files. Might not open correctly in other word processing programs. |
+| .pdf   | Portable Document Format (Adobe) Proprietary binary format. Aims to retain document formatting. Can store embedded data: raster and vector images (e.g. Adobe Illustrator files) | Highly suitable for dissemination. PDF creators and readers freely and widely available. Retain original text document and embedded objects. (e.g. images, tabular data, etc).     |
+| PDF/A  | Portable Document Format / Archive (Adobe) Open ISO standard format for long term archiving. Formatting data self-contained in file.                                             | Widely accepted as viable format for long-term archiving. Retain original text file and embedded objects separately. (e.g. images, tabular data, etc).                             |
+]
+
+---
+## Digital Images
+
+- Images are used to convey information and support interpretations.
+- Images contain data and are often analysed to reach interpretations.
+- Images are one of the most important formats of digital data in archaeology.
+- Image documentation and preservation is key for future re-use of project archives.
+- Digital images often form the largest part of digital archives.
+
+- **Raster Images:** matrix of dots/pixels containing information (photographs, scans) 
+- **Vector Images:** formed by points, lines, polylines, polygons represented by co-ordinates and mathematical formulae (graphic - illustrations, CAD, GIS)
+
+---
+## Routes to Rasters
+
+- Scanned images of paper illustration or photograph.
+- Digitally captured or created: cameras or digitally created illustrations
+- Output product of other digital applications: vector, CAD, or GIS work, or geophysical survey data, etc.
+
+- Think of the purpose of image when making it: 
+  - screen, print or reference image.
+- Formats have different qualities which affect their output use and preservation.
+
+---
+## Routes to Rasters
+
+.small[
+**Resolution** / Level of detail in image:
+- Pixels per inch (PPI) or Dots per inch (DPI) or Samples per inch (SPI)
+- Bigger the physical size of the picture + increased resolution = bigger file size
+- min. 600 dpi for photographs and 300 for illustrations.
+
+**Bit (Colour) Depth** / Level of colour information:
+- 2 Bit   = Black/White (line drawings with only black and white needed)
+- 8 Bit   = Greyscale
+- 24 Bit = Standard colour
+- 32 Bit = High colour
+
+**Colour Space** / Type of colour
+- Bi-tonal = black/white
+- Greyscale
+- RGB (Red/Green/Blue) used for screen presentations. Cameras generally capture images in RGB.
+- CMYK (Cyan/ Magenta/Yellow /Key [Black]) used for printing colour images.
+
+**Compression**
+- Non-compressed (Lossless): GIF, PNG, TIFF.
+- Compressed: JPG
+
+Some formats (TIFF, PNG) allow files to be saved as non-compressed.
+Important to be aware of when compression is occurring and at what level.
+
+**Image layering**
+Layering is NOT supported in final raster image and layers will be merged into a single layer from top down.
+]
+
+---
+## Raster File Formats
+
+.tiny[
+| Format        | Description / Properties                                                                                                                                                                                                                               | Recommendations                                                                                                                                                                                                                                                                          |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .bmp          | Bit-Mapped Graphics Format  Microsoft proprietary format in older MS applications for simple graphics. Limited embedding of metadata.                                                                                                                  | Not recommended for either working files or long-term file storage.                                                                                                                                                                                                                      |
+| .gif          | Graphics Interchange Format Compuserve proprietary format. Lossless compression with 8-bit colour depth (256 colours). Limited metadata.                                                                                                  | Superseded by PNG format, but still widely used for still and animated Web graphics.                                                                                                                                                                                                     |
+| **.png**          | Portable Network Graphics. ISO standard. Lossless compression with 32-bit colour depth,  and Alpha channel (transparency), with few ‘visible artefacts’ (cf. jpegs). Does not support EXIF metadata.                                                   | Designed for internet and uses RGB colour space. Standard format for lossless presentation. Use instead of GIF format. NOT recommended long term storage (use TIFF). NOT recommended for digital photographs, as only supports RGB colour.                                |
+| **.jpg /  .jpeg** | Joint Photographic Expert Group ISO standard. 32-but colour depth with extremely efficient lossy compression of image. Compression creates ‘visible artefacts’ around complex high-contrast  image areas (e.g. text). Supports EXIF and IPTC metadata. | Designed for photographic or painted images with smooth varying tones that do not have sharp contrast. Much smaller file sizes than PNG or TIFF. While unsuitable for long-term storage, accepted format for archiving digital photographs. |
+| **.tif /  .tiff** | Tagged Image File Format (Adobe) Uncompressed image format. Can support range of metadata: EXIF, GeoTIFF for georeferencing.                                                                                                                           | Uncompressed Baseline TIFF Version 6 standard format for long term preservation of  digital figures.                                                                                                                                                                                     |
+| .psd          | Photoshop Document (Adobe) Proprietary format and can be used with open Photoshop Elements software. Supports variety of features: image layering, transparency, text. Supports IPTC, EXIF and XMP metadata.                                           | ‘Industry standard’ for image creation. Proprietary nature means limited third-party support for PSD format.  Limited compression results in large file size. Unsuitable for long term preservation. (TIFF for figures or DNG for photographic images.)                                  |
+| raw           | Unprocessed bitmap files created by digital cameras and some scanners.   Proprietary, require specific software.  No standardisation in file formats.                                                                                               | If possible, convert raw files to DNG format for long-term preservation.                                                                                                                                                                                                                 |
+]
+
+---
+## Raster Files
+### key points
+
+- Think of purpose of image.
+- Document rationale of image creation.
+- Maintain image documentation: 
+- Image properties, file naming and image description file.
+- If working with JPEGs, save original as archive and work on copies.
+- Save working copies of raster outputs of vector files and replace with final version.
+
+---
+## Vector File Formats
+
+- Variety of proprietary and open-source software for producing vector images, none of which is recommended for long-term - archiving:
+  - Coreldraw (.cdr); Adobe Illustrator (.ai); OpenOffice Draw (.odg).
+
+- Think of purpose of vector files and the output.
+
+Illustrations:
+- Save output in high quality TIFF or PNG format.
+
+Files with important vector information:
+- Document layer conventions
+- Export as SVG file (Scalable Vector Graphics)
+- PDF files also holds vector data.
+
+---
+
+![](../images/02_session/inkscape_svg_export.png)
+
+---
+## Spreadsheets and Databases: Overview
+
+**Spreadsheets: **
+	Designed on accounting worksheets, primarily for ordering numerical data, performing calculations, and produce charts and figures from data and calculations.
+
+**Databases: **
+	Designed to store a wide variety of data (numerical, text, images) and provide complex search and reporting on these data.
+
+
+**What is important?**
+- Data values themselves
+- Structure of the tables/sheets used to store
+- Structure of relationships between tables in database 
+
+---
+## Spreadsheets and Databases
+### Data Management
+
+**Data consistency**
+- Standardised data entry is essential.
+- Methods for controlled data entry recommended.
+- File and field name and codes need to be documented in separate file.
+- Document relationships of database tables (screen shot as jpeg)
+
+**Embedded objects**
+- Embedded objects (images, charts, figures) stored separately.
+- Document analysis/search procedures from which figures are produced.
+- Embedded objects removed from final archived file.
+
+**Non-data content (presentation formatting)**
+- Document formatting of tabular data (fonts, colours, cell borders, etc).
+- Document data input forms and search query results (‘reports’).
+
+---
+## Database structure (MET-Project)
+![:width 75%](../images/02_session/db_structure_met.png)
+---
+## Reference management tool
+
+- helps you manage your bibliographic resources and integrates with your word processing software - to generate in-text citations and bibliographies 
+- saves bibliographic data of information resources from online databases. 
+- makes it easier to automatically switch to different citation styles (e.g. Harvard to MLA or APA)
+- syncs  references across multiple devices such as desktops, laptops and tablets – so that you can access the references from any device
+
+.pull-left[
+![](../images/02_session/ref_ohne_manager.png)
+]
+
+.pull-right[
+![](../images/02_session/ref_mit_manager.png)
+]
+
+---
+## Zotero
+
+Zotero is a free (open source) reference management tool that
+
+- recognizes bibliographic information on books, journal articles, and other resources from websites and databases and extracts metadata from these sources.
+- stores related citations, PDFs, files, images, and links in your library
+- creates a citations and bibliographies in Word or OpenOffice documents
+- publishes shared libraries for your organization, class, or research group
+
+Is available for Mac, Windows & Linux operating systems
+
+To download and install, go to: http://www.zotero.org 
+
+![](../images/02_session/zotero_website.png)
+---
+## Zotero Interface
+
+The Zotero window has three columns that represent different levels of specificity for your references:
+
+- The left column shows your Zotero libraries and collections    as well as 'tags' (keywords)
+- The middle column displays items contained within the selected library
+- The right column displays information about a selected item.
+ 
+![](../images/02_session/zotero_screen.png)
+---
+## Adding citations to Zotero
+
+You can add citations to your library in several ways:
+
+- Manually enter citation information
+
+- Add an item by identifier (ISBN, DOI or PMID)
+
+- Import citation information for
+  - a single item
+  - multiple items
+
+- automatically from web pages
+---
+
+## Manually enter citation information
+
+![](../images/02_session/zotero_add_manual.png)
+
+---
+## Add an item by identifier (ISBN, DOI or PMID)
+
+![](../images/02_session/zotero_add_by_doi.png)
+---
+
+## Import single reference from Web
+
+![](../images/02_session/zotero_add_from_web.png)
+---
+
+## Import multiple references from Web
+
+![](../images/02_session/zotero_add_multiple_from_web.png)
+---
+
+## Types of Imports
+
+The Save to Zotero icon at the right-end of the URL (address) bar of 	the browser changes depending on the type of item Zotero identifies 	on the web page. Here are the most common icons:
+
+![:width 50%](../images/02_session/zotero_browser_import_types.png)
+
+---
+## Using Zotero in your word processor
+### First Citation, Select style
+
+![](../images/02_session/zotero_cite_first_time.png)
+---
+## Using Zotero in your word processor
+### Further Citations
+
+![](../images/02_session/zotero_cite.png)
+---
+## Using Zotero in your word processor
+### Creating Reference List
+
+![](../images/02_session/zotero_reference list.png)
+
+---
+## Registering for a Free Zotero Account
+
+Registering for a free Zotero account is useful. It enables you to:
+
+- sync and access your Zotero online from anywhere in the world
+
+- save up to 300MB of content (including PDFs) online
+
+- restore your backed up content to any new Zotero application installation
+
+- participate in Zotero groups and share references
+
+- Zotero group "Montelius"
+
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+<a href="mailto:martin.hinz@iaw.unibe.ch">martin.hinz@iaw.unibe.ch</a>
+
+Sources for the slides:
+
+'Working with Digital Data' (Lindsay Lloyd-Smith 2011)
+
+'Optimizing your Research Data Management' (Anna Keller, Jennifer Morger & Gero Schreier; Open Science Team Uni Bern)
+
+'Reference Management Software Tools Zotero - Open Source (Module 12)' (research4life)
+]
+]
+]
