@@ -532,11 +532,7 @@ class: inverse, middle, center
 .tiny[
 You might find the course material (including the presentations) at
 
-https://github.com/MartinHinz/ca_hs_2019
-
-You can see the rendered presentations at
-
-http://martinhinz.github.io/ca_hs_2019
+https://berncodalab.github.io/caa
 
 You can contact me at
 
