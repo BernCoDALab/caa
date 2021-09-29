@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computer Aided Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/kePrint-0.0.1/kePrint.js"></script>
+    <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/viz-1.8.2/viz.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <link rel="stylesheet" href="libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computer Aided Archaeology
+
+##  01 - Introduction
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+29/09/21
+
+---
+## What is not computer aided archaeology
+### in relation to our course
+
+.center[![:width 90%](../images/01_session/maxresdefault.jpg)]
+
+---
+## What is computer aided archaeology
+
+### Topics&lt;sup&gt;*&lt;/sup&gt;
+
+.pull-left[
+1. The use of **digital data** in archaeological research.
+2. The general **use of computers** in archaeological research.
+3. The use of **computational algorithms to fill gaps in archaeological data** in ways that can’t be done with traditional techniques.
+4. **Data mining** and **multidimensional analyses** of archaeological data.
+5. The use of **simulation models and artificial intelligence** to understand the processes and dynamics of past societies.
+6. The use of **computer visualizations** to create immersive **virtual** experiences of archaeological sites and materials
+
+.footnote[[*] from http://isaacullah.github.io/What-is-Computational-Archaeology/]
+]
+.pull-right[
+![:width 65%](../images/01_session/A1-hppo-xkL.jpg)
+]
+---
+
+## What is computer aided archaeology
+
+### Fields&lt;sup&gt;*&lt;/sup&gt;
+
+.pull-left[
+1. **GIS and geospatial data analysis.**
+2. **Digital imagery and photogrammetry.**
+3. **Statistical computing and quantitative analysis.**
+4. **Data visualization.**
+5. Agent Based Modeling and simulation.
+6. 3D modeling, virtual reality, and augmented reality.
+7. Video gaming and digital animation.
+
+We will touch the **highlighted** subjects.
+
+.footnote[[*] from http://isaacullah.github.io/What-is-Computational-Archaeology/]
+]
+
+.pull-right[
+![](../images/01_session/2001_Virtuelle_Archaeologie_011.jpg)
+.caption[Sorry, no fancy 3D Modelling (this time)]
+]
+---
+
+## Other terms
+
+.pull-left[
+* Computational Archaeology
+* Cyber Archaeology
+* Digital Archaeology
+* Archaeoinformatics
+* Digital Humanities
+
+![](../images/01_session/Digital Humanities_1.jpg)
+]
+
+.pull-right[
+![](../images/01_session/IT_Buzzword_BINGO.jpg)
+]
+---
+## Schedule
+.tiny[
+&lt;table class="table table-striped table-hover" style="margin-left: auto; margin-right: auto;"&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt; date &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; title &lt;/th&gt;
+   &lt;th style="text-align:left;"&gt; topics &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 29.09.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Introduction &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Overview;Organisation;Software to be used &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 06.10.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Your Computer as research tool &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Basic Scientific Software;Online Ressources;Digital Data;Spreadsheets and Databases;Reference management tools (Zotero) &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 13.10.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Data Bases I &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; What is a Database;ER-Model;Normalisation &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 20.10.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Exkursion Week &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 27.10.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Data Bases II &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Example Archaeological Database;Tables;Relationships;Forms;Data Entry;Queries &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 03.11.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Visualisation I &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; General Charts;Pie Charts;Bar Charts;Scatterplots;Box Plots;Histogram;Kernel Plots &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 10.11.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Visualisation II &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Seriation;Correspondence Analysis &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 17.11.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Basic Statistics &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Overview;Sample &amp;amp; Population;Scales of Measurement;Hypothesis testing;χ2-test &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 24.11.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GIS I &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Overview;Coordinate Systems and Projection;Georeferencing;Digitising &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 01.12.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; GIS II &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Simple Mapping;Heatmap;Thematic map;Exporting maps &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 08.12.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14C Calibration I &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14C Basics;Calibration Background;OxCal;Simple Calibration &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 15.12.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; 14C Calibration II &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; OxCal Combine;Sequential Calibration &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; 22.12.21 &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Project Presentations &lt;/td&gt;
+   &lt;td style="text-align:left;"&gt; Presentation of the Students Projects &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+---
+.pull-left[
+### Learning Content
+In presence as frontal lecture
+
+### Applying Content
+On your own as homework
+]
+.pull-right[
+### Learning Content
+On your own at home
+
+### Applying Content
+Supervised in presence
+]
+
+.center[
+![](../images/01_session/e-learning-inverted-classroom-vergleich.svg)
+.caption[source: https://dbs-lin.ruhr-uni-bochum.de/lehreladen/e-learning-technik-in-der-lehre/inverted-classroom/was-ist-inverted-classroom]
+]
+---
+## Website
+
+[https://berncodalab.github.io/caa](https://berncodalab.github.io/caa)
+
+
+
+---
+## Computers as research tools
+
+### What is it
+
+- review literature
+- collect data
+- structure information
+- process images
+- write a paper
+
+.center[
+![:width 40%](../images/01_session/overlay.jpeg) vs. ![:width 20%](../images/01_session/scientist_PNG30.png)
+]
+
+---
+## Computers as research tools
+
+### only session
+
+.pull-left[
+- Types of Digital Data
+- Working with Digital Data
+- Software suggestions
+- Using citation software
+
+![:width 80%](../images/01_session/joy.jpg)
+]
+
+.pull-right[
+- structuring your research environment
+- working with open and sustainable formats
+- glimpse on
+  - markdown
+  - latex
+  - version control
+
+![](../images/01_session/FortranCardPROJ039.agr.jpg)
+]
+
+---
+## Databases
+
+### What is it
+
+.pull-left[
+
+&gt;  A database is an organized collection of data, generally stored and accessed electronically from a computer system. - Wikipedia
+
+- on one computer -&gt; for personal data organisation
+  - Libre Office, MS Access, Sqlite
+  - single file
+- server - client, often web based
+  - PostgreSQL, MySQL
+  - data exchange and collaborative data management
+]
+
+.pull-right[
+
+Relates different information on different abstraction levels eg.:
+
+1 site &lt;-&gt; multiple artefacts
+
+<div id="htmlwidget-1218fd34667a43f3270f" style="width:400px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-1218fd34667a43f3270f">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n\n    \"site\" -> \"artefact\" [arrowtail=odot, arrowhead=crow, dir=both, label=\"belongs_to\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+---
+## Databases
+
+### First section
+
+.pull-left[
+Create a simple data base
+
+- site information
+- artefact information
+
+- lookup tables
+
+![:width 50%](../images/01_session/eea9e4b5-ad2b-4e12-b828-d64f586de260.gif)
+
+]
+
+.pull-right[
+Topics
+
+- data normalisation
+- table design
+- variable types
+- form creation
+
+![:width 50%](../images/01_session/1NF.gif)
+]
+
+---
+## Databases
+
+### Second section
+
+.pull-left[
+Retrieve informations from the data base
+
+- queries
+- joining tables
+- exporting data
+
+.center[![:width 75%](../images/01_session/ext.jpeg)]
+]
+
+.pull-right[
+Topics
+
+- query logic
+- sql
+- csv
+
+![:width 25%](../images/01_session/1263920.svg)
+]
+---
+## Visualisation
+
+### What is it
+&gt; Data visualization is the graphic representation of data. It involves producing images that communicate relationships among the represented data to viewers of the images. - wikipedia
+
+- 'statistical' charts like barcharts, pie charts, scatterplots...
+- humans are visual animals
+- explore data / find structures
+- visualise multidimensional relationships
+
+.center[
+![:width 40%](../images/01_session/Minard.png)
+![:width 34%](../images/01_session/1_6XAf0oi88MRCBbCd_cHcew.png)]
+
+---
+## Visualisation
+
+### First section
+
+.pull-left[
+- prepare your data for visualisation
+- Basic visualisation using spreadsheat software (LibreOffice Calc)
+- export for later (re)use
+
+![](../images/01_session/classification-chart-types.png)
+]
+
+.pull-right[
+- handling spreadsheat software
+- scatterplots, bar charts, histograms
+- visualisation best practises
+
+![](../images/01_session/hqdefault.jpg)
+
+]
+---
+## Visualisation
+
+### Second section
+
+.pull-left[
+- Visualisation of highdimensional data
+- Correspondence Analysis
+- Seriation
+
+![:width 75%](../images/01_session/battleshipcurves.jpg)
+]
+
+.pull-right[
+- preparing your data
+- conduct correspondence analysis
+- interpret the result
+
+![](../images/01_session/tosca.png)
+
+]
+---
+## Basic Statistics / Hypothese testing
+
+### What is it
+
+&gt; A statistical hypothesis, sometimes called confirmatory data analysis, is a hypothesis that is testable on the basis of observing a process that is modeled via a set of random variables.[1] A statistical hypothesis test is a method of statistical inference. - wikipedia
+
+- decide between hypotheses using standardised (mathematical) tools
+- probability theory
+- scientific method
+
+.center[
+![](../images/01_session/inferential-statistical-analysis-300x180.jpg)
+![](../images/01_session/htest.jpeg)
+]
+
+---
+## Basic Statistics
+
+### Only section
+
+.pull-left[
+- Basics of hypothese testing
+- H_0_ and H_1_
+- statistical significance
+
+![:width 75%](../images/01_session/pysch-blog-stattest-poster.png)
+]
+
+.pull-right[
+- data preparation
+- Chi-Square Test
+- Interpretation
+
+![](../images/01_session/chi-squared-equation.png)
+
+]
+---
+## 14C Calibration
+
+### What is it
+
+.pull-left[
+![](../images/01_session/radiocarbon.png)
+]
+
+.pull-right[
+![](../images/01_session/calresult.png)
+]
+---
+## 14C Calibration
+
+### First section
+
+- understand the calibration process
+- being able to calibrate individual dates
+
+.center[
+![:width 40%](../images/01_session/calib_anim2-1.png)
+![:width 50%](../images/01_session/ss1.jpg)
+]
+
+---
+## 14C Calibration
+
+### Second section
+
+- translate stratigraphical sequences into OxCal models
+- doing sequential calibration
+
+.center[
+![:width 44%](../images/01_session/main-qimg-7ebf8c1d7e8e86cf9fde97fc151cce10.webp)
+![:width 25%](../images/01_session/images.png)
+![:width 24%](../images/01_session/Plot-of-modeled-dates-from-the-OxCal-program-ordered-from-oldest-to-youngest-dates-with.png)
+]
+
+---
+## GIS
+
+### What is it
+
+&gt; A geographic information system (GIS) is a system designed to capture, store, manipulate, analyze, manage, and present spatial or geographic data. - Wikipedia
+
+.center[
+![:width 35%](../images/01_session/8269791489_a6bbd062a9_o.jpg)
+![:width 55%](../images/01_session/QGIS_2.2_Valmiera_showing_new_menu_design.png)
+]
+
+.right[
+![:width 40%](../images/01_session/QGIS_logo,_2017.svg.png)
+]
+
+---
+## GIS
+
+### First section
+
+- basically understand projection systems
+- being able to map geographical locations with background maps
+- digitizing/georeferencing maps
+
+![:width 30%](../images/01_session/projection_families.png)
+![:width 30%](../images/01_session/Bildschirmfoto-2016-07-27-um-15.40.44.png)
+![:width 30%](../images/01_session/c7238d563e7118867498e06d525739d5.jpg)
+
+---
+## GIS
+
+### Second section
+
+- thematic mapping
+- interpolation
+
+.center[
+![:width 33%](../images/01_session/DemoSnapshots_1b.png)
+![:width 42%](../images/01_session/2014.png)
+]
+
+
+---
+
+## Software in this course
+
+- free (and most of the time) open source software
+- most basic software
+
+.small[
+
+### Zotero
+
+- free and open source (FOSS) citation manager
+- integrates well in browser and Office Software
+
+### Libre Office
+
+- FOSS office package
+- most commands and procedures similar to 'the other' office package
+
+### OxCal
+
+- free, but not open source
+- quasi standard in archaeology
+
+### QGIS
+
+- FOSS GIS package
+- General ideas and concepts are transferable to 'the other' GIS software
+
+]
+
+---
+## Prerequisite for successful participation
+
+- a laptop (if you do not own one, we can provide you)
+- endurance
+- curiosity
+- installing some software
+
+And in the end a test, consisting of a theoretical and a practical part
+
+Test will be written after the semester.
+
+---
+## ToDo till next meeting
+
+- Install Libre Office (https://de.libreoffice.org/)
+- Install Zotero (https://www.zotero.org/)
+
+- (optional) install Zotero Connector (https://www.zotero.org/download/connectors)
+
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://github.com/MartinHinz/ca_hs_2019
+
+You can see the rendered presentations at
+
+http://martinhinz.github.io/ca_hs_2019
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script src="../libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>

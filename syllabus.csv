@@ -1,15 +1,14 @@
-date,title,topics,pdf,rmd,html,chapter,video,lab_video,reading,data,instructor,hw,hw_solution,hw_topics,hw_date
-23.09.21,Introduction ,Overview;Organisation;Software to be used,,,,,,,,,,,,,
-30.09.21,Your Computer as research tool,Basic Scientific Software;Online Ressources;Digital Data;Spreadsheets and Databases;Reference management tools (Zotero),,,,,,,,,,,,,
-07.10.21,Data Bases I,What is a Database;ER-Model;Normalisation,,,,,,,,,,,,,
-14.10.21,Data Bases II,Example Archaeological Database;Tables;Relationships;Forms;Data Entry;Queries,,,,,,,,,,,,,
-21.10.21,Exkursion Week,,,,,,,,,,,,,,
-28.10.21,Visualisation I,General Charts;Pie Charts;Bar Charts;Scatterplots;Box Plots;Histogram;Kernel Plots,,,,,,,,,,,,,
-04.11.21,Visualisation II,Seriation;Correspondence Analysis,,,,,,,,,,,,,
-11.11.21,Basic Statistics,Overview;Sample & Population;Scales of Measurement;Hypothesis testing;χ2-test,,,,,,,,,,,,,
-18.11.21,GIS I,Overview;Coordinate Systems and Projection;Georeferencing;Digitising,,,,,,,,,,,,,
-25.11.21,GIS II,Simple Mapping;Heatmap;Thematic map;Exporting maps,,,,,,,,,,,,,
-02.12.21,14C Calibration I,14C Basics;Calibration Background;OxCal;Simple Calibration,,,,,,,,,,,,,
-09.12.21,14C Calibration II,OxCal Combine;Sequential Calibration,,,,,,,,,,,,,
-16.12.21,Digital Documentation,(d)GPS;Survey;Totalstation;Photogrammetry;SfM;Geophysical survey methods,,,,,,,,,,,,,
-23.12.21,Project Presentations,Presentation of the Students Projects,,,,,,,,,,,,,
+date,title,topics,slides,slides_pdf,reading,video,lab_video,reading,data,instructor,homework,hw_solution,hw_topics,homework_date
+29.09.21,Introduction ,Overview;Organisation;Software to be used,session_1_introduction,session_1_introduction,,,,,,,,,,
+06.10.21,Your Computer as research tool,Basic Scientific Software;Online Ressources;Digital Data;Spreadsheets and Databases;Reference management tools (Zotero),,,,,,,,,Create a literature collection in Zotero with 5 entries and a word processing document in which these 5 literature references are cited.,,,13.10.21
+13.10.21,Data Bases I,What is a Database;ER-Model;Normalisation,,,,,,,,,Create a basic schema of a database for your project,,,20.10.21
+20.10.21,Exkursion Week,,,,,,,,,,,,,
+27.10.21,Data Bases II,Example Archaeological Database;Tables;Relationships;Forms;Data Entry;Queries,,,,,,,,,Implement your database,,,03.11.21
+03.11.21,Visualisation I,General Charts;Pie Charts;Bar Charts;Scatterplots;Box Plots;Histogram;Kernel Plots,,,,,,,,,Q&A,,,
+10.11.21,Visualisation II,Seriation;Correspondence Analysis,,,,,,,,,Create 1. two diagrams and 2. a seriation / correspondence analysis of your data.,,,17.11.21
+17.11.21,Basic Statistics,Overview;Sample & Population;Scales of Measurement;Hypothesis testing;χ2-test,,,,,,,,,Perform a χ2-test with your data,,,24.11.21
+24.11.21,GIS I,Overview;Coordinate Systems and Projection;Georeferencing;Digitising,,,,,,,,,Digitise the map of your site,,,01.12.21
+01.12.21,GIS II,Simple Mapping;Heatmap;Thematic map;Exporting maps,,,,,,,,,Create an appropriate thematic map for your project,,,08.12.21
+08.12.21,14C Calibration I,14C Basics;Calibration Background;OxCal;Simple Calibration,,,,,,,,,Calibrate the 14C data for your project in a meaningful way.,,,15.12.21
+15.12.21,14C Calibration II,OxCal Combine;Sequential Calibration,,,,,,,,,Q&A,,,
+22.12.21,Project Presentations,Presentation of the Students Projects,,,,,,,,,,,,

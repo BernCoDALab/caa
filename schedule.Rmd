@@ -41,8 +41,8 @@ schedule$lab_video <- sapply(schedule$lab_video, function(x) {
 columns_for_display <- c("date",
                         "title",
                         "topics",
-                        "video",
-                        "lab_video")
+                        "homework",
+                        "homework_date")
 
 schedule_for_display <- schedule[,columns_for_display]
 ```
@@ -53,5 +53,5 @@ kable(schedule_for_display, format = "html", caption = " ", escape = FALSE) %>%
                 full_width = F,
                 position = "left") %>%
   column_spec(1, width = "8em") %>%
-  column_spec(2, width = "27em")
+  column_spec(2, width = "15em")
 ```

@@ -1,0 +1,61 @@
+---
+title: "Computer Labs"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(kableExtra)
+```
+
+```{r read_data, include=FALSE}
+schedule <- read.csv("syllabus.csv")
+schedule$topics[is.na(schedule$topics)] <- ""
+schedule$topics <- strsplit(schedule$topics, ";")
+
+schedule$video[is.na(schedule$video)] <- ""
+schedule$video <- strsplit(schedule$video, ";")
+
+schedule$video <- sapply(schedule$video, function(x) {
+  l <- length(x)
+  if(l>0)
+  {
+    paste0("[Video ", 1:l, "](", x, ")")
+  } else {
+    ""
+}}
+)
+
+schedule$slides[is.na(schedule$slides)] <- ""
+schedule$slides <- paste0("[", schedule$slides, "](lectures/", schedule$slides, ".html)")
+
+schedule$lab_video[is.na(schedule$lab_video)] <- ""
+schedule$lab_video <- strsplit(schedule$lab_video, ";")
+
+schedule$lab_video <- sapply(schedule$lab_video, function(x) {
+  l <- length(x)
+  if(l>0)
+  {
+    paste0("[Video ", 1:l, "](", x, ")")
+  } else {
+    ""
+  }})
+
+columns_for_display <- c("date",
+                        "title",
+                        "homework",
+                        "homework_date",
+                        "lab_video"
+                        )
+
+schedule_for_display <- schedule[,columns_for_display]
+```
+
+```{r generate_table, echo=FALSE}
+kable(schedule_for_display, format = "html", caption = " ", escape = FALSE) %>%
+  kable_styling(bootstrap_options = "striped",
+                full_width = F,
+                position = "left") %>%
+  column_spec(1, width = "7em") %>%
+  column_spec(2, width = "20em")
+```
