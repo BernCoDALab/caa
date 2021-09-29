@@ -8,11 +8,11 @@ date: "29/09/21"
 output:
   xaringan::moon_reader:
     chakra: "libs/remark-latest.min.js"
-    css: ["libs/default.css", "libs/default-fonts.css", "../libs/customize.css"]
+    css: ["libs/default.css", "libs/default-fonts.css", "libs/customize.css"]
     lib_dir: "libs"
     seal: false
     nature:
-      beforeInit: "../libs/macros.js"
+      beforeInit: "libs/macros.js"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -532,11 +532,7 @@ class: inverse, middle, center
 .tiny[
 You might find the course material (including the presentations) at
 
-https://github.com/MartinHinz/ca_hs_2019
-
-You can see the rendered presentations at
-
-http://martinhinz.github.io/ca_hs_2019
+https://berncodalab.github.io/caa
 
 You can contact me at
 
