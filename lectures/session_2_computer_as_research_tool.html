@@ -1,0 +1,676 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computational Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <meta name="date" content="2021-06-10" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/viz-1.8.2/viz.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computational Archaeology
+
+##  02 - Your Computer as research tool
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+06/10/21
+
+---
+## &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 0H144c-26.5 0-48 21.5-48 48v48H48c-26.5 0-48 21.5-48 48v320c0 26.5 21.5 48 48 48h320c26.5 0 48-21.5 48-48v-48h48c26.5 0 48-21.5 48-48V48c0-26.5-21.5-48-48-48zm-96 464H48V256h320v208zm96-96h-48V144c0-26.5-21.5-48-48-48H144V48h320v320z"&gt;&lt;/path&gt;&lt;/svg&gt; Software suggestions
+
+- Office: [Libre Office](https://de.libreoffice.org/)
+
+- Image Processing
+  - Raster: [Gimp](http://www.gimp.org/)
+  - Vector: [Inkscape](https://inkscape.org/)
+  - Digital Photos: [Darktable](https://www.darktable.org/)
+
+- Layout: [Scribus](https://www.scribus.net/)
+
+- Citation Manager: [Zotero](https://www.zotero.org/)
+
+- GIS: [Quantum GIS (QGIS)](http://www.qgis.org/)
+
+- Statistics
+  - GUI: [PAST](http://folk.uio.no/ohammer/past)
+  - script: [R](https://www.r-project.org/) &amp; [RStudio](https://www.rstudio.com/products/RStudio/)
+
+- 14C Calibration: [OxCal](https://c14.arch.ox.ac.uk/oxcal.html) (or [Chronomodel](https://chronomodel.com/))
+
+- digitizing charts: [Engauge](http://markummitchell.github.io/engauge-digitizer/)
+
+
+---
+## &lt;svg viewBox="0 0 640 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M634.91 154.88C457.74-8.99 182.19-8.93 5.09 154.88c-6.66 6.16-6.79 16.59-.35 22.98l34.24 33.97c6.14 6.1 16.02 6.23 22.4.38 145.92-133.68 371.3-133.71 517.25 0 6.38 5.85 16.26 5.71 22.4-.38l34.24-33.97c6.43-6.39 6.3-16.82-.36-22.98zM320 352c-35.35 0-64 28.65-64 64s28.65 64 64 64 64-28.65 64-64-28.65-64-64-64zm202.67-83.59c-115.26-101.93-290.21-101.82-405.34 0-6.9 6.1-7.12 16.69-.57 23.15l34.44 33.99c6 5.92 15.66 6.32 22.05.8 83.95-72.57 209.74-72.41 293.49 0 6.39 5.52 16.05 5.13 22.05-.8l34.44-33.99c6.56-6.46 6.33-17.06-.56-23.15z"&gt;&lt;/path&gt;&lt;/svg&gt; Online Ressources
+
+- Translation: [DeepL](https://www.deepl.com)
+
+- file transfer [Swisstransfer](https://www.swisstransfer.com)
+
+- Polls ('doodle'): [dfn terminplaner](https://terminplaner4.dfn.de/)
+
+- literature search:
+  - Switzerland: [swisscovery](https://swisscovery.slsp.ch/)
+  - worldwide: [WorldCat](https://www.worldcat.org/)
+  - ancient studies: [Zenon](https://zenon.dainst.org/)
+
+- (fast) online calibration: [CalPal online](http://www.calpal-online.de/) (currently not working)
+
+- 14C Dates: [XRONOS](https://xronos.ch)
+
+- archaeological data: [Journal of Open Archaeology Data](https://openarchaeologydata.metajnl.com/)
+
+
+### limited recommendability
+
+- cloud hosting [Dropbox](https://www.dropbox.com)
+
+- Online Office [Google Docs](https://www.google.com/intl/de_ch/docs/about/)
+
+---
+## Working with Digital Data
+
+- &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"&gt;&lt;/path&gt;&lt;/svg&gt; File structures - *where to put stuff so you won’t lose it*
+
+- &lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M218.17 424.14c-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34c-6.37 12.78-25.03 11.37-29.48-2.09L144 386.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.75-16.19 54.06-9.7 66 14.16 1.89 3.78 5.49 5.95 9.36 6.26v-82.12l128-127.09V160H248c-13.2 0-24-10.8-24-24V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24v-40l-128-.11c-16.12-.31-30.58-9.28-37.83-23.75zM384 121.9c0-6.3-2.5-12.4-7-16.9L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1zm-96 225.06V416h68.99l161.68-162.78-67.88-67.88L288 346.96zm280.54-179.63l-31.87-31.87c-9.94-9.94-26.07-9.94-36.01 0l-27.25 27.25 67.88 67.88 27.25-27.25c9.95-9.94 9.95-26.07 0-36.01z"&gt;&lt;/path&gt;&lt;/svg&gt; File naming - *what to call stuff so you know what it is*
+
+- &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z"&gt;&lt;/path&gt;&lt;/svg&gt; Version control - *keeping track of stuff*
+
+- &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M149.9 349.1l-.2-.2-32.8-28.9 32.8-28.9c3.6-3.2 4-8.8.8-12.4l-.2-.2-17.4-18.6c-3.4-3.6-9-3.7-12.4-.4l-57.7 54.1c-3.7 3.5-3.7 9.4 0 12.8l57.7 54.1c1.6 1.5 3.8 2.4 6 2.4 2.4 0 4.8-1 6.4-2.8l17.4-18.6c3.3-3.5 3.1-9.1-.4-12.4zm220-251.2L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM256 51.9l76.1 76.1H256zM336 464H48V48h160v104c0 13.3 10.7 24 24 24h104zM209.6 214c-4.7-1.4-9.5 1.3-10.9 6L144 408.1c-1.4 4.7 1.3 9.6 6 10.9l24.4 7.1c4.7 1.4 9.6-1.4 10.9-6L240 231.9c1.4-4.7-1.3-9.6-6-10.9zm24.5 76.9l.2.2 32.8 28.9-32.8 28.9c-3.6 3.2-4 8.8-.8 12.4l.2.2 17.4 18.6c3.3 3.5 8.9 3.7 12.4.4l57.7-54.1c3.7-3.5 3.7-9.4 0-12.8l-57.7-54.1c-3.5-3.3-9.1-3.2-12.4.4l-17.4 18.6c-3.3 3.5-3.1 9.1.4 12.4z"&gt;&lt;/path&gt;&lt;/svg&gt; File formats - *what to save stuff in so it’s safe* .tiny[(Text, Images, Spreadsheets/databases, CAD/GIS, Audio/Video)]
+
+- &lt;svg viewBox="0 0 448 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M129.62 176h39.09c1.49-27.03 6.54-51.35 14.21-70.41-27.71 13.24-48.02 39.19-53.3 70.41zm0 32c5.29 31.22 25.59 57.17 53.3 70.41-7.68-19.06-12.72-43.38-14.21-70.41h-39.09zM224 286.69c7.69-7.45 20.77-34.42 23.43-78.69h-46.87c2.67 44.26 15.75 71.24 23.44 78.69zM200.57 176h46.87c-2.66-44.26-15.74-71.24-23.43-78.69-7.7 7.45-20.78 34.43-23.44 78.69zm64.51 102.41c27.71-13.24 48.02-39.19 53.3-70.41h-39.09c-1.49 27.03-6.53 51.35-14.21 70.41zM416 0H64C28.65 0 0 28.65 0 64v384c0 35.35 28.65 64 64 64h352c17.67 0 32-14.33 32-32V32c0-17.67-14.33-32-32-32zm-80 416H112c-8.8 0-16-7.2-16-16s7.2-16 16-16h224c8.8 0 16 7.2 16 16s-7.2 16-16 16zm-112-96c-70.69 0-128-57.31-128-128S153.31 64 224 64s128 57.31 128 128-57.31 128-128 128zm41.08-214.41c7.68 19.06 12.72 43.38 14.21 70.41h39.09c-5.28-31.22-25.59-57.17-53.3-70.41z"&gt;&lt;/path&gt;&lt;/svg&gt; Documenting data - *letting others understand your data*
+
+- &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M184.561 261.903c3.232 13.997-12.123 24.635-24.068 17.168l-40.736-25.455-50.867 81.402C55.606 356.273 70.96 384 96.012 384H148c6.627 0 12 5.373 12 12v40c0 6.627-5.373 12-12 12H96.115c-75.334 0-121.302-83.048-81.408-146.88l50.822-81.388-40.725-25.448c-12.081-7.547-8.966-25.961 4.879-29.158l110.237-25.45c8.611-1.988 17.201 3.381 19.189 11.99l25.452 110.237zm98.561-182.915l41.289 66.076-40.74 25.457c-12.051 7.528-9 25.953 4.879 29.158l110.237 25.45c8.672 1.999 17.215-3.438 19.189-11.99l25.45-110.237c3.197-13.844-11.99-24.719-24.068-17.168l-40.687 25.424-41.263-66.082c-37.521-60.033-125.209-60.171-162.816 0l-17.963 28.766c-3.51 5.62-1.8 13.021 3.82 16.533l33.919 21.195c5.62 3.512 13.024 1.803 16.536-3.817l17.961-28.743c12.712-20.341 41.973-19.676 54.257-.022zM497.288 301.12l-27.515-44.065c-3.511-5.623-10.916-7.334-16.538-3.821l-33.861 21.159c-5.62 3.512-7.33 10.915-3.818 16.536l27.564 44.112c13.257 21.211-2.057 48.96-27.136 48.96H320V336.02c0-14.213-17.242-21.383-27.313-11.313l-80 79.981c-6.249 6.248-6.249 16.379 0 22.627l80 79.989C302.689 517.308 320 510.3 320 495.989V448h95.88c75.274 0 121.335-82.997 81.408-146.88z"&gt;&lt;/path&gt;&lt;/svg&gt; Selection - *chucking stuff away!*
+
+---
+## &lt;svg viewBox="0 0 512 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M464 128H272l-54.63-54.63c-6-6-14.14-9.37-22.63-9.37H48C21.49 64 0 85.49 0 112v288c0 26.51 21.49 48 48 48h416c26.51 0 48-21.49 48-48V176c0-26.51-21.49-48-48-48zm0 272H48V112h140.12l54.63 54.63c6 6 14.14 9.37 22.63 9.37H464v224z"&gt;&lt;/path&gt;&lt;/svg&gt; File Structure
+### Where to put stuff so you won’t lose it 
+
+.pull-left[
+- Logical to you – and easily understandable to others
+
+- Ease of sharing / exchange of data
+
+- Maintaining retrieval of files, e.g. Esri shape files (multiple files)
+
+- Defining the ‘end product’ of a project helps maintain file structure
+]
+
+.pull-right[
+![:width 80%](../images/01_session/joy.jpg)
+]
+
+---
+## Which primary data defines your research?
+
+.pull-left[
+### Archaeological material
+
+<div id="htmlwidget-dc027ad147c4e2895091" style="width:400px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-dc027ad147c4e2895091">{"x":{"diagram":"\ndigraph material_based {\n    graph[overlap=true, splines=true]\n    \n    node [shape = box,\n        fontname = Helvetica]\n  \"Material Type e.g. Pottery\"; \"Site A\"; \"Site B\"; \"Site C\"\n  \n  \"Material Type e.g. Pottery\" -> \"Site A\"\n  \"Material Type e.g. Pottery\" -> \"Site B\"\n  \"Material Type e.g. Pottery\" -> \"Site C\"\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.pull-right[
+### Location (site based)
+
+<div id="htmlwidget-9fc647e07e20b6465b69" style="width:400px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-9fc647e07e20b6465b69">{"x":{"diagram":"\ndigraph site_based {\n    graph[overlap=true, splines=true]\n    \n    node [shape = box,\n        fontname = Helvetica]\n  \"Geographical Location\"; \"Material A\"; \"Material B\"; \"Material C\"\n  \n  \"Geographical Location\" -> \"Material A\"\n  \"Geographical Location\" -> \"Material B\"\n  \"Geographical Location\" -> \"Material C\"\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+&amp;nbsp;
+
+- Distinguish between projects.
+
+- Distinguish between sub-folders.
+
+- Define ‘end-product’ of research – and keep clean of temporary folder and files.
+
+- Research designs change and so must file structure.
+
+- Avoid overuse of folders – easier said than done though.
+
+- rule of thumb: 7 subfolders, if more, structure deeper
+
+---
+
+## &lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M218.17 424.14c-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34c-6.37 12.78-25.03 11.37-29.48-2.09L144 386.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.75-16.19 54.06-9.7 66 14.16 1.89 3.78 5.49 5.95 9.36 6.26v-82.12l128-127.09V160H248c-13.2 0-24-10.8-24-24V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24v-40l-128-.11c-16.12-.31-30.58-9.28-37.83-23.75zM384 121.9c0-6.3-2.5-12.4-7-16.9L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1zm-96 225.06V416h68.99l161.68-162.78-67.88-67.88L288 346.96zm280.54-179.63l-31.87-31.87c-9.94-9.94-26.07-9.94-36.01 0l-27.25 27.25 67.88 67.88 27.25-27.25c9.95-9.94 9.95-26.07 0-36.01z"&gt;&lt;/path&gt;&lt;/svg&gt; File Naming
+
+.pull-left[
+What to call stuff so you know what it is
+
+- Names tell us what a file is:	 Contextual information.
+
+- Names order files:		 Making stuff easy to find.
+
+- Define your system:		 **And stick to it.**
+]
+
+.pull-right[
+.center[
+![:width 50%](../images/02_session/filenaming-comic.png)
+]
+.caption[source:https://xkcd.com/1459/]
+]
+
+---
+
+## &lt;svg viewBox="0 0 576 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M218.17 424.14c-2.95-5.92-8.09-6.52-10.17-6.52s-7.22.59-10.02 6.19l-7.67 15.34c-6.37 12.78-25.03 11.37-29.48-2.09L144 386.59l-10.61 31.88c-5.89 17.66-22.38 29.53-41 29.53H80c-8.84 0-16-7.16-16-16s7.16-16 16-16h12.39c4.83 0 9.11-3.08 10.64-7.66l18.19-54.64c3.3-9.81 12.44-16.41 22.78-16.41s19.48 6.59 22.77 16.41l13.88 41.64c19.75-16.19 54.06-9.7 66 14.16 1.89 3.78 5.49 5.95 9.36 6.26v-82.12l128-127.09V160H248c-13.2 0-24-10.8-24-24V0H24C10.7 0 0 10.7 0 24v464c0 13.3 10.7 24 24 24h336c13.3 0 24-10.7 24-24v-40l-128-.11c-16.12-.31-30.58-9.28-37.83-23.75zM384 121.9c0-6.3-2.5-12.4-7-16.9L279.1 7c-4.5-4.5-10.6-7-17-7H256v128h128v-6.1zm-96 225.06V416h68.99l161.68-162.78-67.88-67.88L288 346.96zm280.54-179.63l-31.87-31.87c-9.94-9.94-26.07-9.94-36.01 0l-27.25 27.25 67.88 67.88 27.25-27.25c9.95-9.94 9.95-26.07 0-36.01z"&gt;&lt;/path&gt;&lt;/svg&gt; File Naming (suggestions)
+
+First: Define the types of data and file formats for the research. 
+.pull-left[
+- Different data may require different naming conventions:
+  - Should different data/file formats be identified as part of same project?
+
+- Examples of contextual information in file names: 
+  - Date, Author or Initials, Site or Project, Material.
+
+- Capitals in file names affect ordering – be consistent.
+
+]
+.pull-right[
+- Numbers order files only if zeros are used before units and tens:
+  - 001, 002, 003, etc will order files up to 999.
+  
+- Dates are useful for version control and ordering files.
+  - YY-MM-DD (11-03-02) at end of name orders files of same name by year.
+  - Year first is good for ordering files, e.g. publication pdfs
+
+- Spaces between file names cause havoc in GIS. Use_underscores
+
+- / Forwardslashes / in file names can cause problems too.
+
+- CAPITALS ARE HARD TO READ!
+]
+
+---
+
+## &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M384 144c0-44.2-35.8-80-80-80s-80 35.8-80 80c0 36.4 24.3 67.1 57.5 76.8-.6 16.1-4.2 28.5-11 36.9-15.4 19.2-49.3 22.4-85.2 25.7-28.2 2.6-57.4 5.4-81.3 16.9v-144c32.5-10.2 56-40.5 56-76.3 0-44.2-35.8-80-80-80S0 35.8 0 80c0 35.8 23.5 66.1 56 76.3v199.3C23.5 365.9 0 396.2 0 432c0 44.2 35.8 80 80 80s80-35.8 80-80c0-34-21.2-63.1-51.2-74.6 3.1-5.2 7.8-9.8 14.9-13.4 16.2-8.2 40.4-10.4 66.1-12.8 42.2-3.9 90-8.4 118.2-43.4 14-17.4 21.1-39.8 21.6-67.9 31.6-10.8 54.4-40.7 54.4-75.9zM80 64c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16zm0 384c-8.8 0-16-7.2-16-16s7.2-16 16-16 16 7.2 16 16-7.2 16-16 16zm224-320c8.8 0 16 7.2 16 16s-7.2 16-16 16-16-7.2-16-16 7.2-16 16-16z"&gt;&lt;/path&gt;&lt;/svg&gt; Version Control
+### Keeping track of stuff
+
+It’s surprisingly easy to lose track of the current version of a file.
+
+Especially:
+- Word file drafts of thesis chapters.
+- Word files commented on by others.
+- Multiple-author files sent back and forth by e-mail.
+- Graphics and AutoCAD files.
+
+- Be consistent with up-dating file names: version number, initials, date.
+- Put old versions in separate “Archive” folder (with date of that version in the folder name)
+- Possibly delete old drafts when final version is finished.
+
+---
+## &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M149.9 349.1l-.2-.2-32.8-28.9 32.8-28.9c3.6-3.2 4-8.8.8-12.4l-.2-.2-17.4-18.6c-3.4-3.6-9-3.7-12.4-.4l-57.7 54.1c-3.7 3.5-3.7 9.4 0 12.8l57.7 54.1c1.6 1.5 3.8 2.4 6 2.4 2.4 0 4.8-1 6.4-2.8l17.4-18.6c3.3-3.5 3.1-9.1-.4-12.4zm220-251.2L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM256 51.9l76.1 76.1H256zM336 464H48V48h160v104c0 13.3 10.7 24 24 24h104zM209.6 214c-4.7-1.4-9.5 1.3-10.9 6L144 408.1c-1.4 4.7 1.3 9.6 6 10.9l24.4 7.1c4.7 1.4 9.6-1.4 10.9-6L240 231.9c1.4-4.7-1.3-9.6-6-10.9zm24.5 76.9l.2.2 32.8 28.9-32.8 28.9c-3.6 3.2-4 8.8-.8 12.4l.2.2 17.4 18.6c3.3 3.5 8.9 3.7 12.4.4l57.7-54.1c3.7-3.5 3.7-9.4 0-12.8l-57.7-54.1c-3.5-3.3-9.1-3.2-12.4.4l-17.4 18.6c-3.3 3.5-3.1 9.1.4 12.4z"&gt;&lt;/path&gt;&lt;/svg&gt; File Formats
+### What to save stuff in so it’s safe
+
+
+- Facilitate exchange of data
+
+- Ease of working on different computers / software packages
+
+- Preserve data for re-use in the future
+
+.right[
+![:width 25%](../images/02_session/lifecycle-management.png)
+]
+.caption[source:https://roaringelephant.org]
+
+---
+## &lt;svg viewBox="0 0 384 512" style="height:1em;position:relative;display:inline-block;top:.1em;" xmlns="http://www.w3.org/2000/svg"&gt;  &lt;path d="M149.9 349.1l-.2-.2-32.8-28.9 32.8-28.9c3.6-3.2 4-8.8.8-12.4l-.2-.2-17.4-18.6c-3.4-3.6-9-3.7-12.4-.4l-57.7 54.1c-3.7 3.5-3.7 9.4 0 12.8l57.7 54.1c1.6 1.5 3.8 2.4 6 2.4 2.4 0 4.8-1 6.4-2.8l17.4-18.6c3.3-3.5 3.1-9.1-.4-12.4zm220-251.2L286 14C277 5 264.8-.1 252.1-.1H48C21.5 0 0 21.5 0 48v416c0 26.5 21.5 48 48 48h288c26.5 0 48-21.5 48-48V131.9c0-12.7-5.1-25-14.1-34zM256 51.9l76.1 76.1H256zM336 464H48V48h160v104c0 13.3 10.7 24 24 24h104zM209.6 214c-4.7-1.4-9.5 1.3-10.9 6L144 408.1c-1.4 4.7 1.3 9.6 6 10.9l24.4 7.1c4.7 1.4 9.6-1.4 10.9-6L240 231.9c1.4-4.7-1.3-9.6-6-10.9zm24.5 76.9l.2.2 32.8 28.9-32.8 28.9c-3.6 3.2-4 8.8-.8 12.4l.2.2 17.4 18.6c3.3 3.5 8.9 3.7 12.4.4l57.7-54.1c3.7-3.5 3.7-9.4 0-12.8l-57.7-54.1c-3.5-3.3-9.1-3.2-12.4.4l-17.4 18.6c-3.3 3.5-3.1 9.1.4 12.4z"&gt;&lt;/path&gt;&lt;/svg&gt; File Formats
+### Key Issues
+
+| Closed                      | vs | Open                        |
+|-----------------------------|----|-----------------------------|
+| Proprietary                 | vs | Open                        |
+| Non-Standard                | vs | ISO Standard                |
+| non-human readable (binary) | vs | human readable (text based) |
+| Compressed                  | vs | Uncompressed                |
+
+---
+## Text Files
+
+- Manuscripts produced on computers: word files.
+  - conference notes, articles, theses, books, etc.
+
+- Scanned printed material often made into a PDF file.
+  - Conversion into editable text files using Optical Character Recognition (OCR) software.
+
+- Marked-up formats for viewing as web-pages: HTML
+
+- Other Mark-up languages
+  - LaTeX
+  - Markdown
+  
+---
+## Text Files
+
+.small[
+| Format | Description / Properties                                                                                                                                                         | Usage and Archival Recommendations                                                                                                                                                 |
+|--------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .txt   | Text file.  Simple plain text document. Compatible across software packages. Supports very little formatting.                                                                    | Good for extremely simple files. Commonly used for introductory “Read me” files containing basic information on project archives.                                                  |
+| .doc   | Microsoft Word document ( - 2003) Proprietary binary format.  Can be read by OpenOffice. Easily converted into PDF format.                                                       | Accepted for archiving because it is so widely used. However, will soon become obsolete.                                                                                           |
+| .docx  | Microsoft Word document (2007) Human readable XML format. Stored along with embedded content as zipped file.                                                                     | Good for dissemination and preservation. Conversion to .doc file to open with earlier versions of MS Word.                                                                         |
+| .rtf   | Rich Text Format (Microsoft) Tagged plain text format.                                                                                                                           | Formatting issues when using opened in different software. Large file sizes mean that .docx or .odt  file formats are preferred.                                                   |
+| .odt   | Open Document Text (OpenOffice) ISO standard, human readable XML format.                                                                                                         | Open source format good for use, dissemination and archiving. Archive files in uncompressed form. Can open .doc files. Might not open correctly in other word processing programs. |
+| .pdf   | Portable Document Format (Adobe) Proprietary binary format. Aims to retain document formatting. Can store embedded data: raster and vector images (e.g. Adobe Illustrator files) | Highly suitable for dissemination. PDF creators and readers freely and widely available. Retain original text document and embedded objects. (e.g. images, tabular data, etc).     |
+| PDF/A  | Portable Document Format / Archive (Adobe) Open ISO standard format for long term archiving. Formatting data self-contained in file.                                             | Widely accepted as viable format for long-term archiving. Retain original text file and embedded objects separately. (e.g. images, tabular data, etc).                             |
+]
+
+---
+## Digital Images
+
+- Images are used to convey information and support interpretations.
+- Images contain data and are often analysed to reach interpretations.
+- Images are one of the most important formats of digital data in archaeology.
+- Image documentation and preservation is key for future re-use of project archives.
+- Digital images often form the largest part of digital archives.
+
+- **Raster Images:** matrix of dots/pixels containing information (photographs, scans) 
+- **Vector Images:** formed by points, lines, polylines, polygons represented by co-ordinates and mathematical formulae (graphic - illustrations, CAD, GIS)
+
+---
+## Routes to Rasters
+
+- Scanned images of paper illustration or photograph.
+- Digitally captured or created: cameras or digitally created illustrations
+- Output product of other digital applications: vector, CAD, or GIS work, or geophysical survey data, etc.
+
+- Think of the purpose of image when making it: 
+  - screen, print or reference image.
+- Formats have different qualities which affect their output use and preservation.
+
+---
+## Routes to Rasters
+
+.small[
+**Resolution** / Level of detail in image:
+- Pixels per inch (PPI) or Dots per inch (DPI) or Samples per inch (SPI)
+- Bigger the physical size of the picture + increased resolution = bigger file size
+- min. 600 dpi for photographs and 300 for illustrations.
+
+**Bit (Colour) Depth** / Level of colour information:
+- 2 Bit   = Black/White (line drawings with only black and white needed)
+- 8 Bit   = Greyscale
+- 24 Bit = Standard colour
+- 32 Bit = High colour
+
+**Colour Space** / Type of colour
+- Bi-tonal = black/white
+- Greyscale
+- RGB (Red/Green/Blue) used for screen presentations. Cameras generally capture images in RGB.
+- CMYK (Cyan/ Magenta/Yellow /Key [Black]) used for printing colour images.
+
+**Compression**
+- Non-compressed (Lossless): GIF, PNG, TIFF.
+- Compressed: JPG
+
+Some formats (TIFF, PNG) allow files to be saved as non-compressed.
+Important to be aware of when compression is occurring and at what level.
+
+**Image layering**
+Layering is NOT supported in final raster image and layers will be merged into a single layer from top down.
+]
+
+---
+## Raster File Formats
+
+.tiny[
+| Format        | Description / Properties                                                                                                                                                                                                                               | Recommendations                                                                                                                                                                                                                                                                          |
+|---------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| .bmp          | Bit-Mapped Graphics Format  Microsoft proprietary format in older MS applications for simple graphics. Limited embedding of metadata.                                                                                                                  | Not recommended for either working files or long-term file storage.                                                                                                                                                                                                                      |
+| .gif          | Graphics Interchange Format Compuserve proprietary format. Lossless compression with 8-bit colour depth (256 colours). Limited metadata.                                                                                                  | Superseded by PNG format, but still widely used for still and animated Web graphics.                                                                                                                                                                                                     |
+| **.png**          | Portable Network Graphics. ISO standard. Lossless compression with 32-bit colour depth,  and Alpha channel (transparency), with few ‘visible artefacts’ (cf. jpegs). Does not support EXIF metadata.                                                   | Designed for internet and uses RGB colour space. Standard format for lossless presentation. Use instead of GIF format. NOT recommended long term storage (use TIFF). NOT recommended for digital photographs, as only supports RGB colour.                                |
+| **.jpg /  .jpeg** | Joint Photographic Expert Group ISO standard. 32-but colour depth with extremely efficient lossy compression of image. Compression creates ‘visible artefacts’ around complex high-contrast  image areas (e.g. text). Supports EXIF and IPTC metadata. | Designed for photographic or painted images with smooth varying tones that do not have sharp contrast. Much smaller file sizes than PNG or TIFF. While unsuitable for long-term storage, accepted format for archiving digital photographs. |
+| **.tif /  .tiff** | Tagged Image File Format (Adobe) Uncompressed image format. Can support range of metadata: EXIF, GeoTIFF for georeferencing.                                                                                                                           | Uncompressed Baseline TIFF Version 6 standard format for long term preservation of  digital figures.                                                                                                                                                                                     |
+| .psd          | Photoshop Document (Adobe) Proprietary format and can be used with open Photoshop Elements software. Supports variety of features: image layering, transparency, text. Supports IPTC, EXIF and XMP metadata.                                           | ‘Industry standard’ for image creation. Proprietary nature means limited third-party support for PSD format.  Limited compression results in large file size. Unsuitable for long term preservation. (TIFF for figures or DNG for photographic images.)                                  |
+| raw           | Unprocessed bitmap files created by digital cameras and some scanners.   Proprietary, require specific software.  No standardisation in file formats.                                                                                               | If possible, convert raw files to DNG format for long-term preservation.                                                                                                                                                                                                                 |
+]
+
+---
+## Raster Files
+### key points
+
+- Think of purpose of image.
+- Document rationale of image creation.
+- Maintain image documentation: 
+- Image properties, file naming and image description file.
+- If working with JPEGs, save original as archive and work on copies.
+- Save working copies of raster outputs of vector files and replace with final version.
+
+---
+## Vector File Formats
+
+- Variety of proprietary and open-source software for producing vector images, none of which is recommended for long-term - archiving:
+  - Coreldraw (.cdr); Adobe Illustrator (.ai); OpenOffice Draw (.odg).
+
+- Think of purpose of vector files and the output.
+
+Illustrations:
+- Save output in high quality TIFF or PNG format.
+
+Files with important vector information:
+- Document layer conventions
+- Export as SVG file (Scalable Vector Graphics)
+- PDF files also holds vector data.
+
+---
+
+![](../images/02_session/inkscape_svg_export.png)
+
+---
+## Spreadsheets and Databases: Overview
+
+**Spreadsheets: **
+	Designed on accounting worksheets, primarily for ordering numerical data, performing calculations, and produce charts and figures from data and calculations.
+
+**Databases: **
+	Designed to store a wide variety of data (numerical, text, images) and provide complex search and reporting on these data.
+
+
+**What is important?**
+- Data values themselves
+- Structure of the tables/sheets used to store
+- Structure of relationships between tables in database 
+
+---
+## Spreadsheets and Databases
+### Data Management
+
+**Data consistency**
+- Standardised data entry is essential.
+- Methods for controlled data entry recommended.
+- File and field name and codes need to be documented in separate file.
+- Document relationships of database tables (screen shot as jpeg)
+
+**Embedded objects**
+- Embedded objects (images, charts, figures) stored separately.
+- Document analysis/search procedures from which figures are produced.
+- Embedded objects removed from final archived file.
+
+**Non-data content (presentation formatting)**
+- Document formatting of tabular data (fonts, colours, cell borders, etc).
+- Document data input forms and search query results (‘reports’).
+
+---
+## Database structure (MET-Project)
+![:width 75%](../images/02_session/db_structure_met.png)
+---
+## Reference management tool
+
+- helps you manage your bibliographic resources and integrates with your word processing software - to generate in-text citations and bibliographies 
+- saves bibliographic data of information resources from online databases. 
+- makes it easier to automatically switch to different citation styles (e.g. Harvard to MLA or APA)
+- syncs  references across multiple devices such as desktops, laptops and tablets – so that you can access the references from any device
+
+.pull-left[
+![](../images/02_session/ref_ohne_manager.png)
+]
+
+.pull-right[
+![](../images/02_session/ref_mit_manager.png)
+]
+
+---
+## Zotero
+
+Zotero is a free (open source) reference management tool that
+
+- recognizes bibliographic information on books, journal articles, and other resources from websites and databases and extracts metadata from these sources.
+- stores related citations, PDFs, files, images, and links in your library
+- creates a citations and bibliographies in Word or OpenOffice documents
+- publishes shared libraries for your organization, class, or research group
+
+Is available for Mac, Windows &amp; Linux operating systems
+
+To download and install, go to: http://www.zotero.org 
+
+![](../images/02_session/zotero_website.png)
+---
+## Zotero Interface
+
+The Zotero window has three columns that represent different levels of specificity for your references:
+
+- The left column shows your Zotero libraries and collections    as well as 'tags' (keywords)
+- The middle column displays items contained within the selected library
+- The right column displays information about a selected item.
+ 
+![](../images/02_session/zotero_screen.png)
+---
+## Adding citations to Zotero
+
+You can add citations to your library in several ways:
+
+- Manually enter citation information
+
+- Add an item by identifier (ISBN, DOI or PMID)
+
+- Import citation information for
+  - a single item
+  - multiple items
+
+- automatically from web pages
+---
+
+## Manually enter citation information
+
+![](../images/02_session/zotero_add_manual.png)
+
+---
+## Add an item by identifier (ISBN, DOI or PMID)
+
+![](../images/02_session/zotero_add_by_doi.png)
+---
+
+## Import single reference from Web
+
+![](../images/02_session/zotero_add_from_web.png)
+---
+
+## Import multiple references from Web
+
+![](../images/02_session/zotero_add_multiple_from_web.png)
+---
+
+## Types of Imports
+
+The Save to Zotero icon at the right-end of the URL (address) bar of 	the browser changes depending on the type of item Zotero identifies 	on the web page. Here are the most common icons:
+
+![:width 50%](../images/02_session/zotero_browser_import_types.png)
+
+---
+## Using Zotero in your word processor
+### First Citation, Select style
+
+![](../images/02_session/zotero_cite_first_time.png)
+---
+## Using Zotero in your word processor
+### Further Citations
+
+![](../images/02_session/zotero_cite.png)
+---
+## Using Zotero in your word processor
+### Creating Reference List
+
+![](../images/02_session/zotero_reference list.png)
+
+---
+## Registering for a Free Zotero Account
+
+Registering for a free Zotero account is useful. It enables you to:
+
+- sync and access your Zotero online from anywhere in the world
+
+- save up to 300MB of content (including PDFs) online
+
+- restore your backed up content to any new Zotero application installation
+
+- participate in Zotero groups and share references
+
+- Zotero group "Montelius"
+
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+
+Sources for the slides:
+
+'Working with Digital Data' (Lindsay Lloyd-Smith 2011)
+
+'Optimizing your Research Data Management' (Anna Keller, Jennifer Morger &amp; Gero Schreier; Open Science Team Uni Bern)
+
+'Reference Management Software Tools Zotero - Open Source (Module 12)' (research4life)
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="../libs/remark-latest.min.js"></script>
+<script src="../libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
