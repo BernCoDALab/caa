@@ -12,7 +12,7 @@ output:
     lib_dir: "libs"
     seal: false
     nature:
-      beforeInit: "../libs/macros.js"
+      beforeInit: "libs/macros.js"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
