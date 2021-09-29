@@ -1,5 +1,5 @@
 ---
-title: "Computational Archaeology"
+title: "Computer Aided Archaeology"
 subtitle: "02 - Your Computer as research tool"
 author: "Martin Hinz"
 institute: "Institut für Archäologische Wissenschaften, Universität Bern"
