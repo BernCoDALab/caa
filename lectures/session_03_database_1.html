@@ -9,9 +9,9 @@
     <script src="libs/viz-1.8.2/viz.js"></script>
     <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
     <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
-    <link rel="stylesheet" href="/home/martin/github/caa/libs/default.css" type="text/css" />
-    <link rel="stylesheet" href="/home/martin/github/caa/libs/default-fonts.css" type="text/css" />
-    <link rel="stylesheet" href="/home/martin/github/caa/libs/customize.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs/customize.css" type="text/css" />
   </head>
   <body>
     <textarea id="source">
@@ -135,8 +135,8 @@ Hierarchical data
 ]
 
 .pull-right[
-<div id="htmlwidget-85347ce618e1920ace0c" style="width:400px;height:100px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-85347ce618e1920ace0c">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-38cf0ad91886a5a63a15" style="width:400px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-38cf0ad91886a5a63a15">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 
 .footnote[.tiny[&lt;sup&gt;\*&lt;/sup&gt;**Entity Set:**  A collection of similar entities.  E.g., all employees.
@@ -531,7 +531,7 @@ You can contact me at
 ]
     </textarea>
 <style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
-<script src="../libs/remark-latest.min.js"></script>
+<script src="libs/remark-latest.min.js"></script>
 <script src="../libs/macros.js"></script>
 <script>var slideshow = remark.create({
 "highlightStyle": "github",
