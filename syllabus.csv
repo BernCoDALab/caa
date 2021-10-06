@@ -1,7 +1,7 @@
 date,title,topics,slides,slides_pdf,reading,video,lab_video,reading,data,instructor,homework,hw_solution,hw_topics,homework_date
 29.09.21,Introduction ,Overview;Organisation;Software to be used,session_1_introduction,session_1_introduction,,,,,,,,,,
 06.10.21,Your Computer as research tool,Basic Scientific Software;Online Ressources;Digital Data;Spreadsheets and Databases;Reference management tools (Zotero),session_2_computer_as_research_tool,session_2_computer_as_research_tool,,https://tube.switch.ch/videos/XCQQPvejY9,,,,,Create a literature collection in Zotero with 5 entries and a word processing document in which these 5 literature references are cited.,,,13.10.21
-13.10.21,Data Bases I,What is a Database;ER-Model;Normalisation,,,,,,,,,Create a basic schema of a database for your project,,,20.10.21
+13.10.21,Data Bases I,What is a Database;ER-Model;Normalisation,session_03_database_1,session_03_database_1,,https://tube.switch.ch/videos/kk3xXWDY21,,,,,Create a basic schema of a database for your project,,,20.10.21
 20.10.21,Exkursion Week,,,,,,,,,,,,,
 27.10.21,Data Bases II,Example Archaeological Database;Tables;Relationships;Forms;Data Entry;Queries,,,,,,,,,Implement your database,,,03.11.21
 03.11.21,Visualisation I,General Charts;Pie Charts;Bar Charts;Scatterplots;Box Plots;Histogram;Kernel Plots,,,,,,,,,Q&A,,,
