@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computer Aided Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/viz-1.8.2/viz.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computer Aided Archaeology
+
+##  03 - Database 1
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+13/10/21
+
+---
+## Database then
+.pull-left[
+![](../images/03_session/microfilm.jpg)
+.caption[source: https://www.ssa.gov]
+]
+
+.pull-right[
+![:width 75%](../images/03_session/computer.jpg)
+.caption[Source: https://www.ssa.gov]
+]
+---
+## Database now
+
+.pull-left[
+![:width 75%](../images/03_session/Search-in-Spotify-b.png)
+.caption[source: https://lifewire.com]
+
+![:width 75%](../images/03_session/amazon.png)
+.caption[source: https://amazon.de]
+]
+
+.pull-right[
+![:width 75%](../images/03_session/ksl.png)
+.caption[source: https://www.ksl.unibe.ch]
+
+![:width 75%](../images/03_session/raa_fornsok.png)
+.caption[source: http://www.fmis.raa.se]
+]
+
+---
+## Database now
+
+![:width 75%](../images/03_session/match.png)
+.caption[source: Hellerstein/Olston 2005, Introduction to Database Systems]
+
+---
+## What is a Database?
+
+- A (typically very large) integrated collection of data.
+- Typically models a real-world situation:
+  - Entities (e.g., teams, games)
+  - Relationships (e.g. YB is playing in the Champions League)
+- Computerised database systems are now very commonplace
+- Information is stored in a database every time we: 
+  - use a bank account
+  - book a travel ticket
+  - make an appointment with a doctor
+  - etc.
+- To actually store the data, and to do anything useful with it, you need a Database Management System (DBMS)
+
+---
+## DBMS
+
+.pull-left[
+- Microsoft Access
+  - aimed at small businesses, and useful for desktop applications and systems with a small number of users
+- Microsoft SQL Server, Oracle, IDM DB2
+  - scalable and professional, and widely used by large organisations
+- MySQL, PostgreSQL
+  - open-source and quite powerful, widely used in web sites
+- JavaDB, SQLite
+  - compact DBMSs, suitable for mobile devices in particular
+- ...and many more
+]
+
+.pull-right[
+![](../images/03_session/dbms_settings.png)
+.caption[source: Paterson, Introduction to Database Development]
+]
+---
+## Data models
+
+- The way in which data is organised for storage in a database is known as the data model 
+- Early computer databases developed in the 1960’s used a hierarchical model, similar to the way files and folders are still organised in computer file systems
+- Most data does not fit very well into a simple hierarchy
+
+.pull-left[
+Hierarchical data
+![:width 70%](../images/03_session/hierarchical_data_model.png)
+.caption[source: Paterson, Introduction to Database Development]
+]
+
+.pull-right[
+“Real-world” data – no clear hierarchy
+![](../images/03_session/data_model.png)
+.caption[source: Paterson, Introduction to Database Development]
+]
+
+- Relatively complex data like this is better handled with the relational model
+- Most databases nowadays are relational databases
+  - although there are others: object databases, XML databases, “NoSQL” databases
+
+---
+
+## Designing a data model
+### Entity - Relationship (ER)
+
+.pull-left[
+**Entity:**&lt;sup&gt;\*&lt;/sup&gt;   Real-world object, distinguishable from other objects. An entity is described using a set of attributes. 
+
+**Relationship:**&lt;sup&gt;\*&lt;/sup&gt;  Association among two or more entities.  E.g., a fibula was found at Münsingen.
+- relationships can have their own attributes.
+]
+
+.pull-right[
+<div id="htmlwidget-85347ce618e1920ace0c" style="width:400px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-85347ce618e1920ace0c">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+
+
+.footnote[.tiny[&lt;sup&gt;\*&lt;/sup&gt;**Entity Set:**  A collection of similar entities.  E.g., all employees.
+- All entities in an entity set have the same set of attributes. (Basically)
+- Each entity set has a key (!).
+- Each attribute has a domain, that means, a range of possible values.
+
+&lt;sup&gt;\*&lt;/sup&gt;**Relationship Set:**  Collection of similar relationships.
+]]
+]
+
+
+---
+## Types of Relationships
+
+### 1:1, 1:m, n:m
+
+.pull-left[
+#### Examples
+
+- potsherds and features (n:m)
+  - the sherds of one pot can be found at 1:n features
+  - a feature can contain 1:n potsherds
+  
+- sample and measurements (1:m)
+  - 1 sample has 1:n measurements
+  
+- artefact and find lable (1:1)
+  - 1 Artefact has 1 find label
+]
+
+.pull-right[
+![](../images/03_session/relationships.png)
+]
+---
+## (primary) keys
+
+Each record must be uniquely identifiable.
+
+Primary key!
+
+either
+  - a set of attributes that are already there and make the record unique
+    - example: Lab Code and Lab Number identify a radiocarbon date
+
+or
+ - is an explicit (artificial) attribute that is a sequential number
+    - example: an id number from 1...&amp;infin;
+
+**The latter is not pure dogma, but most of the time more pratical**
+
+---
+## (primary &amp; foreign) keys
+
+If a record is uniquely identifiable, this can be used in relation to other entities:
+
+.pull-left[
+.pull-left[
+|sites|
+|-----------|
+| Münsingen |
+| Worb      |
+
+]
+.pull-right[
+|burials|
+|----------|
+| Burial 1 |
+| Burial 2 |
+| Burial 3 |
+| Burial 1 |
+| Burial 2 |
+| Burial 3 |
+]
+]
+
+.pull-right[
+.pull-left[
+| id | site      |
+|----|-----------|
+| 1  | Münsingen |
+| 2  | Worb      |
+]
+.pull-right[
+| id | burial   | site_id |
+|----|----------|---------|
+| 1  | Burial 1 | 1       |
+| 2  | Burial 2 | 1       |
+| 3  | Burial 3 | 1       |
+| 4  | Burial 1 | 2       |
+| 5  | Burial 2 | 2       |
+| 6  | Burial 3 | 2       |
+]
+]
+
+The identifier of a record is the **primary key**.
+
+The identifier of another record in relation to this one is the **foreign key**.
+
+---
+## Normalisation
+
+&gt; **Database normalization** is the process of structuring a relational database in accordance with a series of so-called normal forms in order **to reduce data redundancy** and **improve data integrity**. -- wikipedia
+
+.tiny[
+| site_id | site_name | lat  | lng | Kanton | Country     | burial_name | artefact_name                  | literature               |
+|---------|-----------|------|-----|--------|-------------|-------------|--------------------------------|--------------------------|
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Halsring                       | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Bernsteinkette                 | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 2      | Fibel LTA                      | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 2      | Arm-/Fussring gerippt vollguss | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 2      | Schwert                        | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 3      | Fibel LTB                      | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 3      | Schwert                        | Hodson 1960, Schaff 1976 |
+| 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 1      | Arm-/Fussring gerippt vollguss | Schaff 1976              |
+| 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 1      | Fibel LTB                      | Schaff 1976              |
+| 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 2      | Bernsteinkette                 | Schaff 1976              |
+| 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 2      | Fibel LTB                      | Schaff 1976              |
+| 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 3      | Halsring                       | Schaff 1976              |
+| 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 3      | Fibel LTA                      | Schaff 1976              |
+]
+
+.right[**Not Normal!!!**]
+---
+## First Normal Form (1NF), problem
+
+To satisfy 1NF, the values in each column of a table must be **atomic**. (Meaning one information at the time)
+
+Problem here: literature:
+
+.tiny[
+| site_id | site_name | lat  | lng | Kanton | Country     | burial_name | artefact_name                  | literature               |
+|---------|-----------|------|-----|--------|-------------|-------------|--------------------------------|--------------------------|
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Halsring                       | Hodson 1960, Schaff 1976 |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      | Hodson 1960, Schaff 1976 |
+
+]
+
+possible solution:
+
+.tiny[
+| site_id | site_name | lat  | lng | Kanton | Country     | burial_name | artefact_name                  | literature1  | literature2  |
+|---------|-----------|------|-----|--------|-------------|-------------|--------------------------------|--------------|--------------|
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Halsring                       | Hodson 1960  | Schaff 1976  |
+| 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      | Hodson 1960  | Schaff 1976  |
+]
+
+But do you all the time know, how many citations to expect?
+---
+## First Normal Form (1NF), better solution
+
+separation into multiple tables, using primary and foreign keys, and a n:m relationship.
+
+.pull-left[
+.tiny[
+| id | site_id | site_name | lat  | lng | Kanton | Country     | burial_name | artefact_name                  |
+|----|---------|-----------|------|-----|--------|-------------|-------------|--------------------------------|
+| 1  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Halsring                       |
+| 2  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      |
+| 3  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      |
+| 4  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Bernsteinkette                 |
+| 5  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 2      | Fibel LTA                      |
+| 6  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 2      | Arm-/Fussring gerippt vollguss |
+| 7  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 2      | Schwert                        |
+| 8  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 3      | Fibel LTB                      |
+| 9  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 3      | Schwert                        |
+| 10 | 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 1      | Arm-/Fussring gerippt vollguss |
+| 11 | 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 1      | Fibel LTB                      |
+| 12 | 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 2      | Bernsteinkette                 |
+| 13 | 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 2      | Fibel LTB                      |
+| 14 | 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 3      | Halsring                       |
+| 15 | 2       | Worb      | 46.9 | 7.5 | Bern   | Switzerland | Grab 3      | Fibel LTA                      |
+]]
+
+.pull-right[
+.pull-left[
+.tiny[
+| id | literature  |
+|----|-------------|
+| 1  | Hodson 1960 |
+| 2  | Schaff 1976 |
+]]
+
+.pull-right[
+.tiny[
+| artefact_id | literature_id |
+|-------------|---------------|
+| 1           | 1             |
+| 1           | 2             |
+| 2           | 1             |
+| 2           | 2             |
+| 3           | 1             |
+| 3           | 2             |
+| 4           | 1             |
+| 4           | 2             |
+| 5           | 1             |
+| 5           | 2             |
+| 6           | 1             |
+| 6           | 2             |
+| 7           | 1             |
+| 7           | 2             |
+| 8           | 1             |
+| 8           | 2             |
+| 9           | 1             |
+| 9           | 2             |
+]
+]]
+---
+## First Normal Form (1NF), reason
+
+Queries of the database are eased by the 1NF or only possible when the attribute value ranges are atomic. For example, in a field containing an entire name string consisting of title, first name and surname, it is difficult to impossible to sort by surname.
+
+---
+## 2NF, problem
+
+Each data record represents only one fact. If there is data in a table that does not represent only 1 fact, this data is subdivided into individual thematic tables.
+
+or more formal:
+
+It does not have any non-prime attribute that is functionally dependent on any proper subset of any candidate key of the relation. A non-prime attribute of a relation is an attribute that is not a part of any candidate key of the relation.
+
+Problem here:
+
+.tiny[
+| id | site_id | site_name | lat  | lng | Kanton | Country     | burial_name | artefact_name                  |
+|----|---------|-----------|------|-----|--------|-------------|-------------|--------------------------------|
+| 1  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Halsring                       |
+| 2  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      |
+| 3  | 1       | Münsingen | 46.8 | 7.6 | Bern   | Switzerland | Grab 1      | Fibel LTA                      |
+]
+
+Mixed informations about sites, burials and artefacts
+
+---
+## 2NF, solution
+
+separation into multiple tables, using primary and foreign keys, and a 1:m relationship.
+
+.pull-left[
+.tiny[
+| id | site_id | burial_name | artefact_name                  |
+|----|---------|-------------|--------------------------------|
+| 1  | 1       | Grab 1      | Halsring                       |
+| 2  | 1       | Grab 1      | Fibel LTA                      |
+| 3  | 1       | Grab 1      | Fibel LTA                      |
+| 4  | 1       | Grab 1      | Bernsteinkette                 |
+| 5  | 1       | Grab 2      | Fibel LTA                      |
+| 6  | 1       | Grab 2      | Arm-/Fussring gerippt vollguss |
+| 7  | 1       | Grab 2      | Schwert                        |
+| 8  | 1       | Grab 3      | Fibel LTB                      |
+| 9  | 1       | Grab 3      | Schwert                        |
+| 10 | 2       | Grab 1      | Arm-/Fussring gerippt vollguss |
+| 11 | 2       | Grab 1      | Fibel LTB                      |
+| 12 | 2       | Grab 2      | Bernsteinkette                 |
+| 13 | 2       | Grab 2      | Fibel LTB                      |
+| 14 | 2       | Grab 3      | Halsring                       |
+| 15 | 2       | Grab 3      | Fibel LTA                      |
+]]
+
+.pull-right[
+.tiny[
+| id | site_name | lat  | lng | Kanton | Country     |  
+|----|-----------|------|-----|--------|-------------|
+| 1  | Münsingen | 46.8 | 7.6 | Bern   | Switzerland |
+| 2  | Worb      | 46.9 | 7.5 | Bern   | Switzerland |
+]]
+---
+## 2NF, reason
+
+Consider this:
+
+| id | site_name | lat  | lng | burial_name | artefact_name |
+|----|-----------|------|-----|-------------|---------------|
+| 1  | Münsingen | 46.8 | 7.6 | Grab 1      | Halsring      |
+| 2  | Münsingen | 50   | 14  | Grab 1      | Fibel LTA     |
+| 3  | Münsingen | 35   | 3   | Grab 1      | Fibel LTA     |
+
+**Where, exactly is Münsingen now??? Data Inconsistency!!!**
+
+The 2NF forces essentially "monothematic" relations in the scheme: each relation models only one fact.
+
+This reduces redundancy and the associated risk of inconsistencies. Only logically/objectively related information can be found in a relation. This makes it easier to understand the data structures.
+---
+## 3NF, problem
+
+No data in a record should automatically follow from other data in the same record.
+
+.tiny[
+| id | site_name | lat  | lng | Kanton | Country     |  
+|----|-----------|------|-----|--------|-------------|
+| 1  | Münsingen | 46.8 | 7.6 | Bern   | Switzerland |
+| 2  | Worb      | 46.9 | 7.5 | Bern   | Switzerland |
+]
+
+From that Münsingen is in Kanton Bern, it automatically follows that it is in Switzerland!
+
+Same reason as before, consider this:
+
+.tiny[
+| id | site_name | lat  | lng | Kanton | Country     |  
+|----|-----------|------|-----|--------|-------------|
+| 1  | Münsingen | 46.8 | 7.6 | Bern   | Switzerland |
+| 2  | Worb      | 46.9 | 7.5 | Bern   | Uganda      |
+]
+
+**??? Data Inconsistency!!!**
+---
+## 3NF, problem
+
+separation into multiple tables, using primary and foreign keys, and a 1:m relationship.
+
+.pull-left[
+.tiny[
+| id | site_name | lat  | lng | kanton_id |
+|----|-----------|------|-----|-----------|
+| 1  | Münsingen | 46.8 | 7.6 | 1         |
+| 2  | Worb      | 46.9 | 7.5 | 1         |
+]
+]
+
+.pull-right[
+.tiny[
+| id | kanton_name | Country     |  
+|----|-------------|-------------|
+| 1  | Bern        | Switzerland |
+]
+]
+
+### 3NF, benefits
+
+- Transitive dependencies are immediately apparent, without the need to know the relationships between the data. They are represented by the structure of the relations.
+- In addition, any remaining thematic intermixtures in the relation are eliminated: according to the 3NF, the relations of the schema are reliably monothematic.
+
+---
+## That's enought
+
+There also exists the 4th, 5th and 6th Normal Form (not to mention the Boyce–Codd normal form (BCNF))...
+
+In practise, normalising to the 3th Normal Form is absolutely enough.
+
+&gt; Informally, a relational database relation is often described as "normalized" if it meets third normal form. Most 3NF relations are free of insertion, update, and deletion anomalies. -- wikipedia
+
+Most of that comes naturally if you think about your relations as objects in the 'Real World'&lt;sup&gt;tm&lt;/sup&gt;.
+---
+## Let's get practical
+
+.pull-left[
+We want to design a data base for finds of your site.
+
+What **Informations** do we like to record?
+
+What **Entities** and **Relations** do we have?
+
+What **Attributes** will the **Entities** have?
+
+How can we transform that into tables (this usually comes naturally than)?
+]
+
+.pull-right[
+.tiny[
+
+Table:  
+
+|site                        |literature                                                                                                                                                                                                                                         |link                                                                                                                                                                                                              |
+|:---------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Birmensdorf-Rameren         |Mäder, Andreas, Die mittelbronzezeitlichen Gräber von Birmensdorf-Rameren. Zürcher Archäologie, Heft 24. 2008                                                                                                                                      |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991070558649705501)                                                                                                                       |
+|Chables                     |Leyla Duvanel, Henri Vigneau, Michel Guélat et Michel Mauvilly, La nécropole de l’âge du Bronze de Châbles/Les Biolleyres 1. Fribourg 2018                                                                                                         |[link](https://doc.rero.ch/record/306538/files/CHA-BI1_Monographie.pdf)                                                                                                                                           |
+|Singen                      |Rüdiger Krause: Die endneolithischen und frühbronzezeitlichen Grabfunde auf der Nordstadtterrasse von Singen am Hohentwiel (= Forschungen und Berichte zur Vor- und Frühgeschichte in Baden-Württemberg. Bd. 32 = Die Grabfunde von Singen. Bd. 1) |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991131257489705501)                                                                                                                       |
+|Murten/Löwenberg            |Archäologie und Autobahn A1 : 25 Jahre Ausgrabungen im Murtenbiet                                                                                                                                                                                  |[link](https://doc.rero.ch/record/256263/files/06_archaeologie_autobahn_A1_2008_katalog_austellung.pdf)                                                                                                           |
+|Prag-Miškovice              |Ernée , Michal. Prag-Miskovice Archäologische und naturwissenschaftliche Untersuchungen zu Grabbau, Bestattungssitten und Inventaren einer frühbronzezeitlichen Nekropole Römisch-Germanische Forschungen Band 72  2016                            |[link](https://www.academia.edu/23371514/Prag_Mi%C5%A1kovice_Arch%C3%A4ologische_und_naturwissenschaftliche_Untersuchungen_zu_Grabbau_Bestattungssitten_und_Inventaren_einer_fr%C3%BChbronzezeitlichen_Nekropole) |
+|Spiez, Einigen, Holleeweg 3 |Gubler, Regula, Spiez-Einigen, Holleeweg 3. Gräber am Übergang zwischen Früh- und Mittelbronzezeit . Archäologie Bern/Archéologie bernoise – 2010, 147                                                                                             |[link](https://www.e-periodica.ch/digbib/view?pid=akb-002%3A2010%3A0%3A%3A152)                                                                                                                                    |
+]
+]
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="../libs/remark-latest.min.js"></script>
+<script src="../libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
