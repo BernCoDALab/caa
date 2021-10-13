@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computer Aided Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/viz-1.8.2/viz.js"></script>
+    <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="/home/martin/github/caa/libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computer Aided Archaeology
+
+##  04 - Database 2
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+27/10/21
+
+---
+## Designing a data model
+### Entity - Relationship (ER)
+
+.pull-left[
+**Entity:**&lt;sup&gt;\*&lt;/sup&gt;   Real-world object, distinguishable from other objects. An entity is described using a set of attributes. 
+
+**Relationship:**&lt;sup&gt;\*&lt;/sup&gt;  Association among two or more entities.  E.g., a fibula was found at Münsingen.
+- relationships can have their own attributes.
+]
+
+.pull-right[
+<div id="htmlwidget-5e37fa71e51dd62a2bf1" style="width:400px;height:100px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-5e37fa71e51dd62a2bf1">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+]
+
+.footnote[.tiny[&lt;sup&gt;\*&lt;/sup&gt;**Entity Set:**  A collection of similar entities.  E.g., all employees.
+- All entities in an entity set have the same set of attributes. (Basically)
+- Each entity set has a key (!).
+- Each attribute has a domain, that means, a range of possible values.
+
+&lt;sup&gt;\*&lt;/sup&gt;**Relationship Set:**  Collection of similar relationships.
+]]
+
+---
+## Types of Relationships
+
+### 1:1, 1:n, n:m
+
+.pull-left[
+#### Examples
+
+- potsherds and features (n:m)
+  - the sherds of one pot can be found at 1:n features
+  - a feature can contain 1:n potsherds
+  
+- sample and measurements (1:n)
+  - 1 sample has 1:n measurements
+  
+- artefact and find lable (1:1)
+  - 1 Artefact has 1 find label
+]
+
+.pull-right[
+![](../images/03_session/relationships.png)
+]
+---
+## (primary) keys
+
+Each record must be uniquely identifiable.
+
+Primary key!
+
+either
+  - a set of attributes that are already there and make the record unique
+    - example: Lab Code and Lab Number identify a radiocarbon date
+
+or
+ - is an explicit (artificial) attribute that is a sequential number
+    - example: an id number from 1...&amp;infin;
+
+**The latter is not pure dogma, but most of the time more pratical**
+
+---
+## (primary &amp; foreign) keys
+
+If a record is uniquely identifiable, this can be used in relation to other entities:
+
+.pull-left[
+.pull-left[
+|sites|
+|-----------|
+| Münsingen |
+| Worb      |
+
+]
+.pull-right[
+|burials|
+|----------|
+| Burial 1 |
+| Burial 2 |
+| Burial 3 |
+| Burial 1 |
+| Burial 2 |
+| Burial 3 |
+]
+]
+
+.pull-right[
+.pull-left[
+| id | site      |
+|----|-----------|
+| 1  | Münsingen |
+| 2  | Worb      |
+]
+.pull-right[
+| id | burial   | site_id |
+|----|----------|---------|
+| 1  | Burial 1 | 1       |
+| 2  | Burial 2 | 1       |
+| 3  | Burial 3 | 1       |
+| 4  | Burial 1 | 2       |
+| 5  | Burial 2 | 2       |
+| 6  | Burial 3 | 2       |
+]
+]
+
+The identifier of a record is the **primary key**.
+
+The identifier of another record in relation to this one is the **foreign key**.
+
+---
+## Normalisation
+
+&gt; **Database normalization** is the process of structuring a relational database in accordance with a series of so-called normal forms in order **to reduce data redundancy** and **improve data integrity**. -- wikipedia
+
+.small[
+
+### 1NF
+To satisfy 1NF, the values in each column of a table must be **atomic**. (Meaning one information at the time)
+
+### 2NF
+Each data record represents only one fact. If there is data in a table that does not represent only 1 fact, this data is subdivided into individual thematic tables.
+
+or more formal:
+
+It does not have any non-prime attribute that is functionally dependent on any proper subset of any candidate key of the relation. A non-prime attribute of a relation is an attribute that is not a part of any candidate key of the relation.
+
+### 3NF
+No data in a record should automatically follow from other data in the same record.
+]
+
+---
+## That's enought
+
+There also exists the 4th, 5th and 6th Normal Form (not to mention the Boyce–Codd normal form (BCNF))...
+
+In practise, normalising to the 3th Normal Form is absolutely enough.
+
+&gt; Informally, a relational database relation is often described as "normalized" if it meets third normal form. Most 3NF relations are free of insertion, update, and deletion anomalies. -- wikipedia
+
+Most of that comes naturally if you think about your relations as objects in the 'Real World'&lt;sup&gt;tm&lt;/sup&gt;.
+---
+## Let's get practical
+
+.pull-left[
+We want to design a data base for finds of your site.
+
+What **Informations** do we like to record?
+
+What **Entities** and **Relations** do we have?
+
+What **Attributes** will the **Entities** have?
+
+How can we transform that into tables (this usually comes naturally than)?
+]
+
+.pull-right[
+.tiny[
+
+Table:  
+
+|site                        |literature                                                                                                                                                                                                                                         |link                                                                                                                                                                                                              |
+|:---------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|Birmensdorf-Rameren         |Mäder, Andreas, Die mittelbronzezeitlichen Gräber von Birmensdorf-Rameren. Zürcher Archäologie, Heft 24. 2008                                                                                                                                      |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991070558649705501)                                                                                                                       |
+|Chables                     |Leyla Duvanel, Henri Vigneau, Michel Guélat et Michel Mauvilly, La nécropole de l’âge du Bronze de Châbles/Les Biolleyres 1. Fribourg 2018                                                                                                         |[link](https://doc.rero.ch/record/306538/files/CHA-BI1_Monographie.pdf)                                                                                                                                           |
+|Singen                      |Rüdiger Krause: Die endneolithischen und frühbronzezeitlichen Grabfunde auf der Nordstadtterrasse von Singen am Hohentwiel (= Forschungen und Berichte zur Vor- und Frühgeschichte in Baden-Württemberg. Bd. 32 = Die Grabfunde von Singen. Bd. 1) |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991131257489705501)                                                                                                                       |
+|Murten/Löwenberg            |Archäologie und Autobahn A1 : 25 Jahre Ausgrabungen im Murtenbiet                                                                                                                                                                                  |[link](https://doc.rero.ch/record/256263/files/06_archaeologie_autobahn_A1_2008_katalog_austellung.pdf)                                                                                                           |
+|Prag-Miškovice              |Ernée , Michal. Prag-Miskovice Archäologische und naturwissenschaftliche Untersuchungen zu Grabbau, Bestattungssitten und Inventaren einer frühbronzezeitlichen Nekropole Römisch-Germanische Forschungen Band 72  2016                            |[link](https://www.academia.edu/23371514/Prag_Mi%C5%A1kovice_Arch%C3%A4ologische_und_naturwissenschaftliche_Untersuchungen_zu_Grabbau_Bestattungssitten_und_Inventaren_einer_fr%C3%BChbronzezeitlichen_Nekropole) |
+|Spiez, Einigen, Holleeweg 3 |Gubler, Regula, Spiez-Einigen, Holleeweg 3. Gräber am Übergang zwischen Früh- und Mittelbronzezeit . Archäologie Bern/Archéologie bernoise – 2010, 147                                                                                             |[link](https://www.e-periodica.ch/digbib/view?pid=akb-002%3A2010%3A0%3A%3A152)                                                                                                                                    |
+]
+]
+---
+## Structure of your Database
+
+### Draft
+
+You can start as you like, paper, blackboard, mindmap, actual ER design tool...
+
+.center[
+![:width 70%](../images/04_session/db_draft.jpg)
+]
+
+---
+## Structure MiscoviceDB
+
+### ER-Diagramm
+
+<div id="htmlwidget-cff6eeb5a5e10d5da519" style="width:800px;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-cff6eeb5a5e10d5da519">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{\\\n      sites|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      sex :string\\l\\\n      age :string\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      name :string\\l\\\n      type :string\\l\\\n      material :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+---
+## Structure MiscoviceDB
+
+### Primary and foreign keys
+
+<div id="htmlwidget-f959cb9a3b265d7fc923" style="width:800px;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-f959cb9a3b265d7fc923">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{sites|\\\n      id :integer\\l\\\n      name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      id :integer\\l\\\n      site_id :integer\\l\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      sex :string\\l\\\n      age :string\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      name :string\\l\\\n      type :string\\l\\\n      material :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+---
+## Structure MiscoviceDB
+
+### Lookup tables
+
+<div id="htmlwidget-6a4cc1cb82677701b23b" style="width:800px;height:400px;" class="grViz html-widget"></div>
+<script type="application/json" data-for="htmlwidget-6a4cc1cb82677701b23b">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{sites|\\\n      id :integer\\l\\\n      name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      id :integer\\l\\\n      site_id :integer\\l\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      sex_id :integer\\l\\\n      age_id :integer\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"sexes\" [shape=record, label=\"{sexes|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      name :string\\l\\\n      type_id :integer\\l\\\n      material_id :integer\\l\\\n    }\"]\n    \n    \"types\" [shape=record, label=\"{types|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"materials\" [shape=record, label=\"{materials|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"ages\" [shape=record, label=\"{ages|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \"types\" -> \"artefacts\" [label=\"1:n\"]\n    \"materials\" -> \"artefacts\" [label=\"1:n\"]\n    \"sexes\" -> \"individuals\" [label=\"1:n\"]\n    \"ages\" -> \"individuals\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+---
+## Structure reflected in the DB-Program
+
+.pull-left[
+* Tables -&gt; Tables
+* Relationships -&gt; primary and foreign keys, relationship using the relationship tool
+
+Things look different in eg. MS Access, but work the same
+]
+
+.pull-right[
+![:width 75%](../images/04_session/base_tables.png)
+![:width 75%](../images/04_session/base_relationships.png)
+]
+---
+## To start
+
+.pull-left[
+* Open LibreOffice Base
+* Create a new Database
+* Click on Finish
+* Save your new Database to a reasonable folder
+]
+
+.pull-right[
+![:width 75%](../images/04_session/base_start.png)
+![:width 75%](../images/04_session/base_save.png)
+]
+---
+## Tables
+
+.pull-left[
+Store your information on specific items (rows) with defined fields (columns)
+
+* Double click shows the stored information
+* Right Click &gt; Edit lets you change the field definitions (dangerous, if you have already data!!!)
+]
+
+.pull-right[
+![](../images/04_session/base_one_table.png)
+]
+---
+## Relationsships
+.pull-left[
+Define the relationships between your tables
+
+* most important is the reasonable naming of the primary key ('id'!?) and the foreign keys ('site_id'!?)
+* Defining the relationships in the "Relationship tool" helps to ease things later on (it provides information for the database tool)
+]
+
+.pull-right[
+![](../images/04_session/base_relationships.png)
+]
+
+---
+## Forms
+.pull-left[
+Help to structure your inputs
+
+* Give the user (you?) a nice entry form
+* Enable to select values easily with dropdown fields and lookup tables
+* limit and structure the possible entry values
+* enable with subforms to enter data to different tables at once
+]
+
+.pull-right[
+![](../images/04_session/base_form.png)
+]
+---
+## Data Entry
+
+.pull-left[
+Your task within the next two weeks:
+
+* Enter data from your sites into the database with the structure you designed
+* Distribute the work, share your workload!!!
+]
+
+.pull-right[
+![](../images/04_session/Social_collaboration_at_edge_of_chaos.jpg)
+.caption[source:https://commons.wikimedia.org/wiki/File:Social_collaboration_at_edge_of_chaos.jpg]
+]
+---
+## Queries
+
+.pull-left[
+...are structured ways to receive information with specific conditions
+
+* Most desktop DB systems offer "Wizards" and Tools to design a query
+* In the background it will (nearly always) be SQL
+* SQL [ˈsiːkwəl]: "Structured Query Language"
+]
+
+.pull-right[
+![width: 75%](../images/04_session/base_query.png)
+]
+
+```sql
+SELECT "graves"."id", "graves"."construction", "sexes"."name"
+  FROM "individuals", "graves", "sexes"
+ WHERE "individuals"."grave_id" = "graves"."id"
+     AND "individuals"."sex_id" = "sexes"."id"
+     AND "sexes"."name" = 'male';
+```
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="../libs/remark-latest.min.js"></script>
+<script src="../libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
