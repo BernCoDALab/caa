@@ -1,5 +1,5 @@
 ---
-title: "Computational Archaeology"
+title: "Computer Aided Archaeology"
 subtitle: "05 - Visualisation I"
 author: "Martin Hinz"
 institute: "Institut für Archäologische Wissenschaften, Universität Bern"
@@ -27,8 +27,6 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   x <- def.chunk.hook(x, options)
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
-library(rgl)
-library(vegan)
 library(ggplot2)
 library(ggrepel)
 ```
@@ -53,22 +51,102 @@ cat('#### ', rmarkdown::metadata$institute)
 cat(rmarkdown::metadata$date)
 ```
 ---
+
 ## Why data visualisation
 
 Converting raw data to a form that is viewable and understandable to humans
 
+.pull-left[
 * humans are visual animals -> we evolved to identify patterns visually
 * helps to map complex information into an meaningful picture
 * enables to "see" more than two dimensions of the data and their interplay
+]
+
+.pull-right[
+![](../images/05_session/escher-63-rob-hans.jpg)
+]
 
 ---
-## Dimensions of Visualisation
 
-* Position (coordinates, slope, orientation, ...)
-* Color (Hue, Saturation, Transparency)
-* Size (length, area, [Volume])
-* Texture
-* Proximity/Density
+## Data, variables, values
+
+.pull-left[
+- variable:
+  - What ist measured or analysed.
+  - e.g. height
+- item:
+  - That whichs variable is measure
+  - e.g. me as „possessor“ of a height, graves, persons...
+- values:
+  - The actual measurement.
+  - e.g. my height is 1.81 m.
+]
+
+.pull-right[
+![](../images/05_session/variable_item_value.png)
+]
+
+---
+
+## Levels of measurement
+
+![](../images/05_session/categorical-data.jpg)
+
+### nominal or categorical:
+  - You can only decide if something belongs to a category
+  - Categories which do not have a defined relationship among each other, only counting is possible (e.g. sex)
+  
+---
+
+## Levels of measurement
+
+![:width 70%](../images/05_session/ordinal_chilis.png)
+
+### ordinal:
+  - Categories which are comparable and differ from each other in their characteristic [size/power/intensity]
+  - their rank is determinable (e.g. preservation conditions – bad < medium < good)
+
+---
+
+## Levels of measurement
+
+![:width 70%](../images/05_session/Kelvin_og_Celsius_temperaturskalaer.png)
+
+### metric:
+  - Variable has a defined system of measurement, all calculations are possible. To distinguish are
+
+1. interval: The variable has an arbitrary choosen neutral point (°C)
+2. ratio: The variable has an absolute neutral point (°K)
+
+- Sometimes also used: absolut scale
+  - counts (number of inhabitans)
+
+---
+
+## Levels of measurement
+
+![](../images/05_session/scales_of_measurements.png)
+---
+
+## continuous vs. discrete
+
+.pull-left[
+### discrete variable:
+  - Variable which can take only certain values without intermediate values
+  - e.g. income, counts of ceramic objects, sex (?)
+  - 'counted'
+  
+### continuous variables:
+  - Variable which can take all value and intermediate value
+  - e.g. height, temperature, proportion value
+  - 'measured'
+]
+
+.pull-right[
+![](../images/05_session/quantitative-data.jpg)
+
+.caption[Source: https://statsthewayilikeit.com]
+]
 
 ---
 ## Cross tables (contingency tables)
@@ -83,6 +161,87 @@ Cross tabulations summarise (mostly) categorical data by counting the co-occurre
 .pull-right[
 ![](../images/05_session/crosstab_2.png)
 ]
+
+-> "Pivot-Table"
+---
+## Successful visualisation of the past
+
+![:width 70%](../images/05_session/playfair.jpg)
+
+.caption[William Playfair, 1786. source: wikipedia]
+---
+## Successful visualisation of the past
+
+![:width 75%](../images/05_session/Nightingale.jpg)
+
+.caption[Florence Nightingale, 1857. source: wikipedia]
+
+---
+## Successful visualisation of the past
+
+![:width 100%](../images/05_session/minard.jpg)
+.caption[Charles Joseph Minard, 1869. source: wikipedia]
+
+---
+## Objects of Visualisation
+
+.pull-left[
+### Items
+
+Objects you like to display (entities in DB speach)
+
+![:width 100%](../images/05_session/visualisation_items.png)
+]
+.pull-right[
+### Links
+
+The relationships of these objects, if there are any (Relationship also in DB speach)
+
+![:width 100%](../images/05_session/visualisation_links.png)
+]
+.caption[Machiraju 2020]
+
+---
+## Dimensions of Visualisation
+
+.pull-left[
+* Position (coordinates, slope, orientation, ...)
+* Color (Hue, Saturation, Transparency)
+* Texture
+* Shape
+* Size (length, area, [Volume])
+
+* Proximity/Density
+
+![:width 90%](../images/05_session/dimensions_visualisation.png)
+.caption[Machiraju 2020]
+]
+
+.pull-right[
+![:width 100%](../images/05_session/bertin_1967.png)
+.caption[Bertin 1967]
+
+]
+---
+## Combining Dimensions of Visualisation
+
+![:width 100%](../images/05_session/adding_multiple_channels.png)
+.caption[Machiraju 2020]
+
+---
+## Dimensions of Visualisation and levels of measurement
+
+* Position (coordinates, slope, orientation, ...)
+* Color (Hue, Saturation, Transparency)
+* Texture
+* Shape
+* Size (length, area, [Volume])
+
+* Proximity/Density
+
+
+![:width 100%](../images/05_session/channel_mapping.png)
+.caption[Machiraju 2020]
 
 ---
 
@@ -103,140 +262,12 @@ Connecticut: Graphics Press, 1983)
 .pull-right[
 ![](../images/05_session/plot_elements.png)
 ]
-```
-
-
-```{r, echo = FALSE, results="asis"}
-knitr::knit_exit()
-```
-
-
-```{r, echo = FALSE, results="asis"}
----
-
-## Plot [1]
-
-.pull-left[
-Basic drawing function of R:```{r echo=F}
-plot(muensingen$Length)
-```
-
-options:
-- p – points (default)
-- l – solid line
-- b – line with points for the values
-- c – line with gaps for the values
-- o – solid line with points for the values
-- h – vertical lines up to the values
-- s – stepped line from value to value
-- n – empty coordinate system
-]
-
-.pull-right[
-```{r echo=F}
-plot(muensingen$Length)
-```
-
-]
 
 ---
-## Plot [2]
-
-.pull-left[
-```{r}
-plot(muensingen$Length,type="b")
-```
-]
-
-.pull-right[
-Intelligent system: automatic determination of variable type, drawing of
-the appropriate chart
-.tiny[
-```{r}
-plot(as.factor(muensingen$fibula_scheme))
-```
-]
-]
-
----
-
-## Plot [3]
-
-Enhancing the plot with optional components & Text
-.tiny[
-```{r, fig.height=5}
-plot(muensingen$Length, muensingen$FL,
-     xlim=c(0, 140), # limits of the x axis
-     ylim = c(0, 100), # limits of the y axis
-     xlab = "Fibula Length", # label of the y axis
-     ylab = "Foot Length", # label of the x axis
-     main = "Fibula total length vs. Foot Length", # main title
-     sub="example plot" # subtitle
-     )
-```
-]
-
----
-
-## Plot [4]
-
-Plot do a lot for you:
-- Opens a window for display
-- Determines the optimal size of the frame of reference
-- Draws the coordinate system
-- Draws the values
-
-Gives a „handle“ back for further additions to the plot, e.g.:
-- lines – additional lines to an existing plot
-- points – additional points to an existing plot
-- abline – additional special lines to an existing plot
-- text – additional text on choosen position to an existing plot
-
-Additional possiblities for “decorations”: ? par
-
----
-
-## Plot [5]
-
-Add additional elements:
-Drawing lines
-
-```{r echo=3:5, fig.height=5}
-plot(muensingen$Length, muensingen$FL, xlim = c(0, 140), ylim = c(0, 100), xlab = "Fibula Length", ylab = "Foot Length", main = "Fibula total length vs. Foot Length", sub="example plot")
-
-abline(v = mean(muensingen$Length), col = "red")         # draw a red vertical line
-abline(h = mean(muensingen$FL), col = "green")           # draw a green vertical line
-abline(lm(FL~Length, data = muensingen), col = "blue")   # draw a blue diagonal line
-```
-
----
-
-## Export the graphics
-
-With the GUI:
-
-Export → Save as...
-
-With the commando line:
-As vector file
-
-```{r eval=F}
-dev.copy2eps(file="test.eps")
-dev.copy2pdf(file="test.pdf")
-```
-
-```{r  eval=F}
-savePlot(filename="test.tif", type="tiff")
-```
-
-Possible are “png”, “jpeg”, “tiff”, “bmp”
-SavePlot can save sometimes also vector files (dependent on operation system and installation)
-
----
-
 ## Pie chart [1]
 
-The classical one – but also with R not much better...
+.pull-left[
+The classical one – but comes with destinct flaws...
 
 Used to display proportions, suitable for nominal data
 
@@ -250,6 +281,11 @@ Disadvantages:
 - Small differences are not easy visible
 
 **totally No-Go: 3d-pies!!!**
+]
+
+.pull-right[
+![](../images/05_session/pie_example.png)
+]
 
 ---
 
@@ -257,165 +293,111 @@ Disadvantages:
 
 I eat pie...
 
-![](../images/03_session/3dpie.png)
+![](../images/05_session/3dpie.png)
 
 .caption[source: http://www.lrz-muenchen.de/~wlm]
 
 *The pieces »viel zu wenig«, »etwas zu wenig« und »gerade richtig« have exactly the same size, the piece »viel zu viel« is a bit smaller.*
 
 ---
-
 ## Pie chart [3]
-.tiny[
 .pull-left[
-Data are a vector of counts
-```{r}
-table(muensingen$fibula_scheme)
-pie(table(muensingen$fibula_scheme))
-```
+![](../images/05_session/comp_size_pie_3x.png)
+3x
 ]
-.pull-right[
-### Color palette:
-The standard palette is pastel, if you prefer another:
-```{r}
-pie(table(muensingen$fibula_scheme),
-    col=c("red","green","blue"))
-```
 
-]
+.pull-right[
+![](../images/05_session/comp_size_pie_5x.png)
+5x
 ]
 
 ---
 
 ## Bar plot [1]
-
-Generally the better alternative...
-Bar plots are suitable for display of proportions as well as for absolute data. They can be used for every level of measurement.
-
-.small[
 .pull-left[
-
-```{r}
-barplot(table(muensingen$fibula_scheme))
-```
+![](../images/05_session/comp_size_bar_2x.png)
+2x
 ]
 
 .pull-right[
-
-```{r}
-barplot(muensingen$Length)
-```
-
+![](../images/05_session/comp_size_bar_4x.png)
+4x
 ]
 
-]
 
 ---
 
 ## Bar plot [2]
 
-With names:
-```{r fig.height=4}
-par(las=2)                          # turn labels 90°
-barplot(muensingen$Length,          # plot fibulae length
-        names.arg=muensingen$Grave) # with names of the graves
-title("Fibulae length")             # add title
-```
+Generally the better alternative...
+Bar plots are suitable for display of proportions as well as for absolute data. They can be used for every level of measurement.
+
+.pull-left[
+![](../images/05_session/bar_basic.png)
+]
+
+.pull-right[
+![](../images/05_session/bar_stacked.png)
+
+]
 
 ---
 
 ## Bar plot [3]
-Horizontal:
-```{r fig.height=5}
-par(las=1)                          # turn labels back again
-barplot(table(muensingen$fibula_scheme), # Plot counts fibulae scheme
-        horiz=T,                         # horizontal
-        cex.names=2)                     # make the labels bigger
-```
 
----
+Combination of different information and proportional visualisation is possible.
 
-## Bar plot [4]
-
-Display of counts
-.tiny[
 .pull-left[
-```{r}
-my_new_table <- table(muensingen$fibula_scheme,
-                      muensingen$Coils)
-my_new_table
-```
-
-```{r fig.height=5}
-barplot(my_new_table)
-```
-]
-.pull-right[
-```{r fig.height=5}
-barplot(my_new_table, beside=T, legend.text=T)
-```
-]
-]
-
----
-
-## Bar Plot [5]
-
-Display of proportions
-.tiny[
-.pull-left[
-```{r, fig.height=5}
-table.prop<-prop.table(my_new_table,2)
-table.prop
-barplot(table.prop)
-```
+![](../images/05_session/bar_side_by_side.png)
 ]
 
 .pull-right[
-```{r, fig.height=5}
-tmp<-barplot(table.prop,
-             legend.text=T,  # add a legend
-             col=rainbow(3)  # make it more colorful
-             )
+![](../images/05_session/bar_proportional.png)
 
-# add a title
-title("ratio of fibulae schemes \n by number of coils",
-      outer=TRUE,            # outside the plot area
-      line=- 3)              # on line -3 above
-```
-]
 ]
 
 ---
+## Scatterplot
 
-## Bar Plot [6]
-
-Problems with bar plots – and also with many other charts
+Shows the relationship between two (metric) variables
 
 .pull-left[
-Percent vs. count: percents often distort the relations
-.tiny[
-```{r, fig.height=5}
-par(mfrow=c(2,1))
-barplot(my_new_table,beside=T)
-barplot(table.prop,beside=T)
-```
+You can see:
+
+- values of items (points) on both variables
+- relationship between variables
+  - positive or negative relationship (or no at all)
+- you can compute quantitative values describing the relationship
+  - regression analysis
 ]
-]
+
 
 .pull-right[
-Scales: the choosen limits of the axes can distort the relations
-.tiny[
-```{r, fig.height=5}
-par(mfrow=c(1,2))
-barplot(muensingen$Length[1:2],xpd=F,ylim=c(45,55))
-barplot(muensingen$Length[1:2],xpd=F)
-par(mfrow=c(1,1))
+![](../images/05_session/scatter_miscovice.png)
+]
+```{r, echo = FALSE}
+muensingen <- read.csv2("data/muensingen_fib.csv", row.names = 1)
+```
+---
+## Scatterplot
 
+Shows the relationship between two (metric) variables
+
+.pull-left[
+### R
+
+```{r, echo=FALSE, message=F, fig.height=5}
+library(car) # library for regression analysis
+scatterplot(FL ~ Length, data = muensingen)
 ```
 ]
-]
 
+
+.pull-right[
+### Libre Office
+
+![](../images/05_session/scatter_miscovice.png)
+]
 ---
 
 ## Box-plot (Box-and-Whiskers-Plot)
@@ -428,15 +410,21 @@ Used to display the distribution of values in a data vector of metrical (interva
 ____|___|___|____
 </pre>
 
-- thick line: mean
+- thick line: median
 - Box: the inner both quantiles
 - Whisker: last value < than 1.5 times the distance of the inner quantile
+
 ]
 
 .pull-right[
-```{r}
+```{r echo=F, fig.dim=c(5,3)}
+op <- par(mar = c(0, 4,0,0))
 boxplot(1:9)
+par(op)
+
 ```
+
+![](../images/05_session/boxplot_schema.png)
 ]
 
 ---
@@ -444,13 +432,13 @@ boxplot(1:9)
 ## Box Plot [2]
 
 .pull-left[
-```{r}
+```{r echo=F}
 boxplot(muensingen$Length)
 ```
 ]
 
 .pull-right[
-```{r}
+```{r echo=F}
 boxplot(muensingen$Length ~
           muensingen$fibula_scheme)
 ```
@@ -458,169 +446,28 @@ boxplot(muensingen$Length ~
 
 ---
 
-## Box Plot [3]
-
-More beautiful:
-.pull-left[
-```{r eval=F}
-par(las=1)
-boxplot(Length ~ fibula_scheme,
-        data = muensingen,
-        main = "Length by type",
-        col="grey",
-        xlab="fibulae scheme",
-        ylab= "length"
-        )
-```
-]
-.pull-right[
-```{r echo=F}
-par(las=1)
-boxplot(Length ~ fibula_scheme,
-        data = muensingen,
-        main = "Length by type",
-        col="grey",
-        xlab="fibulae scheme",
-        ylab= "length"
-        )
-```
-]
-
----
-
-## Scatterplot [1]
-.pull-left[
-
-For 2 variables
-
-Used to display a variable in relation to another one. Generally for all scales suitable, but for nominal and ordinal scale other charts are often better.
-
-```{r eval=F}
-plot(muensingen$Length, muensingen$FL)
-abline(
-  lm(muensingen$FL~muensingen$Length),
-  col="red")
-```
-]
-
-.pull-right[
-```{r echo=F}
-plot(muensingen$Length, muensingen$FL)
-abline(
-  lm(muensingen$FL~muensingen$Length),
-  col="red")
-```
-]
-
----
-
-## Scatterplot [2]
-
-Call additional libraries:
-.tiny[
-.pull-left[
-```{r, message=F, fig.height=5}
-library(car) # library for regression analysis
-scatterplot(FL ~ Length, data = muensingen)
-```
-]
-
-.pull-right[
-```{r, fig.height=5}
-library(ggplot2) # advanced plots library
-b<- ggplot(muensingen,aes(x=Length,y=FL))
-graph<-b + geom_point()
-show(graph)
-```
-]
-]
-
----
-
-## Histogramm [1]
+## Histogramm
 Used for classified display of distributions
 Data reduction vs. precision: Display of count values of classes of values
 
 .pull-left[
-```{r, fig.height=5}
-hist(muensingen$Length)
-```
-
-]
-
-.pull-right[
-```{r, fig.height=5}
+```{r, fig.height=5, echo=FALSE}
 hist(muensingen$Length, labels = T)
 ```
 
 ]
 
----
-
-## Histogramm [2]
-
-Custom breaks of classes
-
-.pull-left[
-```{r, fig.height=5}
-hist(muensingen$Length,
-     labels = T)
-```
-
-]
-
 .pull-right[
-```{r, fig.height=5}
+```{r, fig.height=5, echo=FALSE}
 hist(muensingen$Length,
      labels = T,
      breaks = 10)
-```
-
-]
-
----
-
-## Histogramm [3]
-
-.pull-left[
-More beautiful
-```{r eval=F}
-hist(muensingen$Length,breaks=10,
-     labels=T,
-     col="red",
-     xlab="Length",
-     main="Histogram Fibulae Length")
-```
-]
-
-.pull-right[
-```{r echo=F, fig.height=4}
-hist(muensingen$Length,breaks=10,
-     labels=T,
-     col="red",
-     xlab="Length",
-     main="Histogram Fibulae Length")
 ```
 ]
 
 Disadvantages:
 - Data reduction vs. precision → loss of information
 - Actual display depends strongly on the choosen class width
-
----
-
-## steam-and-leaf chart
-
-An attempt to overcome the disadvantages of a histogram
-
-Is not very often used. Scales like histograms.
-```{r}
-stem(muensingen$Length)
-```
-
-
-Advantage:
-- Information about the distribution inside the classes and the absolute values are (partly) visible.
 
 ---
 
@@ -633,7 +480,7 @@ calculated. Continuous distributions are better displayed, without artificial
 breaks. Scales like histograms.
 
 .pull-left[
-```{r, fig.height=5}
+```{r, fig.height=5, echo=F}
 plot(density(muensingen$Length))
 ```
 ]
@@ -641,7 +488,7 @@ plot(density(muensingen$Length))
 .pull-right[
 Histogram and kernel-density-plot together
 
-```{r, fig.height=5}
+```{r, fig.height=5, echo=F}
 hist(muensingen$Length, prob=T)
 lines(density(muensingen$Length))
 ```
@@ -653,13 +500,11 @@ lines(density(muensingen$Length))
 
 ### Stay honest!
 
-* [dax.csv](dax.csv)
-
 Choice of display has a strong influence on the statement.
 
 ```{r echo=F, fig.height=6}
 par(mfrow=c(2,2))
-dax <- read.csv("dax.csv", stringsAsFactors = F)
+dax <- read.csv("data/dax.csv", stringsAsFactors = F)
 dax.ts <- ts(dax$Close, frequency = 12, start = c(1987,11))
 plot(window(dax.ts, start=2008, end=2010),type = "l", ylab="Dax")
 plot(window(dax.ts, start=2008, end=2010),type = "l", ylab="Dax", ylim=c(0,8000))
