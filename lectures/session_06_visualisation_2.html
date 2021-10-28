@@ -1,0 +1,867 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computer Aided Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <meta name="date" content="2021-03-11" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <script src="libs/rglWebGL-binding-0.107.14/rglWebGL.js"></script>
+    <link href="libs/rglwidgetClass-0.107.14/rgl.css" rel="stylesheet" />
+    <script src="libs/rglwidgetClass-0.107.14/rglClass.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/utils.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/subscenes.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/shaders.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/textures.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/projection.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/mouse.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/init.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/pieces.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/draw.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/controls.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/selection.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/rglTimer.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/pretty.src.js"></script>
+    <script src="libs/rglwidgetClass-0.107.14/axes.src.js"></script>
+    <script src="libs/CanvasMatrix4-0.107.14/CanvasMatrix.src.js"></script>
+    <link rel="stylesheet" href="libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computer Aided Archaeology
+
+##  06 - Visualisation II
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+03/11/21
+---
+
+## Seriation: idea and basics [1]
+
+.pull-left[
+Types come into use, have a maximum and than disappear
+
+- First Seriation: Sir William Flinders-Petrie 1899
+- became very popular during Processual Archaeology
+- First major trials with seriating methods in Germany Goldman 1979 with reciprocal averaging
+]
+
+.pull-right[
+![](../images/06_session/battleship_2.jpg)
+]
+
+---
+## Seriation: idea and basics [2]
+
+.pull-left[
+- Represent 'types' per 'object' in a table
+- Sort the table so that a sequence (diagonal) appear
+
+Methods:
+
+- Reciprocal Averaging
+- Correspondence Analysis
+
+Necessary:
+
+- two 'types' per 'object'
+- two 'objects' per 'type'
+
+]
+
+.pull-right[
+![](../images/06_session/muensingen_ser.jpg)
+]
+
+---
+## First step
+
+### Get the data out of the database in a useful form
+
+- query
+- pivot table
+
+---
+## Second step
+
+### Remove non informative rows
+
+- rows that have not artefact or only one
+
+### Remove non informative columns
+
+- columns that have not artefact or only one
+
+### Repeat until no further step necessary
+
+&lt;hr&gt;
+
+## Commands in LibreOffice Calc (and Excel)
+
+- COUNT (ANZAHL)
+- COUNTIF (ZÄHLENWENN)
+
+---
+
+## Reciprocal Averaging: idea and basics
+
+Produce a diagonal in such a way, that all objects and types are ranked relational
+
+- Calculate rank for rows
+- Sort rows according to rank
+- repeat the same for columns
+- repeat both until no further changes
+
+Iterative procedure
+
+[Example Dataset](ra_example.csv)
+
+---
+
+## Correspondence analysis: idea and basics [1]
+
+### Similar things have similar characteristics...[2]
+**Visual explorative/descriptive method**
+
+- Correspondence analysis does not work with significances, therefore it does not 'proof' anything
+- Visualization of contingency tables or presence/absence matrices
+
+**Idea**
+
+- Representation of items (*sites*) and properties (Variables, *species*) in a common space (coordinate system)
+- Data that is related to each other is more closely related represented next to each other
+- Similarities are calculated using chi-square methods
+
+**Prerequisites**
+
+A data matrix with at least nominally scaled variables, therefore especially suitable for archaeological questions
+
+---
+
+## Correspondence analysis: idea and basics [1]
+
+### Similar things have similar characteristics...
+
+**General procedure**
+- Standardizing the data to a comparable measure
+- "Projection" of the data into a multidimensional variable space
+- determining the vectors which stepwise contain most of the information (variability) of the data and are oriented perpendicular to each other
+- "Projection" of the data onto these vectors
+- Representation of the position of the data on these vectors in a diagram
+
+---
+.pull-left[
+### multidimentional data space
+
+![](../images/06_session/multi_space.png)
+.caption[.tiny[source: http://www.aapspharmscitech.org]]
+]
+
+.pull-right[
+
+### projection of points onto a plane
+![](../images/06_session/multi_projection.png)
+.caption[.tiny[source: http://www.cs.mcgill.ca]]
+]
+---
+
+## Correspondence Analysis: History
+
+### General information
+- Development in the field of biology and psychology
+- Algebrarian Foundations 1940s (Hartley/Guttman)
+- First explicit use by Benzéncri in the 1960s linguistic studies
+- Further development in various research groups → resulted in different versions and names of the procedure
+- 1984 Greenacre basic monograph on the method
+
+### In archaeology
+- Wide application of the procedure for chronological sorting of the Rhineland Linear Pottery
+- Continuation by institutes Cologne and Kiel (Zimmermann, Müller)
+
+---
+
+## Correspondence Analysis: Procedure
+
+### Preparation: contingency table, if necessary
+**Presence Absence Matrix**
+
+Notes the presence or absence of a characteristic for a unit, which is the most widely used base in archaeology
+
+|         | Pot | Cup | Fibula | Sum |
+|---------|-----|-----|--------|-----|
+| Burial1 | 1   | 1   | 0      | 2   |
+| Burial2 | 0   | 1   | 1      | 2   |
+| Burial3 | 1   | 1   | 1      | 3   |
+| Burial4 | 1   | 0   | 1      | 2   |
+| Sum     | 3   | 3   | 3      | 9   |
+
+Prerequisite: total number of filled cells per column at least 2, total per row at least 2
+
+---
+
+## Preparation: contingency table, if necessary
+### contingency table
+
+Notes the number of a characteristics for a unit or a group of units
+
+
+|             | Pot | Cup | Fibula | Sum |
+|-------------|-----|-----|--------|-----|
+| Settlements | 20  | 23  | 40     | 83  |
+| Hoards      | 23  | 10  | 6      | 39  |
+| Burials     | 10  | 56  | 4      | 70  |
+| Sum         | 53  | 89  | 50     | 192 |
+
+Also possible: Burt-Matrix, if you want, you can ask me for details after the lecture...
+
+---
+
+## Correspondence analysis: Procedure (using a presence/absence matrix)
+
+### Preparation: Standardising to relative frequency
+Calculation: Divide each cell by the total sum
+.tiny[
+.pull-left[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pot &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cup &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; fibula &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sum &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 2 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 9 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pot &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cup &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; fibula &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sum &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+]
+
+Margins of the table stored for calculation of expectation values and scaling the result later on
+
+---
+
+## Correspondence analysis: Procedure (using a presence/absence matrix)
+
+### Preparation: Calculation of expected values
+
+.pull-left[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pot &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cup &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; fibula &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sum &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+.pull-right[
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pot &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cup &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; fibula &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sum &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.11 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt;  &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.07 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.22 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.33 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 1.00 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+---
+
+## Correspondence analysis: Procedure (using a presence/absence matrix)
+
+.pull-left[
+### Preparation: Calculation of standardised values
+
+`\(\chi^2=\sum_{i=1}^n \frac{(O_i - E_i)^2}{E_i}\)`
+
+`\(z_{ij}=\frac{(O_i - E_i)}{\sqrt{E_i}}\)`
+
+&lt;table&gt;
+ &lt;thead&gt;
+  &lt;tr&gt;
+   &lt;th style="text-align:left;"&gt;   &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; pot &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; cup &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; fibula &lt;/th&gt;
+   &lt;th style="text-align:right;"&gt; Sum &lt;/th&gt;
+  &lt;/tr&gt;
+ &lt;/thead&gt;
+&lt;tbody&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial1 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial2 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial3 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; burial4 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; -0.27 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.14 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+  &lt;tr&gt;
+   &lt;td style="text-align:left;"&gt; Sum &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0.00 &lt;/td&gt;
+   &lt;td style="text-align:right;"&gt; 0 &lt;/td&gt;
+  &lt;/tr&gt;
+&lt;/tbody&gt;
+&lt;/table&gt;
+]
+
+.pull-right[
+### Inertia
+
+Measurement for the spread of the data in relation to the number of cases
+
+`\(I = \frac{\chi^2}{n} = \sum_i \sum_j z_{ij}^2\)`
+
+Inertia here: 0.3333333
+]
+
+---
+
+<div id="rgl85257" style="width:504px;height:504px;" class="rglWebGL html-widget"></div>
+<script type="application/json" data-for="rgl85257">{"x":{"material":{"color":"#000000","alpha":1,"lit":true,"ambient":"#000000","specular":"#FFFFFF","emission":"#000000","shininess":50,"smooth":true,"front":"filled","back":"filled","size":3,"lwd":1,"fog":true,"point_antialias":false,"line_antialias":false,"texture":null,"textype":"rgb","texmipmap":false,"texminfilter":"linear","texmagfilter":"linear","texenvmap":false,"depth_mask":true,"depth_test":"less","isTransparent":false,"polygon_offset":[0,0],"margin":"","floating":false},"rootSubscene":7,"objects":{"13":{"id":13,"type":"spheres","material":{},"vertices":[[0.136082768440247,0.136082768440247,-0.272165536880493],[-0.272165536880493,0.136082768440247,0.136082768440247],[0,0,0],[0.136082768440247,-0.272165536880493,0.136082768440247]],"colors":[[0,0,0,1]],"radii":[[0.00680413795635104]],"centers":[[0.136082768440247,0.136082768440247,-0.272165536880493],[-0.272165536880493,0.136082768440247,0.136082768440247],[0,0,0],[0.136082768440247,-0.272165536880493,0.136082768440247]],"ignoreExtent":false,"fastTransparency":true,"flags":32771},"15":{"id":15,"type":"text","material":{"lit":false,"margin":0,"floating":true,"edge":[0,1,1]},"vertices":[["NaN",4,1]],"colors":[[0,0,0,1]],"texts":[["z[, 1]"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[["NaN",4,1]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"16":{"id":16,"type":"text","material":{"lit":false,"margin":1,"floating":true,"edge":[1,1,1]},"vertices":[["NaN",4,1]],"colors":[[0,0,0,1]],"texts":[["z[, 2]"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[["NaN",4,1]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"17":{"id":17,"type":"text","material":{"lit":false,"margin":2,"floating":true,"edge":[1,1,1]},"vertices":[["NaN",4,1]],"colors":[[0,0,0,1]],"texts":[["z[, 3]"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[["NaN",4,1]],"family":[["sans"]],"font":[[1]],"ignoreExtent":true,"flags":33808},"18":{"id":18,"type":"text","material":{"lit":false},"vertices":[[0.136082768440247,0.136082768440247,-0.272165536880493],[-0.272165536880493,0.136082768440247,0.136082768440247],[0,0,0],[0.136082768440247,-0.272165536880493,0.136082768440247]],"colors":[[0,0,0,1]],"texts":[["burial1"],["burial2"],["burial3"],["burial4"]],"cex":[[1]],"adj":[[0.5,0.5]],"centers":[[0.136082768440247,0.136082768440247,-0.272165536880493],[-0.272165536880493,0.136082768440247,0.136082768440247],[0,0,0],[0.136082768440247,-0.272165536880493,0.136082768440247]],"family":[["sans"]],"font":[[1]],"ignoreExtent":false,"flags":33808},"11":{"id":11,"type":"light","vertices":[[0,0,1]],"colors":[[1,1,1,1],[1,1,1,1],[1,1,1,1]],"viewpoint":true,"finite":false},"10":{"id":10,"type":"background","material":{},"colors":[[0.298039227724075,0.298039227724075,0.298039227724075,1]],"centers":[[0,0,0]],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"12":{"id":12,"type":"background","material":{"lit":false,"back":"lines"},"colors":[[1,1,1,1]],"centers":[[0,0,0]],"sphere":false,"fogtype":"none","fogscale":1,"flags":32768},"14":{"id":14,"type":"bboxdeco","material":{"front":"lines","back":"lines"},"vertices":[[-0.200000002980232,"NA","NA"],[-0.100000001490116,"NA","NA"],[0,"NA","NA"],[0.100000001490116,"NA","NA"],["NA",-0.200000002980232,"NA"],["NA",-0.100000001490116,"NA"],["NA",0,"NA"],["NA",0.100000001490116,"NA"],["NA","NA",-0.200000002980232],["NA","NA",-0.100000001490116],["NA","NA",0],["NA","NA",0.100000001490116]],"colors":[[0,0,0,1]],"axes":{"mode":["pretty","pretty","pretty"],"step":[0.100000001490116,0.100000001490116,0.100000001490116],"nticks":[5,5,5],"marklen":[15,15,15],"expand":[1.02999997138977,1.02999997138977,1.02999997138977]},"draw_front":true},"7":{"id":7,"type":"subscene","par3d":{"antialias":8,"FOV":30,"ignoreExtent":false,"listeners":7,"mouseMode":{"none":"none","left":"trackball","right":"zoom","middle":"fov","wheel":"pull"},"observer":[0,0,1.78797578811646],"modelMatrix":[[1,0,0,0.0680413916707039],[0,0.342020153999329,0.939692616462708,0.0872095227241516],[0,-0.939692616462708,0.342020153999329,-1.82864224910736],[0,0,0,1]],"projMatrix":[[3.73205089569092,0,0,0],[0,3.73205089569092,0,0],[0,0,-3.86370325088501,-6.4454460144043],[0,0,-1,0]],"skipRedraw":false,"userMatrix":[[1,0,0,0],[0,0.342020143325668,0.939692620785909,0],[0,-0.939692620785909,0.342020143325668,0],[0,0,0,1]],"userProjection":[[1,0,0,0],[0,1,0,0],[0,0,1,0],[0,0,0,1]],"scale":[1,1,1],"viewport":{"x":0,"y":0,"width":1,"height":1},"zoom":1,"bbox":[-0.278969675302505,0.142886906862259,-0.278969675302505,0.142886906862259,-0.278969675302505,0.142886906862259],"windowRect":[60,124,316,380],"family":"sans","font":1,"cex":1,"useFreeType":true,"fontname":"/home/martin/R/x86_64-pc-linux-gnu-library/4.1/rgl/fonts/FreeSans.ttf","maxClipPlanes":8,"glVersion":4.6,"activeSubscene":0},"embeddings":{"viewport":"replace","projection":"replace","model":"replace","mouse":"replace"},"objects":[12,14,13,15,16,17,18,11],"subscenes":[],"flags":34067}},"crosstalk":{"key":[],"group":[],"id":[],"options":[]},"width":504,"height":504,"context":{"shiny":false,"rmarkdown":"xaringan::moon_reader"},"players":[],"webGLoptions":{"preserveDrawingBuffer":true}},"evals":[],"jsHooks":[]}</script>
+
+---
+
+.pull-left[
+### multidimentional data space
+
+![](../images/06_session/multi_space.png)
+.caption[.tiny[source: http://www.aapspharmscitech.org]]
+]
+
+.pull-right[
+
+### projection of points onto a plane
+![](../images/06_session/multi_projection.png)
+.caption[.tiny[source: http://www.cs.mcgill.ca]]
+]
+---
+
+## Correspondence analysis: Procedure (using a presence/absence matrix)
+
+### Extraction of dimensions
+**SVD**
+
+**S**ingular **v**alue **d**ecomposition, method for dimensional reduction with minimal loss of information
+
+
+`\(Z=U∗S∗V'\)`
+.tiny[
+Z : Matrix with the standardized data
+
+U : Matrix for the row elements
+
+V : Matrix for the column elements
+
+S : Diagonal matrix with the singular values
+]
+
+![Gene Golub’s license plate, photographed by Professor P. M. Kroonenberg of Leiden University.](../images/06_session/prof_svd.gif)
+.caption[.tiny[Gene Golub’s license plate, photographed by Professor P. M. Kroonenberg of Leiden University.]]
+
+---
+## Correspondence analysis: Procedure (using a presence/absence matrix)
+
+### Extraction of dimensions
+
+**SVD in R**
+.tiny[
+
+```r
+burial.z&lt;-read.csv2("burial_z.csv",row.names=1)
+burial.svd&lt;-svd(burial.z)
+burial.svd
+```
+
+```
+## $d
+## [1] 4.082483e-01 4.082483e-01 9.733772e-16
+## 
+## $u
+##               [,1]       [,2]       [,3]
+## [1,]  7.071068e-01 -0.4082483 -0.5773503
+## [2,]  5.551115e-17  0.8164966 -0.5773503
+## [3,]  0.000000e+00  0.0000000  0.0000000
+## [4,] -7.071068e-01 -0.4082483 -0.5773503
+## 
+## $v
+##            [,1]       [,2]      [,3]
+## [1,]  0.0000000 -0.8164966 0.5773503
+## [2,]  0.7071068  0.4082483 0.5773503
+## [3,] -0.7071068  0.4082483 0.5773503
+```
+]
+
+---
+## SVD and Inertia
+
+The singular values (eigenvalues) represent the inertia.
+
+.tiny[
+The eigenvalues
+
+```r
+burial.svd$d
+```
+
+```
+## [1] 4.082483e-01 4.082483e-01 9.733772e-16
+```
+
+The squared eigenvalues are the inertia of the individual dimensions
+
+```r
+burial.svd$d^2
+```
+
+```
+## [1] 1.666667e-01 1.666667e-01 9.474632e-31
+```
+
+The sum of the squared eigenvalues is equal to the total of the intertia.
+
+```r
+sum(burial.svd$d^2)
+```
+
+```
+## [1] 0.3333333
+```
+
+If the inertia of the individual dimensions is divided by the total inertia, the (eigenvalue) proportion of the dimensions is obtained.
+
+
+```r
+burial.svd$d^2/sum(burial.svd$d^2)
+```
+
+```
+## [1] 5.00000e-01 5.00000e-01 2.84239e-30
+```
+]
+
+---
+## Correspondence analysis: Procedure (using a presence/absence matrix)
+
+### Normalization of coordinates
+Scaling of the coordinates in such a way that
+
+The dimensions are weighted according to their proportion of the total inertia.
+
+The rows/columns are weighted according to their proportion of the mass.
+
+---
+
+## Correspondence analysis: Real World case
+
+### Münsingen Burial Site
+
+.pull-left[
+.small[
+
+```r
+muensingen &lt;- read.csv("muensingen_ideal.csv",
+                       row.names = 1)
+muensingen.cca &lt;- cca(muensingen)
+
+muensingen.species &lt;- data.frame(
+  scores(muensingen.cca)$species
+  )
+ggplot(muensingen.species,
+       aes(x=CA1,
+           y=CA2,
+           label=rownames(muensingen.species)
+           )
+       ) +
+  geom_point() + geom_text_repel(size=2)
+```
+]
+]
+
+.pull-right[
+
+```
+## Warning: ggrepel: 13 unlabeled data points (too many overlaps). Consider
+## increasing max.overlaps
+```
+
+&lt;img src="session_06_visualisation_2_files/figure-html/unnamed-chunk-19-1.png" width="504" /&gt;
+]
+
+---
+## Correspondence analysis: Real World case
+
+### Münsingen Burial Site
+
+.pull-left[
+![](../images/06_session/tosca.png)
+]
+
+.pull-right[
+![](../images/06_session/tosca_seriation.png)
+]
+
+[http://tosca.archaeological.science](http://tosca.archaeological.science)
+---
+
+## Correspondence Analysis: Interpretation
+
+### Guttman effect (horseshoe, parabola)
+
+.pull-left[
+In archaeology, this is often regarded as evidence of a temporal orientation.
+
+The Guttman effect occurs when a process affects the data on multiple levels.
+
+The largest influencing factor, given a longer runtime, is mostly the time, but:
+
+This does not always have to be the case.
+
+Check against other information necessary.
+]
+
+.pull-right[
+![](session_06_visualisation_2_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script src="libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
