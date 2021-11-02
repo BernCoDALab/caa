@@ -132,7 +132,7 @@ Produce a diagonal in such a way, that all objects and types are ranked relation
 
 Iterative procedure
 
-[Example Dataset](ra_example.csv)
+[Example Dataset](data/ra_example.csv)
 
 ---
 
@@ -414,7 +414,7 @@ The rows/columns are weighted according to their proportion of the mass.
 
 .pull-left[
 .small[
-```{r eval=F, message=F}
+```{r eval=F}
 muensingen <- read.csv("muensingen_ideal.csv",
                        row.names = 1)
 muensingen.cca <- cca(muensingen)
@@ -434,7 +434,7 @@ ggplot(muensingen.species,
 ]
 
 .pull-right[
-```{r echo=F, message=F, fig.retina = 2}
+```{r echo=F, message=F, warning=F, fig.retina = 2}
 muensingen <- read.csv("data/muensingen_ideal.csv", row.names = 1)
 muensingen.cca <- cca(muensingen)
 library(ggplot2)
