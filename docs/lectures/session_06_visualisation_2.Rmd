@@ -1,10 +1,10 @@
 ---
-title: "Computational Archaeology"
+title: "Computer Aided Archaeology"
 subtitle: "06 - Visualisation II"
 author: "Martin Hinz"
 institute: "Institut für Archäologische Wissenschaften, Universität Bern"
 fontsize: 9pt
-date: "30/10/19"
+date: "03/11/21"
 output:
   xaringan::moon_reader:
     chakra: "libs/remark-latest.min.js"
@@ -12,7 +12,7 @@ output:
     lib_dir: "libs"
     seal: false
     nature:
-      beforeInit: "../libs/macros.js"
+      beforeInit: "libs/macros.js"
       highlightStyle: github
       highlightLines: true
       countIncrementalSlides: false
@@ -27,7 +27,6 @@ knitr::knit_hooks$set(chunk = function(x, options) {
   x <- def.chunk.hook(x, options)
   ifelse(options$size != "normalsize", paste0("\\", options$size,"\n\n", x, "\n\n \\normalsize"), x)
 })
-library(icon)
 library(rgl)
 library(vegan)
 library(ggplot2)
@@ -133,7 +132,7 @@ Produce a diagonal in such a way, that all objects and types are ranked relation
 
 Iterative procedure
 
-[Example Dataset](ra_example.csv)
+[Example Dataset](data/ra_example.csv)
 
 ---
 
@@ -415,7 +414,7 @@ The rows/columns are weighted according to their proportion of the mass.
 
 .pull-left[
 .small[
-```{r eval=F, message=F}
+```{r eval=F}
 muensingen <- read.csv("muensingen_ideal.csv",
                        row.names = 1)
 muensingen.cca <- cca(muensingen)
@@ -435,8 +434,8 @@ ggplot(muensingen.species,
 ]
 
 .pull-right[
-```{r echo=F, message=F, fig.retina = 2}
-muensingen <- read.csv("muensingen_ideal.csv", row.names = 1)
+```{r echo=F, message=F, warning=F, fig.retina = 2}
+muensingen <- read.csv("data/muensingen_ideal.csv", row.names = 1)
 muensingen.cca <- cca(muensingen)
 library(ggplot2)
 library(ggrepel)
@@ -499,20 +498,11 @@ class: inverse, middle, center
 .tiny[
 You might find the course material (including the presentations) at
 
-https://github.com/MartinHinz/ca_hs_2019
-
-You can see the rendered presentations at
-
-http://martinhinz.github.io/ca_hs_2019
+https://berncodalab.github.io/caa
 
 You can contact me at
 
 <a href="mailto:martin.hinz@iaw.unibe.ch">martin.hinz@iaw.unibe.ch</a>
-
-Sources for the slides:
-
-'Introduction to Database Systems' (Hellerstein/Olston 2005)
-'Introduction to Database Development' (Paterson)
 ]
 ]
 ]
