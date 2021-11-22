@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computer Aided Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computer Aided Archaeology
+
+##  09 - GIS II
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+24/11/21
+
+---
+
+## Importing Vector Data
+### Shape Files
+
+![:width 60%](../images/09_session/qgis_nav1.png)
+
+---
+
+## Importing Vector Data
+### Shape Files
+
+![:width 50%](../images/09_session/qgis_nav2.png)
+
+---
+
+## Importing Vector Data
+### Shape Files
+
+![:width 50%](../images/09_session/qgis_nav3.png)
+
+![:width 50%](../images/09_session/qgis_nav4.png)
+
+---
+
+## Importing Vector Data
+### Shape Files
+
+![:width 90%](../images/09_session/qgis_nav5.png)
+---
+## CSV-Files
++ General (textbased) spreadsheat format
+
+--
+
++ simple and robust
+
+--
+
++ human readable (kind of)
+
+--
+![:width 100%](../images/09_session/csv1.png)
+
+---
+## CSV-Files
+
++ Perfect for data exchange between Spreadsheet (Excel) and GIS
+
+![:width 50%](../images/09_session/csv1.png)![:width 50%](../images/09_session/csv2.png)
+
+---
+## CSV Import
+
+Load Text Layer
+
+![:width 75%](../images/09_session/csv_import1.png)
+---
+
+## CSV Import
+
+Set coordinate columns
+
+![:width 50%](../images/09_session/csv_import2.png)
+
+---
+## CSV Import
+
+Set coordinate columns
+
+and Coordinate Reference System
+
+You can also access more detailed Coordinate Reference settings.
+
+![:width 50%](../images/09_session/csv_import3.png)![:width 50%](../images/09_session/csv_import4.png)
+
+---
+&lt;!-- Styling --&gt;
+## Styling Features
++ Right-click the layer and select the Properties option
++ Select "Symbology," and style as you like
+        
+.pull-left[
+![:width 50%](../images/09_session/styling1.png)
+]
+.pull-right[
+![:width 100%](../images/09_session/styling1.1.png)
+]
+
+For more Styling Options watch the [Video from the GIS Course](https://tube.switch.ch/videos/10f43af3)
+---
+
+## Add labels to data
++ From Properties, select "Labels", "Show labels"
++ Select attribute for label (this time "label")
++ Style as you like
+
+.pull-left[
+![](../images/09_session/label1.png)
+]
+.pull-right[
+![](../images/09_session/label2.png)
+]
+
+For more Labeling Options watch the [Video from the GIS Course](https://tube.switch.ch/videos/c58db704)
+
+---
+## Importing Raster Data
+### GeoTiffs
+
+.pull-left[
+![](../images/09_session/background1.png)
+]
+.pull-right[
+![](../images/09_session/background2.png)
+]
+
+---
+
+## Importing Raster Data
+### GeoTiffs
+
+![](../images/09_session/background3.png)
+---
+## Layers
+
+.pull-left[
++ Layers on top are drawn on top
++ Just drag and drop within the Layers Panel to change order
+]
+
+.pull-right[
+![img-full](../images/09_session/map1.png)
+#### Image Source: http://www.geocontrolling.com/co-je-gis.htm
+]
+---
+## Choosing a Base Map
+
++ Think about what someone reading your map needs to see for context
++ Think about how the base map interacts with the data on your map
+
+
+### Hierarchy
+
++ If your data is the most important part of the map, make sure it looks more important than the base map
++ Avoid base maps that strongly emphasize features that aren't relevant on your map
+
+### Colors
+
++ Choose base maps with colors that complement the colors on your map
++ The contrast between the color on your map and the color on the base map should be enough to make your layers clearly visible
+
+---
+
+## Base Maps - Scale
+
+.pull-left[
++ Base maps show different levels of detail at different scales
++ Make sure the level of detail is appropriate to your map
+]
+.pull-right[
+![img-center-55](../images/09_session/scale.jpg)
+.caption[
+#### Source: http://go.owu.edu/~jbkrygie/krygier_html/geog_222/geog_222_lo/geog_222_lo04.html
+]]
+---
+
+## Background Maps - Options
+
+.pull-left[
+- use a scanned georeferences map
+  - will look a bit awkward most of the times
+  
+- use a preproduced background map (eg. [https://www.naturalearthdata.com](https://www.naturalearthdata.com))
+  - useful for small scale background maps
+  
+- use a background map from a plugin (eg. the [QuickMapServices Plugin](https://docs.qgis.org/3.16/en/docs/training_manual/qgis_plugins/plugin_examples.html))
+  - useful, if man made features are not a disturbing factor
+  
+- Build a background map from scratch
+  - Probably the best results, but also the most complicated
+]
+
+.pull-right[
+![](../images/09_session/hillshading03.png)
+.caption[A background map from scratch using elevation and waterbody information and hillshading]
+]
+---
+## Visualising densities - Heatmaps
+
+* Heatmaps are one of the best visualization tools for dense point data
+* Heatmap is an interpolation technique that useful in determining density of input features
+* Heatmaps are most commonly used to visualize crime data, traffic incidents etc.
+* QGIS has a heatmap renderer that can be used to create an raster from a point layer.
+
+![:width 48%](../images/09_session/Cll6WTfjaGJBu568s1GbtL.png) ![:width 30%](../images/09_session/Irish-Archaeological-Sites-668x1024.jpg)
+
+.caption[Source: Berner Zeitung; https://archaeologyireland.ie/]
+
+---
+## Heatmap in QGIS - Most simple solution
+
+* right click on layer &gt; Dublicate Layer
+* right click on layer &gt; Properties &gt; Symbology &gt; Heatmap
+* enjoy a really simple heatmap
+
+![:width 48%](../images/09_session/simple_heatmap_01.png) ![:width 48%](../images/09_session/simple_heatmap_02.png)
+
+More complicated: watch the [Video from the GIS Course](https://tube.switch.ch/videos/94a4f92e)
+---
+
+## Attribute Table (Right click on layer)
+![:width 90%](../images/09_session/open_attribute_table.png)
+---
+
+## Attribute Table
+
+.pull-left[
+### Table View 
+![img](../images/09_session/attribute_table_tableview.png)
+]
+
+.pull-right[
+### Form View
+![img](../images/09_session/attribute_table_formview.png)
+]
+
+---
+## Shapefiles and Attribute Tables
+--
+
++ Column names can only be letters, numbers, and underscores "_"
+--
+
++ Column names can only be ten characters long
+
+--
+
+![:width 70%](../images/09_session/attribute_table_tableview.png)
+---
+## Basic Thematic Mapping
+### or: put data to your map
+
+- simple: 1:1 relationship
+- advanced: preparing pivot table and plotting eg. diagrams for that relationship
+- a bit more complex: 1:m relationships
+---
+## Simple: 1:1 relationship
+
+.pull-left[
+1. Save your data to a csv
+]
+
+.pull-right[
+![](../images/09_session/map_csv_01.png) ![](../images/09_session/map_csv_02.png)
+]
+---
+## Simple: 1:1 relationship
+
+.pull-left[
+1. Save your data to a csv
+2. Add as Delimited Text Layer without coordinates
+]
+
+.pull-right[
+![](../images/09_session/map_csv_03.png) ![](../images/09_session/map_csv_04.png)
+]
+---
+## Simple: 1:1 relationship
+
+.pull-left[
+1. Save your data to a csv
+2. Add as Delimited Text Layer without coordinates
+3. Join by common attribute (identifier)
+]
+
+.pull-right[
+![](../images/09_session/map_csv_05.png) ![](../images/09_session/map_csv_06.png)
+]
+---
+## Simple: 1:1 relationship
+
+.pull-left[
+1. Save your data to a csv
+2. Add as Delimited Text Layer without coordinates
+3. Join by common attribute (identifier)
+4. Use new attributes in symbology
+]
+
+.pull-right[
+![](../images/09_session/map_csv_07.png) ![](../images/09_session/map_csv_08.png)
+]
+---
+## Simple: 1:1 relationship
+### Result
+.center[
+![:width 70%](../images/09_session/map_csv_08.png)
+]
+
+A map showing you the values of your data in space
+
+---
+## Advanced - Diagrams
+
+.pull-left[
+1. Make a pivot table and save as csv
+]
+
+.pull-right[
+![](../images/09_session/join_diagram_01.png) ![](../images/09_session/join_diagram_02.png)
+]
+---
+## Advanced - Diagrams
+
+.pull-left[
+1. Save your data to a csv
+2. Add as Delimited Text Layer without coordinates
+]
+
+.pull-right[
+![](../images/09_session/join_diagram_03.png) ![](../images/09_session/join_diagram_04.png)
+]
+---
+## Advanced - Diagrams
+
+.pull-left[
+1. Save your data to a csv
+2. Add as Delimited Text Layer without coordinates
+3. Join by common attribute (identifier)
+]
+
+.pull-right[
+![](../images/09_session/join_diagram_05.png) ![](../images/09_session/join_diagram_06.png)
+]
+---
+## Advanced - Diagrams
+
+.pull-left[
+1. Save your data to a csv
+2. Add as Delimited Text Layer without coordinates
+3. Join by common attribute (identifier)
+4. Go to diagrams, select pie chart and add all columns
+]
+
+.pull-right[
+![](../images/09_session/join_diagram_07.png) ![](../images/09_session/join_diagram_08.png)
+]
+---
+## Advanced - Diagrams
+### Result
+
+.center[
+![:width 70%](../images/09_session/join_diagram_08.png)
+]
+
+A map enhanced with diagrams.
+
+---
+## Complex: 1:m relationships
+
+.pull-left[
+1. Get your data from the database (query) and save as csv
+]
+
+.pull-right[
+![](../images/09_session/map_1_m_01.png) ![](../images/09_session/map_1_m_02.png)
+]
+---
+## Complex: 1:m relationships
+
+.pull-left[
+1. Get your data from the database (query) and save as csv
+2. Add as Delimited Text Layer without coordinates
+]
+
+.pull-right[
+![](../images/09_session/map_1_m_03.png) ![](../images/09_session/map_1_m_04.png)
+]
+---
+## Complex: 1:m relationships
+
+.pull-left[
+1. Get your data from the database (query) and save as csv
+2. Add as Delimited Text Layer without coordinates
+3. Add a virtual layer and "import" the "embedded" layers for your spatial (shp) and content informations (csv)
+]
+
+.pull-right[
+![](../images/09_session/map_1_m_05.png) ![](../images/09_session/map_1_m_06.png)
+]
+---
+## Complex: 1:m relationships
+
+.pull-left[
+1. Get your data from the database (query) and save as csv
+2. Add as Delimited Text Layer without coordinates
+3. Add a virtual layer and "import" the "embedded" layers for your spatial (shp) and content informations (csv)
+4. Specify your sql query and select categorized from Symbology
+]
+
+.pull-right[
+![](../images/09_session/map_1_m_07.png) ![](../images/09_session/map_1_m_08.png)
+]
+---
+## Complex: 1:m relationships
+
+.pull-left[
+1. Get your data from the database (query) and save as csv
+2. Add as Delimited Text Layer without coordinates
+3. Add a virtual layer and "import" the "embedded" layers for your spatial (shp) and content informations (csv)
+4. Specify your sql query and select categorized from Symbology
+5. Your virtual layer now has symbols for different artefact types that you can turn on and off
+]
+
+.pull-right[
+![](../images/09_session/map_1_m_09.png) ![](../images/09_session/map_1_m_10.png)
+]
+
+---
+## Advanced - Diagrams
+### Result
+
+.center[
+![:width 70%](../images/09_session/map_1_m_09.png)
+]
+
+A layer where you can select which artefact type should be displayed.
+---
+## Print Composer
+--
+
++ How you make exportable and printable maps in QGIS
+--
+
++ Able to add map elements (legends, scales, text, etc)
+
+---
+
+## Create a new print composer
+
+![:width 45%](../images/09_session/print_comp2.png)
+--
+![:width 45%](../images/09_session/print_comp3.png)
+
+---
+
+## You are greeted with a blank slate
+
+![:width 80%](../images/09_session/print_comp4.png)
+
+---
+
+## Add New Map tool will add your current map
+![:width 45%](../images/09_session/print_comp5_box.png)
+--
+![:width 45%](../images/09_session/print_comp6.png)
+
+---
+
+## Customize item properties on the right
+.center[
+![:width 35%](../images/09_session/print_comp7.png)
+]
+---
+
+## Don't forget a title and your sources
+
+![:width 45%](../images/09_session/print_comp8_box.png)
+![:width 45%](../images/09_session/print_comp9.png)
+
+---
+## Adding North Arrow
+
+![:width 45%](../images/09_session/north_arrow1.png)
+![:width 45%](../images/09_session/north_arrow2.png)
++ You can select from multiple arrow types
+---
+## Adding Scale bar
+
+![:width 45%](../images/09_session/print_scale_1.png)
+![:width 45%](../images/09_session/print_scale_2.png)
+---
+## Adding Scale bar
+
++ You can also select and customize different styles of scale bars
+
+.center[
+![:width 45%](../images/09_session/print_scale_3.png)
+]
+
+---
+
+## There are a few exporting options
+
+.center[
+![:width 45%](../images/09_session/print_comp10.png)
+]
+
+---
+
+## Now you can share your map or print it
+
+.center[
+![:width 80%](../images/09_session/final_map.png)
+]
+
+---
+
+## Exporting
+
+right click on layer &gt; Export &gt; Save features as...
+
+* shp
+* csv
+  * geometry ('AS_XY')
+
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script src="libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
