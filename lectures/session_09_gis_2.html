@@ -423,6 +423,16 @@ A map enhanced with diagrams.
 2. Add as Delimited Text Layer without coordinates
 3. Add a virtual layer and "import" the "embedded" layers for your spatial (shp) and content informations (csv)
 4. Specify your sql query and select categorized from Symbology
+
+
+```sql
+SELECT * from miskovice_graves
+LEFT JOIN miskovice_types_per_grave
+WHERE miskovice_graves.id =
+miskovice_types_per_grave.grave_number;
+```
+
+
 ]
 
 .pull-right[
