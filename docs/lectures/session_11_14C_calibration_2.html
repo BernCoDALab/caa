@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+  <head>
+    <title>Computer Aided Archaeology</title>
+    <meta charset="utf-8" />
+    <meta name="author" content="Martin Hinz" />
+    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <link rel="stylesheet" href="libs/default.css" type="text/css" />
+    <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
+    <link rel="stylesheet" href="libs/customize.css" type="text/css" />
+  </head>
+  <body>
+    <textarea id="source">
+
+class: title-slide, center, middle
+
+
+#  Computer Aided Archaeology
+
+##  11 - 14C Calibration 2
+
+###  Martin Hinz
+
+####  Institut für Archäologische Wissenschaften, Universität Bern
+
+15/12/21
+---
+## Improving information gain using OxCal
+### Precision
+
+- Combine
+- Wiggle Matching
+
+### Derived information
+
+- Summed Probability
+- Duration
+
+### Stratigraphical Modelling
+
+- Sequential Calibration
+
+---
+## Combine
+
+.pull-left[
+- calculates the probability distribution for a specific event using multiple measurements
+- goal: get a better estimation for the event by combining the dates
+- is essentially similar to "measuring longer"
+
+![](../images/11_session/r_combine_result_example.png)
+]
+
+.pull-right[
+- has a strong assumption:
+  - all dates actually refer to the same event
+- can actually only be used if the samples have been taken from the same object
+  - Measurements from several bones of the same individual
+  - Measurements of several grains from one depot
+- is sometimes also done, but it is questionable:
+  - Measurements of bones and grains from the same grave
+  - Problem: Bones accumulate the 14C signal over a longer periode and do not precisely reflect the time of death!
+]
+
+---
+## Combine
+### An experiment
+
+two measurements of the same bone of an individual, died 1950 (14C) years ago
+
+Simulation in R:
+
+
+```r
+sample1 &lt;- rnorm(1,1950, 25)
+sample1
+```
+
+```
+## [1] 1926.515
+```
+
+```r
+sample2 &lt;- rnorm(1,1950, 25)
+sample2
+```
+
+```
+## [1] 1976.11
+```
+---
+## Combine
+### An experiment
+
+.pull-left[
+The Measurements will look like this
+]
+
+.pull-right[
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-8-1.png)&lt;!-- --&gt;
+]
+
+---
+## Combine
+### An experiment
+
+.pull-left[
+Calibration individually
+]
+
+.pull-right[
+
+```
+## NULL
+```
+
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-9-1.png)&lt;!-- --&gt;
+]
+
+---
+## Combine
+### An experiment
+
+.pull-left[
+Now we combine the measurements:
+
+$$
+p_{comb} = p_1 * p_2
+$$
+Or more general:
+
+$$
+p_{comb} = \prod_i p_i
+$$
+
+
+```r
+dist_range &lt;- 1800:2100
+comb &lt;- dnorm(
+    dist_range, mean = sample1, sd=25
+    ) *
+  dnorm(
+    dist_range, mean = sample2, sd=25
+    )
+comb &lt;- comb/sum(comb)
+```
+]
+
+.pull-right[
+
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-11-1.png)&lt;!-- --&gt;
+]
+---
+## Combine
+### An experiment
+
+.pull-left[
+And calibrate the combination:
+]
+
+.pull-right[
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-12-1.png)&lt;!-- --&gt;
+]
+---
+
+## Combine
+
+.pull-left[
+If a single process can be more accurately dated by several dates:
+- e.g. the dating of a single grave can be estimated more precisely, if more than one date of the buried person (equal to - body!) is present
+- Same event - multiple dates for it
+- Works without Bayes: Assumption: The dates of dating all should be equal (Bayes gets even better...)
+
+**Attention**: Never combine if you are not sure that there are the event is actually one and the same (Simultaneity!)
+]
+
+.pull-right[
+
+
+```r
+Combine("C")
+{
+ R_Date("A",2000,20);
+ R_Date("B",2020,30);
+};
+```
+]
+---
+
+## Wiggle Matching
+
+.pull-left[
+If we know the (relative/absolute) temporal distance between events:
+- e.g. tree rings: we know, how many years passed between individual samples
+- e.g. depositional processes: we know the relative distance between samples
+- Works without Bayes, but also (very well) with Bayes
+
+**Attention**: Again, we make strong assumptions about the temporal arrangements of our samples!
+]
+
+.pull-right[
+![](../images/11_session/Radiocarbon-wiggle-match-of-tree-ring-sequenced-radiocarbon-dates.png)
+.caption[Source: Turkon et al. 2017]
+]
+---
+
+## Wiggle Matching
+### How it works
+.pull-left[
+If we have just one date, straight forward calibration:
+]
+
+.pull-right[
+![](../images/11_session/wiggle_matching_1.png)
+.caption[Source: Maarten Blaauw]
+]
+---
+
+## Wiggle Matching
+### How it works
+.pull-left[
+If we have multiple dates, where we know the [absolute/relative] temporal distance, the individual calibration might not represent the best combined fit!
+]
+
+.pull-right[
+![](../images/11_session/wiggle_matching_2.png)
+.caption[Source: Maarten Blaauw]
+]
+---
+
+## Wiggle Matching
+### How it works
+.pull-left[
+But we can calculate the best combined fit! This reduces also the individual uncertainity of the dates!
+
+The animation refers to a situation where we have a depositional model (not absolute distances). With tree rings, it becomes even more contraint (rigid), and by that, the amount of usable information can even be increased.
+
+Technically: similar to the example of Bayesian calibration presented in the presence session.
+]
+
+.pull-right[
+![](../images/11_session/wiggle_matching_3.gif)
+.caption[Source: Maarten Blaauw]
+]
+---
+
+## Wiggle Matching
+
+.pull-left[
+If we know the (relative/absolute) temporal distance between events:
+- e.g. tree rings: we know, how many years passed between individual samples
+- e.g. depositional processes: we know the relative distance between samples
+- Works without Bayes, but also (very well) with Bayes
+
+**Attention**: Again, we make strong assumptions about the temporal arrangements of our samples!
+]
+
+.pull-right[
+
+```r
+ D_Sequence( "Wiggle-match example")
+ {
+  R_Date( "P-14095", 3413, 22);
+  Gap( 10);
+  R_Date( "P-14096", 3430, 23);
+  Gap( 10);
+  R_Date( "P-14097", 3432, 22);
+  Gap( 10);
+  R_Date( "P-14098", 3431, 22);
+  Gap( 10);
+  R_Date( "P-14099", 3379, 22);
+  Gap( 10);
+  R_Date( "P-14100", 3371, 23);
+  Gap( 10);
+  R_Date( "P-14101", 3371, 22);
+  Gap( 5);
+  Date("Felling date");
+ };
+```
+]
+---
+
+## Summed Probability
+
+.pull-left[
+If we want to have a (rough) overview of the overall distribution of the data of a series of related events:
+- e.g. the total use of a burial ground
+- e.g. the total occupancy of a settlement
+- Very simple statistics, statistical scatter of data is not taken into account
+
+**Attention**: The OxCal manual states:
+
+&gt; Combining probability distributions by summing is usually difficult to justify statistically but it will generate a probability distribution which is a best estimate for the chronological distribution of the items dated (Sum). The effect of this form of combination is to average the distributions and not to decrease the error margins as with other forms of combination.
+
+]
+
+.pull-right[
+![](../images/11_session/sum_br.jpeg)
+.caption[Source: Bronk Ramsey 2017]
+]
+---
+## Sum
+### An experiment
+.pull-left[
+Remember our two dates?
+
+
+```r
+sample1
+```
+
+```
+## [1] 1926.515
+```
+
+```r
+sample2
+```
+
+```
+## [1] 1976.11
+```
+]
+
+.pull-right[
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-16-1.png)&lt;!-- --&gt;
+]
+
+---
+## Sum
+### An experiment
+
+.pull-left[
+Calibration individually
+]
+
+.pull-right[
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-17-1.png)&lt;!-- --&gt;
+]
+
+---
+## Sum
+### An experiment
+
+.pull-left[
+Now we combine the measurements using the sum:
+
+$$
+p_{sum} = p_1 + p_2
+$$
+Or more general:
+
+$$
+p_{sum} = \sum_i p_i
+$$
+
+
+```r
+sum &lt;- dnorm(
+    dist_range, mean = sample1, sd=25
+    ) +
+  dnorm(
+    dist_range, mean = sample2, sd=25
+    )
+sum &lt;- sum/sum(sum)
+```
+]
+
+.pull-right[
+
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-19-1.png)&lt;!-- --&gt;
+]
+---
+## Sum
+### An experiment
+
+.pull-left[
+And calibrate the sum:
+]
+
+.pull-right[
+![](session_11_14C_calibration_2_files/figure-html/unnamed-chunk-20-1.png)&lt;!-- --&gt;
+]
+---
+
+## Summed Probability
+
+.pull-left[
+If we want to have a (rough) overview of the overall distribution of the data of a series of related events:
+- e.g. the total use of a burial ground
+- e.g. the total occupancy of a settlement
+- Very simple statistics, statistical scatter of data is not taken into account
+
+**Attention**: The OxCal manual states:
+
+&gt; Combining probability distributions by summing is usually difficult to justify statistically but it will generate a probability distribution which is a best estimate for the chronological distribution of the items dated (Sum). The effect of this form of combination is to average the distributions and not to decrease the error margins as with other forms of combination.
+
+]
+
+.pull-right[
+
+```r
+Sum("C")
+{
+ R_Date("A",2000,20);
+ R_Date("B",2010,30);
+ R_Date("C",1980,31);
+};
+```
+]
+---
+## Duration/Basic Modelling
+
+.pull-left[
+If we want to have a better overview of the overall distribution of the data of a series of related events:
+- e.g. the total use of a burial ground
+- e.g. the total occupancy of a settlement
+- We introduce Boundaries: We assume, the dates may be wrong, and the actual use phase might have started/ended somewhen around the first/last date (adding contraints)
+
+]
+
+.pull-right[
+.center[
+![:width 90%](../images/11_session/example_simple_sequence.png)
+![:width 90%](../images/11_session/simple_span.png)
+]
+]
+---
+
+## Duration/Basic Modelling
+
+.pull-left[
+We add some commands:
+
+- what is sequential: **Sequence**
+- what can not be sequenced: **Phase**
+- what represents a border between events that belong together: **Boundary**
+
+And some Queries:
+
+- **Span**: How long has the total event taken place
+]
+
+.pull-right[
+
+```r
+ Sequence()
+    {
+     Boundary("S");
+     Phase()
+     {
+      R_Date("A",3050,25);
+      R_Date("B",3010,25);
+      R_Date("C",3020,25);
+      R_Date("D",3000,25);
+      Span();
+     };
+     Boundary("E");
+    };
+```
+]
+---
+## Duration/Basic Modelling
+
+.pull-left[
+We get *modelled* information -&gt; Posterior probability distributions
+
+- Individual dates are "compressed", because of the fact that they are assumed to belong together
+- The span of the occupation can be estimated, taking into account, that the invidual dates have random (statistical) scatter
+
+![:width 90%](../images/11_session/simple_span_probplot.png)
+
+]
+
+.pull-right[
+.center[
+![:width 90%](../images/11_session/example_simple_sequence.png)
+![:width 90%](../images/11_session/simple_span.png)
+]
+]
+---
+
+## Sequential Calibration
+
+.pull-left[
+If we have stratigraphical (sometimes also other) external information about the temporal distance between events:
+- e.g. layers of an excavation, where we know the order of the dates
+- sometimes, but not so reliably: typological considerations can also be incorporated
+- Works only with Bayes
+
+**Attention**: Again, we make strong assumptions about the temporal arrangements of our samples!
+]
+
+.pull-right[
+![](../images/11_session/sequence_miskovice.png)
+]
+
+---
+## Sequential Calibration
+### Adding Stratigraphical Informations
+
+
+.pull-left[
+- what is sequential: **Sequence**
+- what can not be sequenced: **Phase**
+]
+
+.pull-right[
+![](../images/11_session/Harris-matrix.png)
+]
+---
+## Sequential Calibration
+### Adding Stratigraphical Informations
+
+You can make this arbitrary complicated!
+
+.pull-left[
+![](../images/11_session/7-Figure5-1.png)
+]
+
+.pull-right[
+![:width 70%](../images/11_session/sequence_buedelsdorf.png)
+]
+---
+## Sequential Calibration
+### Adding Stratigraphical Informations
+
+
+.pull-left[
+- what is sequential: Sequence
+- what can not be sequenced: Phase
+
+### 14C dates
+- Grab 29 (UtC 13189) 3671 ± 33 BP
+- Grab 20 (UtC-13187) 3600 ± 38 BP
+- Grab 31 (UtC-13190) 3560 ± 36 BP
+- Grab 42 (UtC-13192) 3559 ± 41 BP
+- Grab 18 (UtC-13186) 3531 ± 40 BP
+- Grab 32 (UtC-13191) 3521 ± 37 BP
+- Grab 27 (UtC-13188) 3409 ± 38 BP
+]
+.pull-right[
+![](../images/11_session/sample_sequence.png)
+]
+---
+## Sequential Calibration
+
+.pull-left[
+### Adding Stratigraphical Informations
+.tiny[
+- what is sequential: Sequence
+- what can not be sequenced: Phase
+
+### 14C dates
+- Grab 29 (UtC 13189) 3671 ± 33 BP
+- Grab 20 (UtC-13187) 3600 ± 38 BP
+- Grab 31 (UtC-13190) 3560 ± 36 BP
+- Grab 42 (UtC-13192) 3559 ± 41 BP
+- Grab 18 (UtC-13186) 3531 ± 40 BP
+- Grab 32 (UtC-13191) 3521 ± 37 BP
+- Grab 27 (UtC-13188) 3409 ± 38 BP
+]
+![:width 50%](../images/11_session/sample_sequence.png)
+]
+.pull-right[
+.tiny[
+
+```r
+ Plot()
+ {
+  Sequence()
+  {
+   Boundary("S");
+   Phase("Phase 1")
+   {
+    R_Date("UtC 13189", 3671, 33);
+    R_Date("UtC-13187", 3600, 38);
+   };
+   Boundary("1-&gt;2");
+   Phase("Phase 2")
+   {
+    Phase("Phase 2 a")
+    {
+     R_Date("UtC-13186", 3531, 40);
+     R_Date("UtC-13191", 3521, 37);
+    };
+    Phase("Phase 2 b")
+    {
+     R_Date("UtC-13190", 3560, 36);
+     R_Date("UtC-13192", 3559, 41);
+    };
+   };
+   Boundary("2-&gt;3");
+   Phase("Phase 3")
+   {
+    R_Date("UtC-13188",3409,38);
+   };
+   Boundary("E");
+  };
+ };
+```
+]]
+---
+
+## Sequential Calibration
+
+.pull-left[
+If we have stratigraphical (sometimes also other) external information about the temporal distance between events:
+- e.g. layers of an excavation, where we know the order of the dates
+- sometimes, but not so reliably: typological considerations can also be incorporated
+- Works only with Bayes
+
+**Attention**: Again, we make strong assumptions about the temporal arrangements of our samples!
+]
+
+.pull-right[
+![](../images/11_session/miskovice_modelled_table.png)
+]
+---
+## Sequential Calibration
+### Types of Boundaries
+.pull-left[
+- Boundary([Name], [Expression]);
+- Sigma_Boundary([Name], [Expression]);
+- Tau_Boundary([Name], [Expression]);
+- Zero_Boundary([Name], [Expression]);
+
+Also interesting: Trapezoidal boundaries for gradual transition (eg. cultural phases)
+
+
+```r
+Boundary("MidStart")
+     {
+      Transition("Duration Start");
+      Start("Start Start");
+      End("End Start");
+     };
+```
+
+
+]
+
+.pull-right[
+![](../images/11_session/oxcal_boundaries.png)
+
+![](../images/11_session/Trapezium.png)
+]
+---
+## OxCal
+### Further possible topics
+
+- outlier analysis (Outlier &amp; Outlier_Model)
+- Deposition models (D_Sequence, V_Sequence, P_Sequence, U_Sequence, )
+- ...
+
+more at the [OxCal help page](https://c14.arch.ox.ac.uk/oxcalhelp/hlp_contents.html)
+---
+class: inverse, middle, center
+# Any questions?
+
+.footnote[
+.right[
+.tiny[
+You might find the course material (including the presentations) at
+
+https://berncodalab.github.io/caa
+
+You can contact me at
+
+&lt;a href="mailto:martin.hinz@iaw.unibe.ch"&gt;martin.hinz@iaw.unibe.ch&lt;/a&gt;
+
+]
+]
+]
+    </textarea>
+<style data-target="print-only">@media screen {.remark-slide-container{display:block;}.remark-slide-scaler{box-shadow:none;}}</style>
+<script src="libs/remark-latest.min.js"></script>
+<script src="../libs/macros.js"></script>
+<script>var slideshow = remark.create({
+"highlightStyle": "github",
+"highlightLines": true,
+"countIncrementalSlides": false,
+"fig_caption": true,
+"ratio": "16:10"
+});
+if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
+  window.dispatchEvent(new Event('resize'));
+});
+(function(d) {
+  var s = d.createElement("style"), r = d.querySelector(".remark-slide-scaler");
+  if (!r) return;
+  s.type = "text/css"; s.innerHTML = "@page {size: " + r.style.width + " " + r.style.height +"; }";
+  d.head.appendChild(s);
+})(document);
+
+(function(d) {
+  var el = d.getElementsByClassName("remark-slides-area");
+  if (!el) return;
+  var slide, slides = slideshow.getSlides(), els = el[0].children;
+  for (var i = 1; i < slides.length; i++) {
+    slide = slides[i];
+    if (slide.properties.continued === "true" || slide.properties.count === "false") {
+      els[i - 1].className += ' has-continuation';
+    }
+  }
+  var s = d.createElement("style");
+  s.type = "text/css"; s.innerHTML = "@media print { .has-continuation { display: none; } }";
+  d.head.appendChild(s);
+})(document);
+// delete the temporary CSS (for displaying all slides initially) when the user
+// starts to view slides
+(function() {
+  var deleted = false;
+  slideshow.on('beforeShowSlide', function(slide) {
+    if (deleted) return;
+    var sheets = document.styleSheets, node;
+    for (var i = 0; i < sheets.length; i++) {
+      node = sheets[i].ownerNode;
+      if (node.dataset["target"] !== "print-only") continue;
+      node.parentNode.removeChild(node);
+    }
+    deleted = true;
+  });
+})();
+(function() {
+  "use strict"
+  // Replace <script> tags in slides area to make them executable
+  var scripts = document.querySelectorAll(
+    '.remark-slides-area .remark-slide-container script'
+  );
+  if (!scripts.length) return;
+  for (var i = 0; i < scripts.length; i++) {
+    var s = document.createElement('script');
+    var code = document.createTextNode(scripts[i].textContent);
+    s.appendChild(code);
+    var scriptAttrs = scripts[i].attributes;
+    for (var j = 0; j < scriptAttrs.length; j++) {
+      s.setAttribute(scriptAttrs[j].name, scriptAttrs[j].value);
+    }
+    scripts[i].parentElement.replaceChild(s, scripts[i]);
+  }
+})();
+(function() {
+  var links = document.getElementsByTagName('a');
+  for (var i = 0; i < links.length; i++) {
+    if (/^(https?:)?\/\//.test(links[i].getAttribute('href'))) {
+      links[i].target = '_blank';
+    }
+  }
+})();
+// adds .remark-code-has-line-highlighted class to <pre> parent elements
+// of code chunks containing highlighted lines with class .remark-code-line-highlighted
+(function(d) {
+  const hlines = d.querySelectorAll('.remark-code-line-highlighted');
+  const preParents = [];
+  const findPreParent = function(line, p = 0) {
+    if (p > 1) return null; // traverse up no further than grandparent
+    const el = line.parentElement;
+    return el.tagName === "PRE" ? el : findPreParent(el, ++p);
+  };
+
+  for (let line of hlines) {
+    let pre = findPreParent(line);
+    if (pre && !preParents.includes(pre)) preParents.push(pre);
+  }
+  preParents.forEach(p => p.classList.add("remark-code-has-line-highlighted"));
+})(document);</script>
+
+<script>
+slideshow._releaseMath = function(el) {
+  var i, text, code, codes = el.getElementsByTagName('code');
+  for (i = 0; i < codes.length;) {
+    code = codes[i];
+    if (code.parentNode.tagName !== 'PRE' && code.childElementCount === 0) {
+      text = code.textContent;
+      if (/^\\\((.|\s)+\\\)$/.test(text) || /^\\\[(.|\s)+\\\]$/.test(text) ||
+          /^\$\$(.|\s)+\$\$$/.test(text) ||
+          /^\\begin\{([^}]+)\}(.|\s)+\\end\{[^}]+\}$/.test(text)) {
+        code.outerHTML = code.innerHTML;  // remove <code></code>
+        continue;
+      }
+    }
+    i++;
+  }
+};
+slideshow._releaseMath(document);
+</script>
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+(function () {
+  var script = document.createElement('script');
+  script.type = 'text/javascript';
+  script.src  = 'https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML';
+  if (location.protocol !== 'file:' && /^https?:/.test(script.src))
+    script.src  = script.src.replace(/^https?:/, '');
+  document.getElementsByTagName('head')[0].appendChild(script);
+})();
+</script>
+  </body>
+</html>
