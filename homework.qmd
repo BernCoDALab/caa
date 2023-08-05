@@ -1,0 +1,18 @@
+---
+title: "Homework"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Handing in
+
+Send your homework before the homework date to [martin.hinz@unibe.ch](mailto:martin.hinz@unibe.ch).
+
+Homework is done in groups. Please indicate your group members in the email.
+
+## Getting help
+
+You can always contact me via mail, or use the Slack channel [caa2023.slack.com](https://caa2023.slack.com) to get help from me or (even better) from other students. Do not post full solutions in the slack!!! (which will probably also not possible, and obvious to me, if you try)

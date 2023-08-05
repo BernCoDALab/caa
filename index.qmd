@@ -1,0 +1,72 @@
+---
+title: "Course overview"
+subtitle: "IAW &nbsp; University of Bern &nbsp; Fall Semester odd years"
+output:
+  html_document:
+    toc: true
+    toc_float: true
+    toc_depth: 3
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This course serves as an introduction to different areas of computer applications in archaeology, their methodology and applicable software. The aim is to provide an overview of current developments in this field and of standard software of scientific archaeological work. The main focus will be on the following: 
+
+* Digital tools for text production and publication (e.g. citation software) 
+* Data management/databases 
+* Data visualization and basic statistics 
+* 14C calibration 
+* GIS 
+
+In addition, a first insight into digital documentation/measurement is given, which will be deepened in a follow-up course in the next semester.
+
+# Key dates
+
+Will be made available soon.
+
+# Learning objectives
+
+By the end of the semester, students should be able to:
+
+* Use desktop and scientific software to write scientific thesiss
+* Be able to basically understand and set up a data base
+* Can visualise and analyse their data using simple methods.
+* Are able to calibrate radiometric data successfully
+* Can digitise and display sites using a GIS
+
+# Instructors
+
+::: {.grid}
+
+::: {.g-col-3}
+![](images/martin_portrait_200x200.jpg)
+:::
+
+::: {.g-col-9}
+[__Martin Hinz__](https://www.iaw.unibe.ch/ueber_uns/arp_amp_pa_personen/dr_hinz_martin/)  
+Senior Researcher (Oberassistent), IAW Bern  
+[martin.hinz@iaw.unibe.ch](mailto:martin.hinz@iaw.unibe.ch)
+:::
+
+:::
+
+# Meeting times & locations
+
+### Lectures 
+The course is held according to the principle of an ''inverted classroom''. The teaching content is provided by means of videos and the textbook. Students are encouraged to work on this independently and to deepen it if necessary. A Slack channel ([caa2023.slack.com](https://caa2023.slack.com)) and the (virtual, if necessary) office hours are available for questions. I will also respond as quickly as possible to questions sent to me via email. The practical consolidation of the content takes place in the Computer Lab, where students work on their own semester projects.
+
+### Computer Lab
+Wednesday from 10:15-12:00, Seminarraum 128, [Mittelstrasse 43, 3012 Bern](https://goo.gl/maps/ridV1XPk4BLY3bLYA) 
+
+If possible, the Computer Lab will be held in presence, provided that this complies with the regulations of the canton and the university. During this time, students can implement and deepen what they have learned independently in the context of their own semester projects in group work under the supervision of the lecturer. Your own computer equipment is recommended. If you have any problems in this regard, please let me know in advance. We will work exclusively with free software, if possible with open source solutions.
+
+### Office hours
+Wednesday from 12:15-14:00.
+
+# Pre-requisites
+
+None except motivation and the desire to learn, as well as the readiness to work independently and to collaborate in groups to complete your project.
+
+<center>*This site was last updated at `r format(Sys.time(), "%H:%M")` on `r format(Sys.Date(), "%d %b %Y")`*</center>

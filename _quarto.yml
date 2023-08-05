@@ -1,0 +1,35 @@
+project:
+  type: website
+  output-dir: "docs"
+  render:
+    - "*.qmd"
+    - "!lectures/"
+
+website:
+  title: "Computer Aided Archaeology"
+
+  page-navigation: true
+
+  navbar:
+    left:
+      - text: "Overview"
+        href: index.html
+      - text: "Additional Information"
+        href: additional_information.html
+      - text: "Schedule"
+        href: schedule.html
+      - text: "Lectures"
+        href: lectures.html
+      - text: "Computer Labs"
+        href: comp_labs.html
+      - text: "Homework"
+        href: homework.html
+
+format:
+  html:
+    theme: cosmo
+    highlight: textmate
+    toc: true
+#    include:
+#      in_header: header.html
+

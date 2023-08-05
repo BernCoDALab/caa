@@ -1,88 +1,17 @@
 ---
-title: "Computer Aided Archaeology"
-subtitle: "IAW &nbsp; &nbsp; University of Bern &nbsp; &nbsp; Fall Semester odd years"
+title: ""
 output:
   html_document:
     toc: true
     toc_float: true
-    toc_depth: 2
+    toc_depth: 3
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-<br>
-
-# Course overview
-
-This course serves as an introduction to different areas of computer applications in archaeology, their methodology and applicable software. The aim is to provide an overview of current developments in this field and of standard software of scientific archaeological work. The main focus will be on the following: 
-
-* Digital tools for text production and publication (e.g. citation software) 
-* Data management/databases 
-* Data visualization and basic statistics 
-* 14C calibration 
-* GIS 
-
-In addition, a first insight into digital documentation/measurement is given, which will be deepened in a follow-up course in the next semester.
-
-<br>
-
-# Textbook
-
-The Textbook for the course will be produced alongside, and will be made available in time for in-depth Repetitions
-
-<br>
-
-# Key dates
-
-Will be made available soon.
-
-<br>
-
-# Learning objectives
-
-By the end of the semester, students should be able to:
-
-* Use desktop and scientific software to write scientific thesiss
-* Be able to basically understand and set up a data base
-* Can visualise and analyse their data using simple methods.
-* Are able to calibrate radiometric data successfully
-* Can digitise and display sites using a GIS
-
-<br>
-
-# Instructors
-
-[__Martin Hinz__](https://www.iaw.unibe.ch/ueber_uns/arp_amp_pa_personen/dr_hinz_martin/)  
-Senior Researcher (Oberassistent), IAW bern  
-[martin.hinz@iaw.unibe.ch](mailto:martin.hinz@iaw.unibe.ch)
-
-<br>
-
-# Meeting times & locations
-
-### Lectures 
-The course is held according to the principle of an ''inverted classroom''. The teaching content is provided by means of videos and the textbook. Students are encouraged to work on this independently and to deepen it if necessary. A Slack channel ([2021-caa-berncodalab.slack.com](https://2021-caa-berncodalab.slack.com)) and the (virtual, if necessary) office hours are available for questions. I will also respond as quickly as possible to questions sent to me via email. The practical consolidation of the content takes place in the Computer Lab, where students work on their own semester projects.
-
-### Computer Lab
-Wednesday from 10:15-12:00, Seminarraum 105, [Hauptgebäude H4, Hochschulstrasse 4, 3012 Bern](https://goo.gl/maps/fk7ScwFKj6xzwvFk8) 
-
-If possible, the Computer Lab will be held in presence, provided that this complies with the regulations of the canton and the university. During this time, students can implement and deepen what they have learned independently in the context of their own semester projects in group work under the supervision of the lecturer. Your own computer equipment is recommended. If you have any problems in this regard, please let me know in advance. We will work exclusively with free software, if possible with open source solutions.
-
-### Office hours
-Wednesday from 12:15-14:00.
-
-<br>
-
-# Pre-requisites
-
-None except motivation and the desire to learn, as well as the readiness to work independently and to collaborate in groups to complete your project.
-
-<br>
-
 # Classroom conduct
-
 We are dedicated to providing a welcoming and supportive learning environment for all students, regardless of their background, identity, physical appearance, or manner of communication. Any form of language or behavior used to exclude, intimidate, or cause discomfort will not be tolerated. This applies to all course participants (instructor, students, guests). In order to foster a positive and professional learning environment, we ask the following:
 
 * Please let us know if you have a name or set of preferred pronouns that you would like us to use
@@ -99,9 +28,9 @@ In addition, we encourage the following kinds of behaviors:
 
 * Gracefully accept constructive criticism
 
-Although we strive to create and use inclusive materials in this course, there may be overt or covert biases in the course material due to the lens with which it was written. Your suggestions about how to improve the value of diversity in this course are encouraged and appreciated.  
+Although we strive to create and use inclusive materials in this course, there may be overt or covert biases in the course material due to the lens with which it was written. Your suggestions about how to improve the value of diversity in this course are encouraged and appreciated.
 
-**Please note**: 
+**Please note**:
 The University of Bern is committed to a non-discriminatory environment. This applies in particular to discrimination on the basis of gender (sexism) and sexual assaults (sexual harassment): we are all entitled to protection of our personal integrity at work and during our studies and to the respect of our limits. The University of Bern is also legally obliged to protect its members from sexual harassment. In particular, superiors are also responsible for looking out and reacting.
 
 If you believe you have been a victim of any form of discrimination, you have the right to [report it to the University](https://www.unibe.ch/studies/advisory_services/discrimination/index_eng.html).
@@ -120,28 +49,21 @@ If you have already established accommodations with Disability Resources for Stu
 
 Students who expect to miss class or assignments as a consequence of their religious observance will be provided with a reasonable accommodation to fulfill their academic responsibilities. Absence from class for religious reasons does not relieve students from responsibility for the course work required during the period of absence. It is the responsibility of the student to provide the instructor with advance notice of the dates of religious holidays on which they will be absent. Students who are absent will be offered an opportunity to make up the work, without penalty, within a reasonable time, as long as the student has made prior arrangements.
 
-<br>
-
 # Technology
 
 This course will revolve around hands-on computing exercises that demonstrate the topics of interest. Therefore, students are strongly recommended to bring their own laptop to class, although students are certainly free to work with one another. **For students without access to a personal laptop**: Please let us know in time, and we will try to find a solution.
 
 All of the software we will be using is free and platform independent, meaning students may use macOS, Linux, or Windows operating systems. In addition to a web browser, we will be using the free Office Suite [**LibreOffice**](https://www.libreoffice.org), the literature database [Zotero](https://www.zotero.org), the GIS software [**QGIS**](https://www.qgis.org). The instructor will be available to help students troubleshoot any software installation problems.
 
-<br>
-
 # Teaching methodology
 
 This course will introduce new material primarily through prepared slides, videos and the text book. What is learned is then applied to a common project under supervision in the lab time. Students will be expected to work both individually and collaboratively (to the extent possible given the current conditions) during this time and also in general; course content and evaluation will emphasize the communication of ideas and the ability to think critically more so than a specific pathway or method. Other areas of this website provide an overview of the topics to be covered, including links to weekly reading assignments, lecture materials, computer labs, and homework assignments.
-
-<br>
 
 # Communication
 
 This course will involve a *lot* of communication between and among students and the instructor. Short questions should be addressed to us via email; we will try my best to respond to your message within 24 hours. Under more normal circumstances, detailed questions would be addressed to us in person--either after class or during a scheduled meeting. In this case, however, we will schedule one-on-one or group video calls as needed.
 
-In addition to email and video, we will use a [slack](https://slack.com) workspace ([2021-caa-berncodalab.slack.com](https://2021-caa-berncodalab.slack.com))to ask questions and assist others.
-<br>
+In addition to email and video, we will use a [slack](https://slack.com) workspace ([caa2023.slack.com](https://caa2023.slack.com))to ask questions and assist others.
 
 # Evaluation
 
@@ -149,17 +71,17 @@ Students will be evaluated on their knowledge of course content and their abilit
 
 ### Labwork (40%)
 
-The results from the labwork (each Wednesday) is considered as "homework", and its submission is due by 11:59 PM PST on the following Wednesday. It will consist of some small tasks and practical approaches based on topics covered. There will be 8 assignments worth 5% each.  Your learning in the class will be greatly enhanced by doing the "homework" which consist of applying the material you learn in each lecture to a data set.
+The results from the labwork (each Wednesday) is considered as "homework", and its submission is due by 17:59 on the following Tuesday. It will consist of some small tasks and practical approaches based on topics covered. There will be 8 assignments worth 5% each.  Your learning in the class will be greatly enhanced by doing the "homework" which consist of applying the material you learn in each lecture to a data set.
 
-### Individual project (30%)  
+### Individual project (30%)
 
 Each student will have to write a complete, publishable (<10 page) paper that may, or may not, serve as a component of their thesis/dissertation. Given that some students might not have their own data, students may also use data from the instructors or public datasets.
 
-### Peer reviews (20%)  
+### Peer reviews (20%)
 
 Each student will have to provide 2 anonymous peer-reviews of their colleagues’ papers (10% each) during the winter break.
 
-### Participation (10%)  
+### Participation (10%)
 
 We expect a certain amount of engagement from each student, which includes independently preparing the course content  and attending and participating in the computer labs.
 
@@ -171,31 +93,23 @@ Students should discuss any potential schedule conflicts with the instructor dur
 
 Faculty and students at the University of Bern are expected to maintain the highest standards of academic conduct, professional honesty, and personal integrity. Plagiarism, cheating, and other academic misconduct are serious violations of the [Scientific Code of Conduct](https://swiss-academies.ch/en/themen/wissenschaftskultur/wissenschaftliche-integritat-1/). Students who have been guilty of a violation will receive zero points for the assignment in question.
 
-<br>
-
 # Evaluation by you
 
 With the help of standardised student feedback, courses at the University of Bern are continuously reviewed and further developed. All teaching staff and all courses are regularly evaluated.
 
 In due course at the end of the semester, you will be provided with a link that will allow you to evaluate the course. Please take this opportunity to help us improve our teaching and thus your learning success!
 
-<br>
-
 # Mental health
 
-We are in the midst of an historic pandemic that is creating a variety of challenges for everyone. If you should feel like you need some help, please consider the following resources available to students.
+If you should feel like you need some help, please consider the following resources available to students.
 
-**If you are experiencing a life-threatening emergency, please dial 112**.  
+**If you are experiencing a life-threatening emergency, please dial 112**.
 
-[**Counseling Center**](https://www.unibe.ch/studies/advisory_services/counselling_centre_universities_of_bern/index_eng.html)  
+[**Counseling Center**](https://www.unibe.ch/studies/advisory_services/counselling_centre_universities_of_bern/index_eng.html)
 Phone: 031 / 635 24 35
-
-<br>
 
 # Endnotes
 
 [1] If the instructor should be the one to say or do something that makes a student uncomfortable, the student should feel free to contact the Director of the Prehistoric Archaeology of Bern University.
-
-<br>
 
 <center>*This site was last updated at `r format(Sys.time(), "%H:%M")` on `r format(Sys.Date(), "%d %b %Y")`*</center>
