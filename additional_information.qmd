@@ -11,6 +11,32 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+# Course projects
+Die Durchführung und Bewertung dieses Kurses beruht darauf, dass Sie im Laufe des Semesters ein Projekt bearbeiten. Bevorzugt ist dies ein Projekt über eine Fundstelle, die Sie selbst wählen, da Sie dies dann im Rahmen anderer Veranstaltungen nutzen können. Sollten Sie kein entsprechendes Projekt bzw. keine entsprechende Fundstelle wissen, können Sie gerne eines der folgenden bronze- und eisenzeitlichen Gräberfelder bearbeiten:
+
+```{r , echo=FALSE, warning=FALSE}
+library(magrittr)
+library(kableExtra)
+
+sites_list <- read.csv("sites_list.csv")
+
+sites_list$link <- sapply(sites_list$link, function(x) {
+  l <- length(x)
+  if(l>0)
+  {
+    paste0("[Link](", x, ")")
+  } else {
+    ""
+}}
+)
+
+kable(sites_list, format = "markdown", caption = " ", escape = FALSE) %>%
+  kable_styling(bootstrap_options = "striped",
+                full_width = F,
+                position = "left")
+```
+
 # Classroom conduct
 We are dedicated to providing a welcoming and supportive learning environment for all students, regardless of their background, identity, physical appearance, or manner of communication. Any form of language or behavior used to exclude, intimidate, or cause discomfort will not be tolerated. This applies to all course participants (instructor, students, guests). In order to foster a positive and professional learning environment, we ask the following:
 
