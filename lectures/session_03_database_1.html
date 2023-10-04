@@ -4,11 +4,12 @@
     <title>Computer Aided Archaeology</title>
     <meta charset="utf-8" />
     <meta name="author" content="Martin Hinz" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
-    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <meta name="date" content="2021-04-10" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
     <script src="libs/viz-1.8.2/viz.js"></script>
     <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <script src="libs/grViz-binding-1.0.10/grViz.js"></script>
     <link rel="stylesheet" href="libs/default.css" type="text/css" />
     <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
     <link rel="stylesheet" href="libs/customize.css" type="text/css" />
@@ -27,7 +28,7 @@ class: title-slide, center, middle
 
 ####  Institut für Archäologische Wissenschaften, Universität Bern
 
-13/10/21
+04/10/21
 
 ---
 ## Database then
@@ -135,8 +136,8 @@ Hierarchical data
 ]
 
 .pull-right[
-<div id="htmlwidget-49ae92e8fbe9cc808e9e" style="width:400px;height:100px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-49ae92e8fbe9cc808e9e">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-bb135a1b47e2c9eed63b" style="width:400px;height:100px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-bb135a1b47e2c9eed63b">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 
 
 .footnote[.tiny[&lt;sup&gt;\*&lt;/sup&gt;**Entity Set:**  A collection of similar entities.  E.g., all employees.
@@ -502,14 +503,14 @@ How can we transform that into tables (this usually comes naturally than)?
 
 Table:  
 
-|site                        |literature                                                                                                                                                                                                                                         |link                                                                                                                                                                                                              |
-|:---------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Birmensdorf-Rameren         |Mäder, Andreas, Die mittelbronzezeitlichen Gräber von Birmensdorf-Rameren. Zürcher Archäologie, Heft 24. 2008                                                                                                                                      |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991070558649705501)                                                                                                                       |
-|Chables                     |Leyla Duvanel, Henri Vigneau, Michel Guélat et Michel Mauvilly, La nécropole de l’âge du Bronze de Châbles/Les Biolleyres 1. Fribourg 2018                                                                                                         |[link](https://doc.rero.ch/record/306538/files/CHA-BI1_Monographie.pdf)                                                                                                                                           |
-|Singen                      |Rüdiger Krause: Die endneolithischen und frühbronzezeitlichen Grabfunde auf der Nordstadtterrasse von Singen am Hohentwiel (= Forschungen und Berichte zur Vor- und Frühgeschichte in Baden-Württemberg. Bd. 32 = Die Grabfunde von Singen. Bd. 1) |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991131257489705501)                                                                                                                       |
-|Murten/Löwenberg            |Archäologie und Autobahn A1 : 25 Jahre Ausgrabungen im Murtenbiet                                                                                                                                                                                  |[link](https://doc.rero.ch/record/256263/files/06_archaeologie_autobahn_A1_2008_katalog_austellung.pdf)                                                                                                           |
-|Prag-Miškovice              |Ernée , Michal. Prag-Miskovice Archäologische und naturwissenschaftliche Untersuchungen zu Grabbau, Bestattungssitten und Inventaren einer frühbronzezeitlichen Nekropole Römisch-Germanische Forschungen Band 72  2016                            |[link](https://www.academia.edu/23371514/Prag_Mi%C5%A1kovice_Arch%C3%A4ologische_und_naturwissenschaftliche_Untersuchungen_zu_Grabbau_Bestattungssitten_und_Inventaren_einer_fr%C3%BChbronzezeitlichen_Nekropole) |
-|Spiez, Einigen, Holleeweg 3 |Gubler, Regula, Spiez-Einigen, Holleeweg 3. Gräber am Übergang zwischen Früh- und Mittelbronzezeit . Archäologie Bern/Archéologie bernoise – 2010, 147                                                                                             |[link](https://www.e-periodica.ch/digbib/view?pid=akb-002%3A2010%3A0%3A%3A152)                                                                                                                                    |
+|site                        |literature                                                                                                                                                                                                                                         |link |
+|:---------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----|
+|Birmensdorf-Rameren         |Mäder, Andreas, Die mittelbronzezeitlichen Gräber von Birmensdorf-Rameren. Zürcher Archäologie, Heft 24. 2008                                                                                                                                      |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991070558649705501)|
+|Chables                     |Leyla Duvanel, Henri Vigneau, Michel Guélat et Michel Mauvilly, La nécropole de l’âge du Bronze de Châbles/Les Biolleyres 1. Fribourg 2018                                                                                                         |[link](https://doc.rero.ch/record/306538/files/CHA-BI1_Monographie.pdf)|
+|Singen                      |Rüdiger Krause: Die endneolithischen und frühbronzezeitlichen Grabfunde auf der Nordstadtterrasse von Singen am Hohentwiel (= Forschungen und Berichte zur Vor- und Frühgeschichte in Baden-Württemberg. Bd. 32 = Die Grabfunde von Singen. Bd. 1) |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991131257489705501)|
+|Murten/Löwenberg            |Archäologie und Autobahn A1 : 25 Jahre Ausgrabungen im Murtenbiet                                                                                                                                                                                  |[link](https://doc.rero.ch/record/256263/files/06_archaeologie_autobahn_A1_2008_katalog_austellung.pdf)|
+|Prag-Miškovice              |Ernée , Michal. Prag-Miskovice Archäologische und naturwissenschaftliche Untersuchungen zu Grabbau, Bestattungssitten und Inventaren einer frühbronzezeitlichen Nekropole Römisch-Germanische Forschungen Band 72  2016                            |[link](https://www.academia.edu/23371514/Prag_Mi%C5%A1kovice_Arch%C3%A4ologische_und_naturwissenschaftliche_Untersuchungen_zu_Grabbau_Bestattungssitten_und_Inventaren_einer_fr%C3%BChbronzezeitlichen_Nekropole)|
+|Spiez, Einigen, Holleeweg 3 |Gubler, Regula, Spiez-Einigen, Holleeweg 3. Gräber am Übergang zwischen Früh- und Mittelbronzezeit . Archäologie Bern/Archéologie bernoise – 2010, 147                                                                                             |[link](https://www.e-periodica.ch/digbib/view?pid=akb-002%3A2010%3A0%3A%3A152)|
 ]
 ]
 ---
@@ -579,6 +580,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

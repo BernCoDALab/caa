@@ -4,8 +4,8 @@
     <title>Computer Aided Archaeology</title>
     <meta charset="utf-8" />
     <meta name="author" content="Martin Hinz" />
-    <meta name="date" content="2021-10-11" />
-    <script src="libs/header-attrs-2.11/header-attrs.js"></script>
+    <meta name="date" content="2023-01-11" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
     <script src="libs/kePrint-0.0.1/kePrint.js"></script>
     <link href="libs/lightable-0.0.1/lightable.css" rel="stylesheet" />
     <link rel="stylesheet" href="libs/default.css" type="text/css" />
@@ -26,7 +26,7 @@ class: title-slide, center, middle
 
 ####  Institut für Archäologische Wissenschaften, Universität Bern
 
-10/11/21
+01/11/23
 ---
 
 ## Flavours of statistics
@@ -705,6 +705,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable

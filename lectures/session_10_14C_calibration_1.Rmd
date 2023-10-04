@@ -4,7 +4,7 @@ subtitle: "10 - 14C Calibration 1"
 author: "Martin Hinz"
 institute: "Institut für Archäologische Wissenschaften, Universität Bern"
 fontsize: 9pt
-date: "01/12/21"
+date: "22/11/23"
 output:
   xaringan::moon_reader:
     chakra: "libs/remark-latest.min.js"
