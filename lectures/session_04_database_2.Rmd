@@ -7,6 +7,7 @@ fontsize: 9pt
 date: "11/10/23"
 output:
   xaringan::moon_reader:
+    self_contained: true
     chakra: "libs/remark-latest.min.js"
     css: ["libs/default.css", "libs/default-fonts.css", "libs/customize.css"]
     lib_dir: "libs"
