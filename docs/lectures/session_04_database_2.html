@@ -4,11 +4,12 @@
     <title>Computer Aided Archaeology</title>
     <meta charset="utf-8" />
     <meta name="author" content="Martin Hinz" />
-    <script src="libs/header-attrs-2.9/header-attrs.js"></script>
-    <script src="libs/htmlwidgets-1.5.3/htmlwidgets.js"></script>
+    <meta name="date" content="2023-11-10" />
+    <script src="libs/header-attrs-2.21/header-attrs.js"></script>
+    <script src="libs/htmlwidgets-1.6.2/htmlwidgets.js"></script>
     <script src="libs/viz-1.8.2/viz.js"></script>
     <link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-    <script src="libs/grViz-binding-1.0.6.1/grViz.js"></script>
+    <script src="libs/grViz-binding-1.0.10/grViz.js"></script>
     <link rel="stylesheet" href="libs/default.css" type="text/css" />
     <link rel="stylesheet" href="libs/default-fonts.css" type="text/css" />
     <link rel="stylesheet" href="libs/customize.css" type="text/css" />
@@ -27,7 +28,7 @@ class: title-slide, center, middle
 
 ####  Institut für Archäologische Wissenschaften, Universität Bern
 
-27/10/21
+11/10/23
 
 ---
 ## Designing a data model
@@ -41,8 +42,8 @@ class: title-slide, center, middle
 ]
 
 .pull-right[
-<div id="htmlwidget-56f47685b002fb9e438b" style="width:400px;height:100px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-56f47685b002fb9e438b">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-f7317aa15f79d62b3062" style="width:400px;height:100px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-f7317aa15f79d62b3062">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"site\" [shape=record, label=\"{\\\n      site|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"artefact\" [shape=record, label=\"{artefact|\\\n      material :string\\l\\\n      weight :string\\l\\\n    }\"]\n    \n    \"found_at\" [shape=diamond, label=\"\n      found_at\\l\\\n      date :datetime\n    \"]\n    \n\n    \"site\" -> \"found_at\" [label=\"1\"]\n    \"found_at\" -> \"artefact\" [label=\"N\"]\n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ]
 
 .footnote[.tiny[&lt;sup&gt;\*&lt;/sup&gt;**Entity Set:**  A collection of similar entities.  E.g., all employees.
@@ -191,14 +192,14 @@ How can we transform that into tables (this usually comes naturally than)?
 
 Table:  
 
-|site                        |literature                                                                                                                                                                                                                                         |link                                                                                                                                                                                                              |
-|:---------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-|Birmensdorf-Rameren         |Mäder, Andreas, Die mittelbronzezeitlichen Gräber von Birmensdorf-Rameren. Zürcher Archäologie, Heft 24. 2008                                                                                                                                      |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991070558649705501)                                                                                                                       |
-|Chables                     |Leyla Duvanel, Henri Vigneau, Michel Guélat et Michel Mauvilly, La nécropole de l’âge du Bronze de Châbles/Les Biolleyres 1. Fribourg 2018                                                                                                         |[link](https://doc.rero.ch/record/306538/files/CHA-BI1_Monographie.pdf)                                                                                                                                           |
-|Singen                      |Rüdiger Krause: Die endneolithischen und frühbronzezeitlichen Grabfunde auf der Nordstadtterrasse von Singen am Hohentwiel (= Forschungen und Berichte zur Vor- und Frühgeschichte in Baden-Württemberg. Bd. 32 = Die Grabfunde von Singen. Bd. 1) |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991131257489705501)                                                                                                                       |
-|Murten/Löwenberg            |Archäologie und Autobahn A1 : 25 Jahre Ausgrabungen im Murtenbiet                                                                                                                                                                                  |[link](https://doc.rero.ch/record/256263/files/06_archaeologie_autobahn_A1_2008_katalog_austellung.pdf)                                                                                                           |
-|Prag-Miškovice              |Ernée , Michal. Prag-Miskovice Archäologische und naturwissenschaftliche Untersuchungen zu Grabbau, Bestattungssitten und Inventaren einer frühbronzezeitlichen Nekropole Römisch-Germanische Forschungen Band 72  2016                            |[link](https://www.academia.edu/23371514/Prag_Mi%C5%A1kovice_Arch%C3%A4ologische_und_naturwissenschaftliche_Untersuchungen_zu_Grabbau_Bestattungssitten_und_Inventaren_einer_fr%C3%BChbronzezeitlichen_Nekropole) |
-|Spiez, Einigen, Holleeweg 3 |Gubler, Regula, Spiez-Einigen, Holleeweg 3. Gräber am Übergang zwischen Früh- und Mittelbronzezeit . Archäologie Bern/Archéologie bernoise – 2010, 147                                                                                             |[link](https://www.e-periodica.ch/digbib/view?pid=akb-002%3A2010%3A0%3A%3A152)                                                                                                                                    |
+|site                        |literature                                                                                                                                                                                                                                         |link |
+|:---------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:----|
+|Birmensdorf-Rameren         |Mäder, Andreas, Die mittelbronzezeitlichen Gräber von Birmensdorf-Rameren. Zürcher Archäologie, Heft 24. 2008                                                                                                                                      |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991070558649705501)|
+|Chables                     |Leyla Duvanel, Henri Vigneau, Michel Guélat et Michel Mauvilly, La nécropole de l’âge du Bronze de Châbles/Les Biolleyres 1. Fribourg 2018                                                                                                         |[link](https://doc.rero.ch/record/306538/files/CHA-BI1_Monographie.pdf)|
+|Singen                      |Rüdiger Krause: Die endneolithischen und frühbronzezeitlichen Grabfunde auf der Nordstadtterrasse von Singen am Hohentwiel (= Forschungen und Berichte zur Vor- und Frühgeschichte in Baden-Württemberg. Bd. 32 = Die Grabfunde von Singen. Bd. 1) |[link](https://swisscovery.slsp.ch/permalink/41SLSP_NETWORK/1ufb5t2/alma991131257489705501)|
+|Murten/Löwenberg            |Archäologie und Autobahn A1 : 25 Jahre Ausgrabungen im Murtenbiet                                                                                                                                                                                  |[link](https://doc.rero.ch/record/256263/files/06_archaeologie_autobahn_A1_2008_katalog_austellung.pdf)|
+|Prag-Miškovice              |Ernée , Michal. Prag-Miskovice Archäologische und naturwissenschaftliche Untersuchungen zu Grabbau, Bestattungssitten und Inventaren einer frühbronzezeitlichen Nekropole Römisch-Germanische Forschungen Band 72  2016                            |[link](https://www.academia.edu/23371514/Prag_Mi%C5%A1kovice_Arch%C3%A4ologische_und_naturwissenschaftliche_Untersuchungen_zu_Grabbau_Bestattungssitten_und_Inventaren_einer_fr%C3%BChbronzezeitlichen_Nekropole)|
+|Spiez, Einigen, Holleeweg 3 |Gubler, Regula, Spiez-Einigen, Holleeweg 3. Gräber am Übergang zwischen Früh- und Mittelbronzezeit . Archäologie Bern/Archéologie bernoise – 2010, 147                                                                                             |[link](https://www.e-periodica.ch/digbib/view?pid=akb-002%3A2010%3A0%3A%3A152)|
 ]
 ]
 ---
@@ -217,22 +218,22 @@ You can start as you like, paper, blackboard, mindmap, actual ER design tool...
 
 ### ER-Diagramm
 
-<div id="htmlwidget-68e9a308ee392fb99710" style="width:800px;height:400px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-68e9a308ee392fb99710">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{\\\n      sites|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      sex :string\\l\\\n      age :string\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      name :string\\l\\\n      type :string\\l\\\n      material :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-4d842d6262b8363d02e1" style="width:800px;height:400px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-4d842d6262b8363d02e1">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{\\\n      sites|name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      sex :string\\l\\\n      age :string\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      name :string\\l\\\n      type :string\\l\\\n      material :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ---
 ## Structure MiscoviceDB
 
 ### Primary and foreign keys
 
-<div id="htmlwidget-72a46fdcbf215f6c0ffd" style="width:800px;height:400px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-72a46fdcbf215f6c0ffd">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{sites|\\\n      id :integer\\l\\\n      name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      id :integer\\l\\\n      site_id :integer\\l\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      sex :string\\l\\\n      age :string\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      name :string\\l\\\n      type :string\\l\\\n      material :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-2ce689ae17f530447a66" style="width:800px;height:400px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-2ce689ae17f530447a66">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{sites|\\\n      id :integer\\l\\\n      name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      id :integer\\l\\\n      site_id :integer\\l\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      sex :string\\l\\\n      age :string\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      name :string\\l\\\n      type :string\\l\\\n      material :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ---
 ## Structure MiscoviceDB
 
 ### Lookup tables
 
-<div id="htmlwidget-97fe5808a476bbd66602" style="width:800px;height:400px;" class="grViz html-widget"></div>
-<script type="application/json" data-for="htmlwidget-97fe5808a476bbd66602">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{sites|\\\n      id :integer\\l\\\n      name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      id :integer\\l\\\n      site_id :integer\\l\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      sex_id :integer\\l\\\n      age_id :integer\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"sexes\" [shape=record, label=\"{sexes|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      name :string\\l\\\n      type_id :integer\\l\\\n      material_id :integer\\l\\\n    }\"]\n    \n    \"types\" [shape=record, label=\"{types|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"materials\" [shape=record, label=\"{materials|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"ages\" [shape=record, label=\"{ages|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \"types\" -> \"artefacts\" [label=\"1:n\"]\n    \"materials\" -> \"artefacts\" [label=\"1:n\"]\n    \"sexes\" -> \"individuals\" [label=\"1:n\"]\n    \"ages\" -> \"individuals\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
+<div id="htmlwidget-b6db55b92e0a9e0122f5" style="width:800px;height:400px;" class="grViz html-widget "></div>
+<script type="application/json" data-for="htmlwidget-b6db55b92e0a9e0122f5">{"x":{"diagram":"\ndigraph models_diagram {\n    rankdir=\"LR\";\n    graph[overlap=false, splines=true]\n    \"sites\" [shape=record, label=\"{sites|\\\n      id :integer\\l\\\n      name :string\\l\\\n      lat :float\\l\\\n      lng :float\\l\\\n    }\"]\n    \n    \"graves\" [shape=record, label=\"{graves|\\\n      id :integer\\l\\\n      site_id :integer\\l\\\n      grave_number :string\\l\\\n      depth :float\\l\\\n      length :float\\l\\\n      width :float\\l\\\n      construction :text\\l\\\n    }\"]\n    \n    \"individuals\" [shape=record, label=\"{individuals|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      sex_id :integer\\l\\\n      age_id :integer\\l\\\n      orientation :float\\l\\\n      completeness :float\\l\\\n    }\"]\n    \n    \"sexes\" [shape=record, label=\"{sexes|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"artefacts\" [shape=record, label=\"{artefacts|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      name :string\\l\\\n      type_id :integer\\l\\\n      material_id :integer\\l\\\n    }\"]\n    \n    \"types\" [shape=record, label=\"{types|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"materials\" [shape=record, label=\"{materials|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"ages\" [shape=record, label=\"{ages|\\\n      id :integer\\l\\\n      name :string\\l\\\n    }\"]\n    \n    \"c14_dates\" [shape=record, label=\"{c14_dates|\\\n      id :integer\\l\\\n      grave_id :integer\\l\\\n      lab_code :string\\l\\\n      bp :integer\\l\\\n      std :integer\\l\\\n    }\"]\n\n    \"sites\" -> \"graves\" [label=\"1:n\"]\n    \"graves\" -> \"artefacts\" [label=\"1:n\"]\n    \"graves\" -> \"individuals\" [label=\"1:n\"]\n    \"graves\" -> \"c14_dates\" [label=\"1:n\"]\n    \"types\" -> \"artefacts\" [label=\"1:n\"]\n    \"materials\" -> \"artefacts\" [label=\"1:n\"]\n    \"sexes\" -> \"individuals\" [label=\"1:n\"]\n    \"ages\" -> \"individuals\" [label=\"1:n\"]\n    \n}","config":{"engine":"dot","options":null}},"evals":[],"jsHooks":[]}</script>
 ---
 ## Structure reflected in the DB-Program
 
@@ -404,6 +405,19 @@ if (window.HTMLWidgets) slideshow.on('afterShowSlide', function (slide) {
     deleted = true;
   });
 })();
+// add `data-at-shortcutkeys` attribute to <body> to resolve conflicts with JAWS
+// screen reader (see PR #262)
+(function(d) {
+  let res = {};
+  d.querySelectorAll('.remark-help-content table tr').forEach(tr => {
+    const t = tr.querySelector('td:nth-child(2)').innerText;
+    tr.querySelectorAll('td:first-child .key').forEach(key => {
+      const k = key.innerText;
+      if (/^[a-z]$/.test(k)) res[k] = t;  // must be a single letter (key)
+    });
+  });
+  d.body.setAttribute('data-at-shortcutkeys', JSON.stringify(res));
+})(document);
 (function() {
   "use strict"
   // Replace <script> tags in slides area to make them executable
